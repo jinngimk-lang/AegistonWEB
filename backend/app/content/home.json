@@ -1,0 +1,227 @@
+{
+  "hero": {
+    "eyebrow": "智瞳安宇 · AEGISTON",
+    "titleLead": "以智能之眼",
+    "titlePrefix": "守",
+    "titleEm": "数字之安",
+    "subtitle": "西安智瞳安宇科技有限公司是「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品，构成同一套企业智能底座。",
+    "primary": { "label": "了解产品体系", "href": "/products" },
+    "secondary": { "label": "预约产品演示", "href": "/contact?intent=demo" },
+    "media": "stock-hero"
+  },
+
+  "domainsEyebrow": "BUSINESS DOMAINS",
+  "domainsTitleLead": "四大业务领域",
+  "domainsTitleEm": "一套底座，三层产品",
+  "domainsDesc": "从组织级的人机协同工作站，到通用级的安全智能体，再到行业级的合约智审，三层产品共享同一套企业级要件：身份与权限、知识与上下文、流程与状态、审计与留痕。",
+  "domainsMore": { "label": "查看全部产品", "href": "/products" },
+  "domains": [
+    {
+      "id": "organizational-intelligence",
+      "title": "组织智能",
+      "titleEn": "Organizational Intelligence",
+      "description": "把智能体接进企业既有的需求、评审、版本与审计流程，让每一次执行沉淀为组织资产。",
+      "href": "/products/aragonteam",
+      "media": "ara-dashboard",
+      "photoClass": "domain-photo-a"
+    },
+    {
+      "id": "general-agent",
+      "title": "通用智能体",
+      "titleEn": "General Agent",
+      "description": "文件边界、命令策略与资源限额三重收口，让通用执行能力第一次可以放心交给业务用。",
+      "href": "/products/inkclaw",
+      "media": "ink-dag",
+      "photoClass": "domain-photo-b"
+    },
+    {
+      "id": "legal-intelligence",
+      "title": "法律智能",
+      "titleEn": "Legal Intelligence",
+      "description": "中文法律知识与上下游合同交叉分析结合，识别倒挂、不一致与隐藏风险，风险敞口可控可追溯。",
+      "href": "/products/legallens",
+      "media": "legal-review-result",
+      "photoClass": "domain-photo-c"
+    },
+    {
+      "id": "private-deployment",
+      "title": "私有化交付",
+      "titleEn": "Private Deployment",
+      "description": "私有化服务器、便携式一体机与私有云三种形态，数据不出企业网，满足信创与合规准入。",
+      "href": "/products/deployment",
+      "media": "stock-deployment",
+      "photoClass": "domain-photo-d"
+    }
+  ],
+
+  "solutionsEyebrow": "CORE PRODUCTS",
+  "solutionsTitleLead": "三层产品",
+  "solutionsTitleEm": "同一套企业智能底座",
+  "solutionsTitleTail": "",
+  "solutionsDesc": "组织级提供约束与留痕，通用级提供安全的执行力，行业级提供领域深度——能力在三层之间流动，而不是各自为政。",
+  "solutions": [
+    {
+      "id": "aragonteam",
+      "code": "ARA · 01",
+      "category": "组织级 · 企业 AI 原生人机协同工作站",
+      "title": "AragonTeam",
+      "titleEn": "AI-Native Human-Agent Workstation",
+      "description": "业界首款融合了完整软件工程管理体系与智能体蜂群的超级团队平台。连接员工、AI Agent、企业知识与业务流程，让智能体有企业身份、有权限边界、有评审路径、有操作审计。",
+      "points": [
+        "研发全流程人机协同",
+        "支持 IPD · 敏捷 · 瀑布",
+        "需求 / BUG 可直派 Agent",
+        "全链路操作审计留痕"
+      ],
+      "primary": { "label": "查看产品详情", "href": "/products/aragonteam" },
+      "secondary": { "label": "预约演示", "href": "/contact?intent=demo&product=aragonteam" },
+      "media": "ara-personal-board",
+      "vlabel": "ARAGONTEAM / WORKSTATION"
+    },
+    {
+      "id": "inkclaw",
+      "code": "INK · 02",
+      "category": "通用级 · 线上安全通用智能体",
+      "title": "InkClaw",
+      "titleEn": "Secure General-Purpose Agent",
+      "description": "线上通用不等于放开边界。把文件、命令与资源三条边界都做成可判定、可回滚的策略，让复杂任务从一次对话走到可交付、可复用的云项目资产。",
+      "points": [
+        "双层沙箱：文件 + 命令",
+        "团队协作与 DAG 编排",
+        "网页 IDE 与 Git 一体",
+        "记忆 · 灵魂 · Skill 沉淀"
+      ],
+      "primary": { "label": "查看产品详情", "href": "/products/inkclaw" },
+      "secondary": { "label": "申请试用", "href": "/contact?intent=trial&product=inkclaw" },
+      "media": "ink-team-collab",
+      "vlabel": "INKCLAW / SECURE AGENT"
+    },
+    {
+      "id": "legallens",
+      "code": "LGL · 03",
+      "category": "行业级 · 合同智能审核系统",
+      "title": "LegalLens 合约智审",
+      "titleEn": "Contract Intelligence Platform",
+      "description": "大模型 Agent 驱动的智能合同审核系统，以合规为盾、效率为矛。不取代法务和律所，而是作为智能助手提升其工作效率、质量与覆盖深度。",
+      "points": [
+        "9 大业务模块 + 规则库",
+        "上下游一致性穿透比对",
+        "多智能体交叉校验",
+        "知识图谱语义检索底座"
+      ],
+      "primary": { "label": "查看产品详情", "href": "/products/legallens" },
+      "secondary": { "label": "商务咨询", "href": "/contact?intent=consult&product=legallens" },
+      "media": "legal-home",
+      "vlabel": "LEGALLENS / CONTRACT REVIEW"
+    }
+  ],
+
+  "philosophyEyebrow": "CORPORATE PHILOSOPHY",
+  "philosophyTitle": [
+    { "text": "让智能进入", "em": false },
+    { "text": "组织", "em": true },
+    { "text": "　让执行沉淀为", "em": false },
+    { "text": "资产", "em": true }
+  ],
+  "philosophyDesc": "过去二十年的知识管理与「学习型组织」停在口号，不是决心不够，是缺少一套能把学习记录、回放、改进的系统。组织 OS 不改变审批链，只让审批链对 AI 也可执行、可留痕、可追责。",
+  "values": [
+    {
+      "num": "01 / 使 命",
+      "title": "让智能进入组织",
+      "titleEn": "Our Mission",
+      "description": "企业不是没有 AI，而是 AI 进不了组织。我们要补上缺失的那一层——让智能体有企业身份、有权限边界、有评审路径、有操作审计，真正参与工作而不是停在演示阶段。",
+      "quote": "「不是不能用，是不敢用。」补齐治理，才谈得上规模化。"
+    },
+    {
+      "num": "02 / 愿 景",
+      "title": "让每一次执行沉淀为组织资产",
+      "titleEn": "Our Vision",
+      "description": "模型能力买得到，而且对所有人同时到达；组织记忆买不到，只能从今天开始累积。人员流动时经验不再归零，新人融入从「跟着人学」变成「问系统」。",
+      "quote": "「可以等的是模型，不能等的是沉淀。」"
+    },
+    {
+      "num": "03 / 价 值 观",
+      "title": "可管理 · 可执行 · 可进化",
+      "titleEn": "Our Values",
+      "description": "可管理：身份、权限、成本与风险统一收口到企业既有治理体系。可执行：任务能被真正完成、交付并验收。可进化：每一次执行沉淀为组织资产，让团队能力持续累积。",
+      "quote": "「让一个人像一支队伍，让一支队伍变成 AI 原生组织。」"
+    }
+  ],
+
+  "metrics": [
+    {
+      "value": "20+",
+      "unit": "名",
+      "label": "博士 · 硕士研发队伍",
+      "note": "由西安电子科技大学的博士与硕士研究生组成",
+      "source": "PPT p.91 / p.93"
+    },
+    {
+      "value": "30+",
+      "unit": "项",
+      "label": "自主知识产权核心技术",
+      "note": "公司已形成的自主知识产权核心技术数量",
+      "source": "PPT p.93"
+    },
+    {
+      "value": "全国第 1",
+      "unit": null,
+      "label": "依托高校网络空间安全学科（连续四年）",
+      "note": "学科评估结果归属西安电子科技大学，非本公司排名",
+      "source": "PPT p.93"
+    },
+    {
+      "value": "5",
+      "unit": "篇",
+      "label": "顶会与前沿论文",
+      "note": "含 2 篇 CCF-A 类软件工程顶会（ASE 2026 / ASE 2025）与 3 篇前沿研究",
+      "source": "PPT p.42 / p.85"
+    }
+  ],
+
+  "newsEyebrow": "INSIGHTS & NEWS",
+  "newsTitleLead": "洞察与",
+  "newsTitleEm": "行业动态",
+  "newsDesc": "市场规模与政策节奏已经确定；不确定的是——企业把 Agent 买回来之后，能不能真的用起来。以下是我们对这个问题的持续观察。",
+  "newsMore": { "label": "查看全部洞察", "href": "/insights" },
+
+  "sustain": {
+    "eyebrow": "PRIVATE DEPLOYMENT",
+    "titleLead": "私有化与一体机",
+    "titleEm": "不仅是可选项，更是准入条件",
+    "description": "对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是数据出不出企业网。而这一层只能重做，不能在既有平台上加装。",
+    "points": [
+      {
+        "index": "01",
+        "title": "政策与合规 · 准入门槛",
+        "description": "核心数据与重要数据的处理受严格约束，涉密与敏感业务系统不得对接公网服务；信创国产化导向明确，整套方案需可国产化替代。",
+        "icon": "shield"
+      },
+      {
+        "index": "02",
+        "title": "技术前提 · 已经具备",
+        "description": "国产开源大模型能力达到企业可用阈值，国产算力卡与推理优化持续推进——本地部署不再等于「能力打折」。",
+        "icon": "layers"
+      },
+      {
+        "index": "03",
+        "title": "三种交付形态",
+        "description": "私有化服务器（数据不出企业网）、便携式一体机（断网现场即刻组队）、私有云服务（团队办公场地开箱即用）。",
+        "icon": "flow"
+      }
+    ],
+    "action": { "label": "了解交付形态", "href": "/products/deployment" },
+    "media": "stock-deployment"
+  },
+
+  "cta": {
+    "title": "与智瞳安宇一起，构建值得信任的智能未来",
+    "description": "无论您关注的是研发流程的人机协同、通用智能体的安全边界，还是合同链条上的风险穿透，我们都欢迎带着真实问题的对话。",
+    "primaryLabel": "商务咨询",
+    "primaryHref": "/contact?intent=consult",
+    "secondaryLabel": "预约产品演示",
+    "secondaryHref": "/contact?intent=demo"
+  },
+
+  "sourceSlides": [1, 9, 11, 13, 42, 85, 88, 91, 93, 94]
+}

@@ -1,0 +1,361 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "utilityLeft": [
+    {
+      "label": "公司简介",
+      "href": "/about",
+      "external": false,
+      "note": null
+    },
+    {
+      "label": "战略合作伙伴",
+      "href": "/solutions",
+      "external": false,
+      "note": null
+    },
+    {
+      "label": "科研实力",
+      "href": "/about/strength",
+      "external": false,
+      "note": null
+    }
+  ],
+  "utilityRight": [
+    {
+      "label": "企业邮箱",
+      "href": "mailto:bd@aegiston.com",
+      "external": true,
+      "note": null
+    }
+  ],
+  "main": [
+    {
+      "label": "关于我们",
+      "href": "/about",
+      "items": [
+        {
+          "label": "公司简介",
+          "href": "/about",
+          "external": false,
+          "note": "总览"
+        },
+        {
+          "label": "公司定位与三层底座",
+          "href": "/about/positioning",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "研发团队",
+          "href": "/about/team",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "科研实力与知识产权",
+          "href": "/about/strength",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "产品与方案",
+      "href": "/products",
+      "items": [
+        {
+          "label": "产品总览",
+          "href": "/products",
+          "external": false,
+          "note": "总览"
+        },
+        {
+          "label": "AragonTeam",
+          "href": "/products/aragonteam",
+          "external": false,
+          "note": "组织级"
+        },
+        {
+          "label": "InkClaw",
+          "href": "/products/inkclaw",
+          "external": false,
+          "note": "通用级"
+        },
+        {
+          "label": "LegalLens 合约智审",
+          "href": "/products/legallens",
+          "external": false,
+          "note": "行业级"
+        },
+        {
+          "label": "交付形态",
+          "href": "/products/deployment",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "行业实践",
+      "href": "/solutions",
+      "items": [
+        {
+          "label": "行业总览",
+          "href": "/solutions",
+          "external": false,
+          "note": "总览"
+        },
+        {
+          "label": "通信服务",
+          "href": "/solutions/telecom",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "交通基建",
+          "href": "/solutions/transportation",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "法律服务",
+          "href": "/solutions/legal-services",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "金融与强监管",
+          "href": "/solutions/finance",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "技术与研究",
+      "href": "/research",
+      "items": [
+        {
+          "label": "核心技术总览",
+          "href": "/research",
+          "external": false,
+          "note": "11 项"
+        },
+        {
+          "label": "学术成果",
+          "href": "/research/papers",
+          "external": false,
+          "note": "5 篇"
+        }
+      ]
+    },
+    {
+      "label": "洞察与动态",
+      "href": "/insights",
+      "items": [
+        {
+          "label": "全部",
+          "href": "/insights",
+          "external": false,
+          "note": "总览"
+        },
+        {
+          "label": "行业洞察",
+          "href": "/insights?category=insight",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "公司动态",
+          "href": "/insights?category=news",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "研究进展",
+          "href": "/insights?category=research",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "加入我们",
+      "href": "/careers",
+      "items": []
+    }
+  ],
+  "cta": {
+    "label": "联系我们",
+    "href": "/contact",
+    "external": false,
+    "note": null
+  },
+  "footerColumns": [
+    {
+      "label": "关于我们",
+      "href": null,
+      "items": [
+        {
+          "label": "公司简介",
+          "href": "/about",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "公司定位",
+          "href": "/about/positioning",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "研发团队",
+          "href": "/about/team",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "科研实力",
+          "href": "/about/strength",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "加入我们",
+          "href": "/careers",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "产品与方案",
+      "href": null,
+      "items": [
+        {
+          "label": "产品总览",
+          "href": "/products",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "AragonTeam",
+          "href": "/products/aragonteam",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "InkClaw",
+          "href": "/products/inkclaw",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "LegalLens 合约智审",
+          "href": "/products/legallens",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "交付形态",
+          "href": "/products/deployment",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "行业与研究",
+      "href": null,
+      "items": [
+        {
+          "label": "行业实践",
+          "href": "/solutions",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "通信服务",
+          "href": "/solutions/telecom",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "交通基建",
+          "href": "/solutions/transportation",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "核心技术",
+          "href": "/research",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "学术成果",
+          "href": "/research/papers",
+          "external": false,
+          "note": null
+        }
+      ]
+    },
+    {
+      "label": "联系与洞察",
+      "href": null,
+      "items": [
+        {
+          "label": "商务咨询",
+          "href": "/contact?intent=consult",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "预约产品演示",
+          "href": "/contact?intent=demo",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "生态合作",
+          "href": "/contact?intent=partner",
+          "external": false,
+          "note": null
+        },
+        {
+          "label": "洞察与动态",
+          "href": "/insights",
+          "external": false,
+          "note": null
+        }
+      ]
+    }
+  ],
+  "footerLegal": [
+    {
+      "label": "使用条款",
+      "href": "/legal/terms",
+      "external": false,
+      "note": null
+    },
+    {
+      "label": "个人信息保护政策",
+      "href": "/legal/privacy",
+      "external": false,
+      "note": null
+    },
+    {
+      "label": "图片来源",
+      "href": "/legal/credits",
+      "external": false,
+      "note": null
+    },
+    {
+      "label": "网站地图",
+      "href": "/sitemap",
+      "external": false,
+      "note": null
+    }
+  ]
+}

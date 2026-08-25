@@ -1,0 +1,43 @@
+# 开发编排：api（热重载）+ web（dev server）。
+# 生产编排见 docker-compose.prod.yml。
+name: aegiston-dev
+
+services:
+  api:
+    build:
+      context: ./backend
+      target: runtime
+    environment:
+      AEGISTON_ENV: dev
+      AEGISTON_DATABASE_URL: sqlite+aiosqlite:////data/aegiston.db
+      AEGISTON_SYNC_DATABASE_URL: sqlite:////data/aegiston.db
+      AEGISTON_CORS_ORIGINS: http://localhost:3000
+      AEGISTON_ADMIN_TOKEN: ${AEGISTON_ADMIN_TOKEN:-dev-admin-token-change-me-0123456789}
+      AEGISTON_SECRET_SALT: ${AEGISTON_SECRET_SALT:-dev-salt-change-me}
+      AEGISTON_LOG_JSON: "false"
+    volumes:
+      - aegiston-data:/data
+      - ./backend/app/content:/app/app/content:ro
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: ./frontend
+      target: runtime
+      args:
+        API_BASE_URL: http://api:8000
+        NEXT_PUBLIC_SITE_URL: http://localhost:3000
+    environment:
+      API_BASE_URL: http://api:8000
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    # ⚠️ service_started 而不是 service_healthy（spec §11.2 / P1-5）：
+    # api 不健康时 web 仍然启动，按 §4.2 路径 A 走快照兜底，页面照常 200。
+    depends_on:
+      api:
+        condition: service_started
+
+volumes:
+  aegiston-data: {}

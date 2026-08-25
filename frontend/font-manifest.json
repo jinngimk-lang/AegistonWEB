@@ -1,0 +1,21 @@
+{
+  "_note": "字体分片清单（spec §5.3 / §10.4）。一次性下载到 public/fonts/ 并入库，构建期与运行期全程零外网 —— 这是私有化/内网交付的硬要求，也是 CSP 能做到 font-src 'self' 的前提。",
+  "_weights": "字重按字族分列，逐条对应 ref/1.html 的实际用量。⚠️ Inter 的 600 不得删除：ref 有 10 处 font-weight:600，其中落在 --sans-en 上的 5 处（.brand-text .en / .btn-primary / .section-label / .section-more / .domain-link 等）真实渲染为 600，删掉会让全站 eyebrow 标签与数字字重立刻变化。",
+  "families": [
+    {
+      "name": "Noto Sans SC",
+      "weights": [300, 400, 500, 700],
+      "note": "--sans-cn。ref 声明 300;400;500;700;900，实际用到 300/400/500/700，弃 900。另有 5 处请求 600，但该家族未提供 600，浏览器按 CSS 字体匹配规则回退到 700 —— 保持 ref 的 font-weight:600 声明原样，不改写成 700。"
+    },
+    {
+      "name": "Inter",
+      "weights": [400, 500, 600, 700],
+      "note": "--sans-en。600 真实生效，不得删除。ref 声明的 300 未在任何规则中落到 Inter 上，弃。"
+    },
+    {
+      "name": "Noto Serif SC",
+      "weights": [700],
+      "note": "--serif-cn。ref 声明 500;700;900，实际只用到 700（.hero h1 / .section-title / .value h4 / .solution h3 等），弃 500 / 900。"
+    }
+  ]
+}

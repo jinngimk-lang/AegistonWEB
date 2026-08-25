@@ -1,0 +1,154 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "eyebrow": "INDUSTRY PRACTICE",
+  "title": "一家战略合作伙伴，四个行业的落地客户",
+  "description": "同一套实施方法在通信、交通、法律与金融之间复制——私有化落地、知识沉淀、跨客户复用。同一行业的第 N 个客户不必从零起步，交付一次，能力就厚一层。",
+  "partnerTitle": "战略合作伙伴",
+  "partnerName": "中通服科信信息技术有限公司",
+  "partnerDesc": "从陕西起步、跑通模式，再按标准化实施方法复制到其余省公司。",
+  "solutions": [
+    {
+      "slug": "telecom",
+      "industry": "通信服务",
+      "customer": "中通服陕西等省公司",
+      "summary": "收入、支出、采购、技术服务四类合同，以及上下游一致性比对——付款条件、交付时间、质保期限、违约责任。一个省分公司起步，一套实施方法复制到多省。",
+      "deployment": "私有化部署",
+      "heroMedia": "stock-telecom",
+      "href": "/solutions/telecom",
+      "headlineMetrics": [
+        {
+          "value": "10",
+          "unit": "分钟",
+          "label": "单份合同审核",
+          "note": null,
+          "source": "PPT p.95",
+          "before": "原 3.5 小时"
+        },
+        {
+          "value": "300+",
+          "unit": "份",
+          "label": "法务人均月产能",
+          "note": null,
+          "source": "PPT p.95",
+          "before": "原 35 份"
+        }
+      ],
+      "sourceSlides": [
+        84,
+        94,
+        95
+      ]
+    },
+    {
+      "slug": "transportation",
+      "industry": "交通基建",
+      "customer": "某省交控集团",
+      "summary": "业主合同—工程施工—专业分包—设备采购—运维与技术服务，五级合同链贯通比对。不只审一份合同，是审一条项目合同链。",
+      "deployment": "私有化部署",
+      "heroMedia": "stock-transportation",
+      "href": "/solutions/transportation",
+      "headlineMetrics": [
+        {
+          "value": "10",
+          "unit": "分钟",
+          "label": "项目合同审核",
+          "note": null,
+          "source": "PPT p.96",
+          "before": "原 1 天"
+        },
+        {
+          "value": "99%",
+          "unit": null,
+          "label": "重点条款覆盖率",
+          "note": null,
+          "source": "PPT p.96",
+          "before": "原 41%"
+        }
+      ],
+      "sourceSlides": [
+        84,
+        94,
+        96
+      ]
+    },
+    {
+      "slug": "legal-services",
+      "industry": "法律服务",
+      "customer": "某省头部律师事务所",
+      "summary": "委托合同审查、专项法律意见书起草，以及上下游与关联合同的一致性比对。把一个所的执业口径，沉淀成可复用的审查底座。",
+      "deployment": "私有化部署",
+      "heroMedia": "stock-legal-services",
+      "href": "/solutions/legal-services",
+      "headlineMetrics": [
+        {
+          "value": "私有化",
+          "unit": null,
+          "label": "部署形态",
+          "note": null,
+          "source": "PPT p.97",
+          "before": "材料不出所"
+        },
+        {
+          "value": "11",
+          "unit": "项",
+          "label": "签前到履约的平台能力",
+          "note": null,
+          "source": "PPT p.97",
+          "before": null
+        }
+      ],
+      "sourceSlides": [
+        84,
+        94,
+        97
+      ]
+    },
+    {
+      "slug": "finance",
+      "industry": "金融与强监管",
+      "customer": "某信托公司",
+      "summary": "强监管行业的复制样本。同一套实施方法正在向金融等强监管行业复制，复用通信与交通已验证的规则库与审查口径，不从零开始。",
+      "deployment": "私有化部署",
+      "heroMedia": "stock-finance",
+      "href": "/solutions/finance",
+      "headlineMetrics": [
+        {
+          "value": "私有化",
+          "unit": null,
+          "label": "当前阶段",
+          "note": null,
+          "source": "PPT p.94",
+          "before": "深度融合金融行业知识"
+        }
+      ],
+      "sourceSlides": [
+        94
+      ]
+    }
+  ],
+  "method": [
+    "行业共建：与法务一线共建，12 个月调研、业务访谈与案例复盘",
+    "真实合同：数千份真实商业合同脱敏入库",
+    "专家标注：资深法务 + 业务专家 + 技术人员联合标注，走「背对背标注 → 交叉核验 → 争议仲裁」三级流程",
+    "领域资产：行业合同审查规则库 + 专业法律知识库 + 一致性比对口径",
+    "场景复用：新客户直接继承已验证的口径与知识库，不从零建规则",
+    "反馈回流：授权与安全控制下，使用中的典型问题转化为规则与样本"
+  ],
+  "footnote": "规则库、图谱与模板随私有化部署沉淀在企业侧；字段级脱敏 + 差分隐私，数据不出域。",
+  "cta": {
+    "title": "您的行业，可以从哪一步开始？",
+    "description": "我们会先做一次场景与合同类型盘点，给出「先跑通一个场景，再复制」的分阶段路径。",
+    "primaryLabel": "商务咨询",
+    "primaryHref": "/contact?intent=consult",
+    "secondaryLabel": "了解合约智审",
+    "secondaryHref": "/products/legallens"
+  },
+  "sourceSlides": [
+    84,
+    94,
+    95,
+    96,
+    97
+  ]
+}

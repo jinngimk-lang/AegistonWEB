@@ -1,0 +1,182 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '22'
+
+jobs:
+  backend:
+    name: 后端 · lint / typecheck / test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: 安装依赖
+        run: python -m pip install -e "./backend[dev,assets]"
+      - name: ruff
+        run: python -m ruff check backend/app backend/scripts backend/tests
+      - name: mypy
+        run: python -m mypy backend/app
+      - name: pytest（覆盖率门槛 85%）
+        run: cd backend && python -m pytest tests -q --cov=app --cov-report=term-missing
+
+  content:
+    name: 内容与资源一致性
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - run: python -m pip install -e "./backend[assets]"
+      # 清单级：schema + 引用完整性 + 死链 + 合规约束
+      - name: 内容包校验
+        run: python -m backend.scripts.validate_content --content-dir backend/app/content --strict
+      # 磁盘级：只有 CI 同时看得到前后端两棵树，所以这一步不能放进后端单测（P1-6）
+      - name: 资源磁盘校验
+        run: python -m backend.scripts.validate_assets
+      # 截图打码：规格改了却没重跑脚本 → 敏感信息会重新出现在公开站，
+      # 而这类回归不会让任何其他测试变红（spec §6.4）
+      - name: 截图打码一致性
+        run: python -m backend.scripts.redact --check
+      - name: ASSET_MAP 与 PPT 回源核对
+        if: hashFiles('ref/*.pptx') != ''
+        run: python backend/scripts/extract_pptx_assets.py --pptx "ref/智瞳安宇-总体产品介绍-V7.pptx" --out-images frontend/public/media/product --out-manifest backend/app/content/media_manifest.json --dry-run
+
+  frontend:
+    name: 前端 · lint / typecheck / unit / build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm --prefix frontend ci --include=dev
+      - name: eslint
+        run: npm --prefix frontend run lint
+      - name: tsc
+        run: npm --prefix frontend run typecheck
+      # 护栏：*.module.css 中禁止出现 ref 的类名（P0-2）
+      - name: stylelint
+        run: npm --prefix frontend run stylelint
+      # 视觉契约锚点：ref 的 60 条跨元素选择器 + §5.2 度量 + 对比度
+      - name: vitest
+        run: npm --prefix frontend run test
+      - name: build
+        run: npm --prefix frontend run build
+        env:
+          API_BASE_URL: http://127.0.0.1:8000
+          NEXT_PUBLIC_SITE_URL: https://example.invalid
+
+  snapshot:
+    name: 降级快照漂移检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11', cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: python -m pip install -e "./backend"
+      - run: npm --prefix frontend ci --include=dev
+      - name: 启动 API
+        run: |
+          cd backend
+          AEGISTON_DATABASE_URL="sqlite+aiosqlite:///./ci.db" \
+          python -m uvicorn app.main:app --port 8000 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8000/api/v1/health/ready && break
+            sleep 1
+          done
+      # 内容包改了但没重新生成快照 → 这里失败
+      - name: 快照漂移检查
+        run: npm --prefix frontend run content:snapshot:check
+
+  e2e:
+    name: E2E · 路由 / 导航 / 视觉契约 / a11y / 安全头
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11', cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: python -m pip install -e "./backend"
+      - run: npm --prefix frontend ci --include=dev
+      - run: npx --prefix frontend playwright install --with-deps chromium
+      - name: 启动 API
+        run: |
+          cd backend
+          AEGISTON_DATABASE_URL="sqlite+aiosqlite:///./ci.db" \
+          AEGISTON_ADMIN_TOKEN="ci-admin-token-0123456789abcdefgh" \
+          python -m uvicorn app.main:app --port 8000 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8000/api/v1/health/ready && break
+            sleep 1
+          done
+      - name: 构建并启动前端
+        run: |
+          npm --prefix frontend run build
+          npm --prefix frontend run start &
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:3000/ && break
+            sleep 1
+          done
+        env:
+          API_BASE_URL: http://127.0.0.1:8000
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+      - name: playwright
+        run: npm --prefix frontend run e2e -- --project=chromium
+        env:
+          E2E_BASE_URL: http://127.0.0.1:3000
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+
+  cold-start:
+    name: 冷启动降级（API 从未启动）
+    runs-on: ubuntu-latest
+    needs: [frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: npm --prefix frontend ci --include=dev
+      - run: npx --prefix frontend playwright install --with-deps chromium
+      # 关键：API_BASE_URL 指向一个**没有任何服务**的端口。
+      # 这是 R12 真正对应的场景——v1.0 的 depends_on: service_healthy 会让 web
+      # 根本不启动，整站白屏；§11.2 改为 service_started 后必须由本用例守住。
+      - name: 构建并启动前端（API 不可达）
+        run: |
+          npm --prefix frontend run build
+          npm --prefix frontend run start &
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:3000/ && break
+            sleep 1
+          done
+        env:
+          API_BASE_URL: http://127.0.0.1:9
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+      - name: 断言全站仍返回 200
+        run: npm --prefix frontend run e2e -- --project=chromium tests/e2e/offline-api.spec.ts
+        env:
+          E2E_BASE_URL: http://127.0.0.1:3000
+          AEGISTON_E2E_NO_API: '1'

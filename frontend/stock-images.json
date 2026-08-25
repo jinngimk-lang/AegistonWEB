@@ -1,0 +1,123 @@
+{
+  "_note": "外链配图清单（spec §6.3）。构建期由 scripts/fetch-stock-images.mjs 下载并转 WebP，运行期不依赖任何外部 CDN —— 这是私有化交付的硬要求，也是 CSP 能做到 default-src 'self' 无外部白名单的前提。",
+  "_coverage": "沿用 ref/1.html 的 4 张 Unsplash + 新增 7 张 + 1 张 Wikimedia Hero 背景，合计 12 个图片源。",
+  "widths": [
+    1920,
+    1280,
+    768
+  ],
+  "quality": 82,
+  "assets": [
+    {
+      "id": "stock-hero",
+      "source": "wikimedia",
+      "photoId": "Skyline_of_Xi'an_CBD.jpg",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Skyline_of_Xi%27an_CBD.jpg",
+      "originUrl": "https://commons.wikimedia.org/wiki/File:Skyline_of_Xi%27an_CBD.jpg",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "alt": "西安 CBD 天际线远景",
+      "usedBy": "首页 Hero 背景（沿用 ref/1.html）"
+    },
+    {
+      "id": "stock-about",
+      "source": "unsplash",
+      "photoId": "photo-1466611653911-95081537e5b7",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "现代建筑外立面的几何结构",
+      "usedBy": "/about PageHero（ref 中用于 .sustain-visual）"
+    },
+    {
+      "id": "stock-products",
+      "source": "unsplash",
+      "photoId": "photo-1518770660439-4636190af475",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "电路板与芯片的微距特写",
+      "usedBy": "/products PageHero（沿用 ref .domain-photo-a）"
+    },
+    {
+      "id": "stock-research",
+      "source": "unsplash",
+      "photoId": "photo-1486406146926-c627a92ad1ab",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "玻璃幕墙办公建筑的仰视视角",
+      "usedBy": "/research PageHero（沿用 ref .domain-photo-d）"
+    },
+    {
+      "id": "stock-deployment",
+      "source": "unsplash",
+      "photoId": "photo-1551288049-bebda4e38f71",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "屏幕上的数据仪表盘与图表",
+      "usedBy": "首页 .sustain-visual 与 /products/deployment（沿用 ref .solution-visual 第三段）"
+    },
+    {
+      "id": "stock-telecom",
+      "source": "unsplash",
+      "photoId": "photo-1518709268805-4e9042af9f23",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "夜色中的通信网络光纤示意",
+      "usedBy": "/solutions/telecom PageHero"
+    },
+    {
+      "id": "stock-transportation",
+      "source": "unsplash",
+      "photoId": "photo-1473042904451-00171c69419d",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "高速公路立交桥的俯视结构",
+      "usedBy": "/solutions/transportation PageHero"
+    },
+    {
+      "id": "stock-legal-services",
+      "source": "unsplash",
+      "photoId": "photo-1589829545856-d10d557cf95f",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "法律书籍与文件的静物特写",
+      "usedBy": "/solutions/legal-services PageHero"
+    },
+    {
+      "id": "stock-finance",
+      "source": "unsplash",
+      "photoId": "photo-1454165804606-c3d57bc86b40",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "会议桌上的数据报表与讨论场景",
+      "usedBy": "/solutions/finance PageHero"
+    },
+    {
+      "id": "stock-careers",
+      "source": "unsplash",
+      "photoId": "photo-1522071820081-009f0129c71c",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "团队围坐讨论的工作场景",
+      "usedBy": "/careers PageHero"
+    },
+    {
+      "id": "stock-insights",
+      "source": "unsplash",
+      "photoId": "photo-1504868584819-f8e8b4b6d7e3",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "摊开的笔记本、钢笔与文稿的桌面俯视",
+      "usedBy": "/insights PageHero",
+      "_note": "spec §6.3 原列的 photo-1499750310159-5b3b1b0f5b0c 已下架（实测 HTTP 404），替换为等效题材；见 spec「实施过程发现的方案缺陷」#3"
+    },
+    {
+      "id": "stock-contact",
+      "source": "unsplash",
+      "photoId": "photo-1497366216548-37526070297c",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license",
+      "alt": "开放式办公空间的工位与自然光",
+      "usedBy": "/contact PageHero"
+    }
+  ]
+}

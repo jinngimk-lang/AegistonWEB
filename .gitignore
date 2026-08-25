@@ -1,0 +1,51 @@
+# deps
+node_modules/
+.pnp
+.pnp.js
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# build
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# runtime
+*.db
+*.db-shm
+*.db-wal
+*.log
+.env
+.env.local
+.env.*.local
+
+# test / tooling
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+
+# os
+.DS_Store
+Thumbs.db
+
+# 编排运行时脚手架，不属于项目产物
+.agentmesh/
+
+# Office 打开 pptx/docx 时生成的锁文件，不是项目产物
+~$*
+
+# 中间产物（PPT 解包缓存）
+.cache/
+backend/scripts/.pptx-cache/

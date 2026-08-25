@@ -1,0 +1,125 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "eyebrow": "PRODUCT SYSTEM",
+  "title": "一套企业智能底座，三层产品",
+  "description": "三个产品是同一套企业智能底座上的三层能力——组织级、通用级、行业级。能力在三层之间流动：组织级提供约束与留痕，通用级提供安全的执行力，行业级提供领域深度。",
+  "products": [
+    {
+      "slug": "aragonteam",
+      "tier": "organization",
+      "tierLabel": "组织级",
+      "nameCn": "企业 AI 原生人机协同工作站",
+      "nameEn": "AragonTeam",
+      "tagline": "业界首款融合了完整软件工程管理体系与智能体蜂群的超级团队平台",
+      "positioning": "连接员工、AI Agent、企业知识与业务流程的组织级智能企业协同工作平台，通过私有化服务器或便携式一体机，为企业构建可管理、可执行、可进化的「AI 原生人机超级团队」。",
+      "audience": "研发团队与组织管理者",
+      "differentiator": "把 Agent 纳入企业流程与治理：有身份、有权限、有评审、有审计",
+      "capabilities": [
+        "任务规划与执行",
+        "需求 / BUG / 版本",
+        "团队与权限",
+        "操作审计",
+        "软件工程团队协作研发流程管理（支持 IPD、敏捷、瀑布等多种模式）"
+      ],
+      "customerValue": "研发全流程人机协同，能力从个人账号沉淀为组织资产",
+      "delivery": "私有化服务器 · 便携式一体机 · 私有云",
+      "heroMedia": "ara-personal-board",
+      "href": "/products/aragonteam",
+      "sourceSlides": [
+        13,
+        14
+      ]
+    },
+    {
+      "slug": "inkclaw",
+      "tier": "general",
+      "tierLabel": "通用级",
+      "nameCn": "线上安全通用智能体",
+      "nameEn": "InkClaw",
+      "tagline": "安全可信的跨职能智能体工作空间",
+      "positioning": "线上通用智能体，以隔离沙箱保障安全可靠——把文件、命令与资源三条边界，都做成可判定、可回滚的策略。",
+      "audience": "需要通用 AI 执行能力的个人与团队",
+      "differentiator": "隔离沙箱，安全可靠：文件边界、命令策略与资源限额三重收口",
+      "capabilities": [
+        "对话",
+        "团队协作与 DAG",
+        "网页 IDE / Git",
+        "记忆与技能沉淀"
+      ],
+      "customerValue": "复杂任务可持续推进，产出可交付、可复用而非一次性对话",
+      "delivery": "线上云端工作空间，开箱即用",
+      "heroMedia": "ink-dag",
+      "href": "/products/inkclaw",
+      "sourceSlides": [
+        13,
+        15
+      ]
+    },
+    {
+      "slug": "legallens",
+      "tier": "industry",
+      "tierLabel": "行业级",
+      "nameCn": "合约智审",
+      "nameEn": "LegalLens",
+      "tagline": "大模型 Agent 驱动的智能合同审核系统",
+      "positioning": "自主可控的全流程 AI 合同智能审核系统，以合规为盾、效率为矛，助力企业构建数智法务体系。作为法务和律所的智能助手，而非替代。",
+      "audience": "法务、采购、合规与项目管理部门",
+      "differentiator": "中文法律知识 + 上下游合同交叉分析：识别倒挂、不一致与隐藏风险",
+      "capabilities": [
+        "专业审查",
+        "多智能体校验",
+        "资信审查",
+        "知识图谱检索"
+      ],
+      "customerValue": "审核效率与标准一致性提升，风险敞口可控可追溯",
+      "delivery": "公有云 + 私有化，双形态并行",
+      "heroMedia": "legal-home",
+      "href": "/products/legallens",
+      "sourceSlides": [
+        13,
+        16
+      ]
+    }
+  ],
+  "foundationTitle": "统一企业智能底座",
+  "foundationDesc": "三层产品共享同一套企业级要件。L1–L3 描述的是「单个 Agent 能做到什么」，不描述「组织能做到什么」——每上一阶，都要补齐下面四类要件。",
+  "foundation": [
+    {
+      "index": "01",
+      "title": "身份与权限",
+      "description": "Agent 是「谁」，能碰哪些系统与数据。不只是这次能不能调，更是责任归属、越权阻断、边界随任务动态收敛。",
+      "icon": null
+    },
+    {
+      "index": "02",
+      "title": "知识与上下文",
+      "description": "企业知识、历史决策、项目背景可被稳定调用。不只是这次喂进去什么，更是这次产生的判断能不能回流成组织资产。",
+      "icon": null
+    },
+    {
+      "index": "03",
+      "title": "流程与状态",
+      "description": "任务有依赖、有状态、可回退、可重入。不只是这一条流程跑通，更是人与 Agent 作为「能力节点」按任务被组合。",
+      "icon": null
+    },
+    {
+      "index": "04",
+      "title": "审计与留痕",
+      "description": "谁做的、何时做的、依据是什么，全部可查。不只是事后可查，更是把真实结果接回系统，改进下一轮。",
+      "icon": null
+    }
+  ],
+  "footnote": "能力在三层之间流动：组织级提供约束与留痕，通用级提供安全的执行力，行业级提供领域深度。",
+  "cta": {
+    "title": "想知道哪一层最适合先落地？",
+    "description": "我们会按您的场景与合规要求，给出从试点到复制的分阶段建议。",
+    "primaryLabel": "预约产品演示",
+    "primaryHref": "/contact?intent=demo",
+    "secondaryLabel": "了解交付形态",
+    "secondaryHref": "/products/deployment"
+  },
+  "sourceSlides": [
+    13
+  ]
+}

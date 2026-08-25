@@ -1,0 +1,53 @@
+{
+  "name": "aegiston-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "智瞳安宇 Aegiston 官网 · Next.js 15 App Router 前端",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install --with-deps chromium",
+    "assets:stock": "node scripts/fetch-stock-images.mjs --config stock-images.json --out public/media/stock",
+    "fonts:fetch": "node scripts/fetch-fonts.mjs --config font-manifest.json --out public/fonts --css src/styles/fonts.css",
+    "content:snapshot": "node scripts/sync-content.mjs --api http://localhost:8000 --out src/content/snapshot",
+    "content:snapshot:check": "node scripts/sync-content.mjs --api http://localhost:8000 --out src/content/snapshot --check",
+    "gen:types": "openapi-typescript http://localhost:8000/api/v1/openapi.json -o src/types/api.d.ts",
+    "stylelint": "stylelint \"src/**/*.css\""
+  },
+  "dependencies": {
+    "next": "15.5.23",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "sharp": "0.33.5",
+    "zod": "3.24.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.1",
+    "@playwright/test": "1.51.1",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.2.0",
+    "@types/node": "22.10.7",
+    "@types/react": "19.0.7",
+    "@types/react-dom": "19.0.3",
+    "@vitejs/plugin-react": "4.3.4",
+    "eslint": "9.18.0",
+    "eslint-config-next": "15.5.23",
+    "jsdom": "26.0.0",
+    "openapi-typescript": "7.5.2",
+    "postcss": "8.5.1",
+    "stylelint": "16.13.2",
+    "stylelint-config-standard": "37.0.0",
+    "typescript": "5.7.3",
+    "vitest": "3.0.4"
+  }
+}

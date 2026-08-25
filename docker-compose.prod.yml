@@ -1,0 +1,70 @@
+# 生产编排：nginx + web + api + 持久化卷。
+#
+# ⚠️ 编排必须与降级承诺自洽（spec §11.2 / P1-5）。
+# 三条规则叠在一起会产生与 R12 完全相反的结果：
+#   1. 内容包校验失败 → ContentRepository 抛错 → api 进程拒绝启动；
+#   2. 若 web 用 depends_on: service_healthy → api 不健康时 web 根本不会被拉起；
+#   3. R12 却承诺「后端挂了官网仍然可访问」。
+# 于是内容包里一个 mediaId 拼错就会导致**整站白屏**，精心设计的快照兜底一次
+# 都用不上。因此 depends_on 一律降为 service_started：只保证启动顺序，不阻塞。
+# api 的 healthcheck 保留，但它的作用是给运维看（docker compose ps 的
+# unhealthy 标记 + 告警），而不是卡住依赖链。
+name: aegiston
+
+services:
+  api:
+    build:
+      context: ./backend
+      target: runtime
+    restart: unless-stopped
+    environment:
+      AEGISTON_ENV: prod
+      AEGISTON_DATABASE_URL: sqlite+aiosqlite:////data/aegiston.db
+      AEGISTON_SYNC_DATABASE_URL: sqlite:////data/aegiston.db
+      AEGISTON_CORS_ORIGINS: ${AEGISTON_CORS_ORIGINS:?set in .env}
+      AEGISTON_ADMIN_TOKEN: ${AEGISTON_ADMIN_TOKEN:?set in .env}
+      AEGISTON_SECRET_SALT: ${AEGISTON_SECRET_SALT:?set in .env}
+      AEGISTON_LOG_JSON: "true"
+      # 单 worker：官网 QPS 极低，天然消除限流计数器分裂与 SQLite 写竞争
+      AEGISTON_WORKERS: "1"
+      AEGISTON_THREADS: "4"
+    volumes:
+      - aegiston-data:/data
+    expose:
+      - "8000"
+
+  web:
+    build:
+      context: ./frontend
+      target: runtime
+      args:
+        API_BASE_URL: http://api:8000
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?set in .env}
+    restart: unless-stopped
+    environment:
+      API_BASE_URL: http://api:8000
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+    expose:
+      - "3000"
+    depends_on:
+      api:
+        condition: service_started
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/aegiston.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/aegiston-common.inc:/etc/nginx/conf.d/aegiston-common.inc:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      web:
+        condition: service_started
+      api:
+        condition: service_started
+
+volumes:
+  aegiston-data: {}

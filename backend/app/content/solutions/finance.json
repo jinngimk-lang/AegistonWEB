@@ -1,0 +1,64 @@
+{
+  "slug": "finance",
+  "industry": "金融与强监管",
+  "customer": "某信托公司",
+  "eyebrow": "CASE · FINANCE",
+  "lead": "强监管行业的复制样本——同一套实施方法正在向金融等强监管行业复制。",
+  "heroMedia": "stock-finance",
+  "deployment": "私有化部署，深度融合金融行业知识。",
+  "scope": [
+    "同一套实施方法正在向金融等强监管行业复制",
+    "复用通信与交通已验证的规则库与审查口径"
+  ],
+  "workflow": [
+    "复用已验证的行业合同审查规则库与法律知识库",
+    "按金融行业的合同类型与监管口径做专项规则扩展",
+    "AI 初审 + 人工复核的高效协同模式保持不变"
+  ],
+  "closureTitle": "价值路径",
+  "closure": [
+    "复用通信与交通已验证的规则库与审查口径，不从零开始",
+    "私有化部署，深度融合金融行业知识",
+    "当前处于行业外延阶段，能力口径表述，不做量化承诺"
+  ],
+  "difficulty": [
+    "强监管行业对数据出域的约束最严格",
+    "合同类型与监管要求随业务线差异明显",
+    "审查口径需要同时满足内控与外部监管两套标准"
+  ],
+  "assets": [
+    "继承自通信与交通行业的通用风险规则集",
+    "可按金融业务线扩展的专项规则框架"
+  ],
+  "metrics": [
+    {
+      "value": "私有化",
+      "unit": null,
+      "label": "当前阶段",
+      "before": "深度融合金融行业知识",
+      "source": "PPT p.94"
+    },
+    {
+      "value": "复用",
+      "unit": null,
+      "label": "通信与交通已验证的规则库",
+      "before": "不从零开始",
+      "source": "PPT p.94"
+    }
+  ],
+  "takeaway": "同一套实施方法在强监管行业之间迁移，第 N 个客户不必从零起步。",
+  "relatedProduct": "legallens",
+  "pendingConfirmation": [
+    "本行业在 PPT 中仅以「行业外延」出现（p.94），无量化指标，站点按能力口径表述，未做效果承诺。",
+    "客户名已按保守口径脱敏为「某信托公司」，公开引用授权待客户确认。"
+  ],
+  "cta": {
+    "title": "强监管场景的第一步，通常是数据边界",
+    "description": "我们会先确认私有化部署方案与脱敏链路，再谈审查能力的落地范围。",
+    "primaryLabel": "商务咨询",
+    "primaryHref": "/contact?intent=consult",
+    "secondaryLabel": "了解交付形态",
+    "secondaryHref": "/products/deployment"
+  },
+  "sourceSlides": [94]
+}

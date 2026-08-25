@@ -1,0 +1,58 @@
+/* ==========================================================================
+   设计令牌（Design Tokens）
+   来源：ref/1.html 的 :root{}，逐字符原样搬运。
+
+   ⚠️ 变量名不得重命名（spec §5.1）：
+   --red 实际是企业蓝 #2D638A（ref 注释「企业金，替代原三菱红」）。
+   保留 --red / --red-dark / --red-soft 这组名字，是为了让本工程与 ref/1.html
+   之间的逐条比对不产生歧义；任何重命名都会让视觉契约无法回溯核对。
+
+   ⚠️ 令牌值本身不改。--ink-3 / --ink-4 的对比度不达 WCAG 2.1 AA
+   （实测 2.97:1 / 1.88:1），改的是**用色规则**而不是令牌值，见 base.css
+   顶部的「文本用色规则」与 spec §10.3。
+   ========================================================================== */
+:root {
+  --red: #2D638A;            /* 企业主色（ref 中由三菱红替换为企业蓝） */
+  --red-dark: #214A69;
+  --red-soft: #EAF1F6;
+
+  --navy: #002B5C;           /* 深海军蓝，标题 / 页眉 */
+  --navy-deep: #001A3D;
+  --navy-2: #1A4A7A;
+
+  --ink: #1A2332;
+  --ink-2: #4A5868;
+  --ink-3: #8B97A7;          /* 非文本用途：分隔线 / 图标描边（见 §10.3 规则 1） */
+  --ink-4: #B5BEC9;          /* 非文本用途：同上 */
+
+  --white: #FFFFFF;
+  --cream: #FAFBFC;
+  --bg-gray: #F2F4F7;
+  --bg-gray-2: #EAEEF3;
+
+  --border: #E0E5EC;
+  --border-2: #CDD5DF;
+  --border-strong: #A8B4C2;
+
+  --shadow-sm: 0 1px 3px rgba(0, 43, 92, .08);
+  --shadow-md: 0 6px 24px -8px rgba(0, 43, 92, .15);
+  --shadow-lg: 0 20px 50px -15px rgba(0, 43, 92, .2);
+
+  --sans-cn: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --sans-en: 'Inter', 'Noto Sans SC', sans-serif;
+  --serif-cn: 'Noto Serif SC', serif;
+
+  --max-w: 1280px;
+
+  /* --- 以下为本工程新增（ref 中不存在），仅服务于 §5.3 登记在案的偏离 --- */
+
+  /* 顶栏 EN 切换替代色：#6A80A0 对 --navy-deep 仅 4.29:1，不满足 12px 文本的
+     4.5:1；#8AA0BE 实测 6.46:1。见 spec §10.3 规则 2。 */
+  --utility-muted: #8AA0BE;
+  /* 顶栏正文色，ref 中硬编码为 #B5C4D6（对 --navy-deep 9.74:1，AAA） */
+  --utility-fg: #B5C4D6;
+  /* 顶栏分隔符（非文本图形，豁免对比度） */
+  --utility-sep: #3A5070;
+  /* 键盘焦点环 */
+  --focus-ring: var(--navy);
+}

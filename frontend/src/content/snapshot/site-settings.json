@@ -1,0 +1,38 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "nameCn": "智瞳安宇",
+  "nameEn": "Aegiston",
+  "legalName": "西安智瞳安宇科技有限公司",
+  "tagline": "「AI+」企业智能化赋能与安全保障专家",
+  "description": "西安智瞳安宇科技有限公司是「AI+」企业智能化赋能与安全保障专家，以组织级 AragonTeam、通用级 InkClaw、行业级 LegalLens 合约智审三层产品，构成同一套企业智能底座。支持私有化服务器、便携式一体机与私有云交付，数据不出企业网。",
+  "keywords": [
+    "企业 AI 原生人机协同工作站",
+    "多智能体协同",
+    "AragonTeam",
+    "InkClaw",
+    "合约智审",
+    "LegalLens",
+    "合同智能审核",
+    "私有化部署",
+    "信创",
+    "组织智能"
+  ],
+  "contact": {
+    "businessEmail": "bd@aegiston.com",
+    "careersEmail": "hr@aegiston.com",
+    "phone": null,
+    "address": "陕西省西安市",
+    "workingHours": "工作日 09:00–18:00（GMT+8）"
+  },
+  "icp": null,
+  "copyrightYear": 2026,
+  "foundedNote": "由高校教授团队为推进科技成果转化而创立的高科技企业",
+  "pendingConfirmation": [
+    "ICP 备案号：待客户提供（为空时页脚不渲染该行，spec R9）",
+    "商务电话：PPT 未提供，暂不展示，避免臆造联系方式",
+    "商务与招聘邮箱：占位域名，上线前需客户确认真实邮箱",
+    "公司注册地址：仅到市一级，详址待客户提供",
+    "/legal/terms 与 /legal/privacy 正式文本：待法务提供，当前为通用条款草案"
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "slug": "aragonteam",
+  "tier": "organization",
+  "tierLabel": "组织级",
+  "nameCn": "企业 AI 原生人机协同工作站",
+  "nameEn": "AragonTeam",
+  "code": "ARA · 01",
+  "tagline": "让一个人像一支队伍，让一支队伍变成 AI 原生组织",
+  "positioning": "连接员工、AI Agent、企业知识与业务流程的组织级智能企业协同工作平台。帮助企业建立一支由人类员工与智能体共同组成、能够持续协作和进化的新型组织。",
+  "heroMedia": "ara-personal-board",
+  "background": [
+    {
+      "index": "01",
+      "title": "工具孤岛困境",
+      "description": "AI 能力散落在员工个人账号与各类插件里，提示词、经验、上下文不出个人电脑。用得越多，组织越没有沉淀；能力无法复制到第二个人。"
+    },
+    {
+      "index": "02",
+      "title": "治理缺位困境",
+      "description": "Agent 没有企业身份、没有权限边界、操作不可审计。不敢接入需求、代码、合同等核心流程，只能停留在边缘场景——不是不能用，是不敢用。"
+    },
+    {
+      "index": "03",
+      "title": "流程失配困境",
+      "description": "真实业务是「评审—打回—返工—再评审」的环状流程，重复轮数在运行前无法确定。直线式自动化必须预设轮数，未走分支悬空，无法判断流程是否真正结束。"
+    },
+    {
+      "index": "04",
+      "title": "数据主权困境",
+      "description": "代码库、合同、内部文档、客户数据不能出企业网。公有云 Agent 从合规源头被排除，试点做完也无法规模化。"
+    }
+  ],
+  "coreValues": [
+    {
+      "index": "01",
+      "title": "可管理",
+      "description": "身份、权限、成本与风险统一收口到企业既有治理体系。"
+    },
+    {
+      "index": "02",
+      "title": "可执行",
+      "description": "任务能被真正完成、交付并验收，而不是停在建议与演示阶段。"
+    },
+    {
+      "index": "03",
+      "title": "可进化",
+      "description": "每一次执行沉淀为组织资产，团队能力持续累积。"
+    },
+    {
+      "index": "04",
+      "title": "降本提效",
+      "description": "一个人能同时推进多条任务线，智能体产出直接进入团队既有的评审与交付路径。"
+    },
+    {
+      "index": "05",
+      "title": "数据安全",
+      "description": "支持私有化服务器和便携式一体机交付，数据不出企业网。"
+    }
+  ],
+  "featureGroups": [
+    {
+      "title": "流程与执行",
+      "countLabel": "2 项",
+      "items": [
+        {
+          "index": "01",
+          "title": "软件工程团队协作研发流程管理",
+          "description": "IPD、敏捷、瀑布等多种软件工程模式，需求、BUG、版本与迭代计划统一管理，覆盖创建、分配、开发、测试、审批到交付。"
+        },
+        {
+          "index": "02",
+          "title": "Agent 数字员工研发",
+          "description": "需求与 BUG 可直接转交 AI Agent 开发与修复，执行进展、提交结果与状态变化实时回流同一看板。"
+        }
+      ]
+    },
+    {
+      "title": "资产与知识",
+      "countLabel": "2 项",
+      "items": [
+        {
+          "index": "03",
+          "title": "代码仓托管与版本管理",
+          "description": "代码托管、分支与变更记录同任务链路打通，每一次修改都能追溯到需求、评审与责任人。"
+        },
+        {
+          "index": "04",
+          "title": "企业知识库构建与持续管理",
+          "description": "合同、方案、纪要与历史决策按项目统一归集，人与 Agent 共用同一份组织上下文。"
+        }
+      ]
+    },
+    {
+      "title": "人机协同",
+      "countLabel": "2 项",
+      "items": [
+        {
+          "index": "05",
+          "title": "人类 / 智能体员工融合协作聊天室",
+          "description": "人与 Agent 在同一会话内分工、通信与交接，任务消息与执行状态在同一空间持续可见。"
+        },
+        {
+          "index": "06",
+          "title": "人类 / 智能体员工融合协作论坛",
+          "description": "以议题沉淀讨论过程与结论，把一次性对话变成可检索、可复用的组织记忆。"
+        }
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "personal-board",
+      "eyebrow": "超级个体 · 01",
+      "title": "多智能体协同与执行工作台",
+      "description": "集成项目导航、任务规划、智能体执行、状态监控和开发工具，为复杂任务提供统一操作入口。",
+      "points": [
+        "智能体自主规划与执行：自动分析需求、生成任务计划并调用相关工具完成具体操作",
+        "任务拆解与进度跟踪：任务树与 TODO 清单实时展示当前进度、已完成事项及后续安排",
+        "执行过程与运行状态监控：操作日志、工具调用结果全程透明可追踪"
+      ],
+      "mediaId": "ara-personal-board",
+      "layout": "left",
+      "sourceSlide": 20
+    },
+    {
+      "id": "agent-chat",
+      "eyebrow": "超级个体 · 02",
+      "title": "Agent 对话界面",
+      "description": "实时展示智能体的任务分析、工具调用和具体操作过程，让用户随时了解系统当前正在处理的内容。",
+      "points": [
+        "每个执行步骤完成后即时反馈处理结果、运行状态和耗时",
+        "根据复杂需求自动生成任务计划，并拆分为清晰、可执行的子任务",
+        "右侧任务树展示任务的层级关系、执行顺序与关联情况",
+        "实时区分已完成、执行中和待处理任务"
+      ],
+      "mediaId": "ara-agent-chat",
+      "layout": "right",
+      "sourceSlide": 21
+    },
+    {
+      "id": "plan-overview",
+      "eyebrow": "超级个体 · 03",
+      "title": "项目全生命周期管理",
+      "description": "通过待办、运行中、已完成和已验证四个阶段，直观展示任务从创建到验收的完整流程。",
+      "points": [
+        "支持项目筛选、任务搜索、状态流转和进度跟踪",
+        "01 待办：等待执行，统一收纳",
+        "02 运行中：实时执行，跟踪进度",
+        "03 已完成：输出成果，保留记录",
+        "04 已验证：人工确认，完成闭环"
+      ],
+      "mediaId": "ara-plan-overview",
+      "layout": "left",
+      "sourceSlide": 22
+    },
+    {
+      "id": "dev-workspace",
+      "eyebrow": "超级个体 · 04",
+      "title": "综合开发工作区",
+      "description": "集项目管理、文件操作、代码编辑、Git 版本控制和终端执行于一体，提供统一的开发工作空间。",
+      "points": [
+        "内置代码编辑区域，可直接完成文件查看、编写和修改",
+        "集成 Git 版本管理功能，方便查看代码变更和管理项目版本",
+        "内置命令行终端，可直接执行开发、构建和运行命令",
+        "编辑器、Git 和终端相互联动，减少工具切换"
+      ],
+      "mediaId": "ara-dev-workspace",
+      "layout": "right",
+      "sourceSlide": 24
+    },
+    {
+      "id": "dag-orchestration",
+      "eyebrow": "超级个体 · 05",
+      "title": "智能体任务编排与协同执行",
+      "description": "通过流程图直观展示任务节点、执行顺序和节点之间的关联关系。",
+      "points": [
+        "支持对任务节点进行新增、移动、连接和调整",
+        "左侧集中展示可用智能体及其运行状态，便于统一查看和调度",
+        "右侧自动生成任务规划，将总体目标拆分为多个具体执行步骤",
+        "可按任务需求创建智能体并分配对应节点，实现多智能体协同处理"
+      ],
+      "mediaId": "ara-dag-orchestration",
+      "layout": "left",
+      "sourceSlide": 25
+    },
+    {
+      "id": "agent-terminal",
+      "eyebrow": "超级个体 · 06",
+      "title": "智能体任务执行终端",
+      "description": "用自然语言描述开发需求，无需手动编写复杂命令；整个任务过程完整留痕，便于后续复盘与问题定位。",
+      "points": [
+        "支持继续输入补充指令，对已有成果进行修改、优化或扩展",
+        "任务完成后自动汇总已实现的功能",
+        "分层文字与状态标识区分任务说明、执行过程与最终成果",
+        "底部实时展示模型名称、运行状态、上下文用量及 Token 消耗"
+      ],
+      "mediaId": "ara-agent-terminal",
+      "layout": "right",
+      "sourceSlide": 26
+    },
+    {
+      "id": "model-presets",
+      "eyebrow": "系统设置 · 07",
+      "title": "模型与预设",
+      "description": "支持配置 API 协议、API Key 和模型 ID，快速接入不同大模型服务。",
+      "points": [
+        "创建和管理多个模型预设，在不同模型及服务商之间灵活切换",
+        "状态标识直观展示模型连接情况，便于及时发现配置异常",
+        "支持单独配置快速模型，用于响应速度要求较高的轻量任务",
+        "统一配置入口集中管理模型分工，降低多模型维护成本"
+      ],
+      "mediaId": "ara-model-presets",
+      "layout": "left",
+      "sourceSlide": 27
+    },
+    {
+      "id": "graph-templates",
+      "eyebrow": "系统设置 · 08",
+      "title": "内置运行图模板",
+      "description": "按系统模板、软件开发、文档编写等类型分类展示，便于统一管理与快速切换。",
+      "points": [
+        "支持通过开关启用或停用模板，灵活控制模板的可用状态",
+        "可配置子任务、依赖关系、输出 JSON 及风险项等规则模块",
+        "支持设置任务分类和图表类型，使模板适配不同业务流程",
+        "预设任务步骤和执行要求，减少重复配置"
+      ],
+      "mediaId": "ara-graph-templates",
+      "layout": "right",
+      "sourceSlide": 28
+    },
+    {
+      "id": "team-home",
+      "eyebrow": "超级团队 · 09",
+      "title": "AI 原生团队研发协作平台",
+      "description": "融合需求、BUG、版本、文档与团队管理，将 AI Agent 直接纳入研发流程，实现人与 AI 协同开发。",
+      "points": [
+        "围绕需求到交付构建统一工作空间",
+        "打通规划、开发、测试、修复、审批与审计全过程",
+        "支持将需求与 BUG 直接转交 AI Agent 并实时跟踪状态"
+      ],
+      "mediaId": "ara-team-home",
+      "layout": "left",
+      "sourceSlide": 29
+    },
+    {
+      "id": "dashboard",
+      "eyebrow": "超级团队 · 10",
+      "title": "仪表盘 · 全局数据洞察",
+      "description": "一屏掌握，项目状态清晰呈现。集中展示需求、BUG、Agent 使用情况及团队活跃度等核心指标。",
+      "points": [
+        "通过需求与 BUG 状态分布、近期动态，快速识别项目进度与流程阻塞",
+        "统一汇总待处理需求、待验证 BUG、阻塞任务及逾期计划",
+        "呈现优先级与当前状态，支持从仪表盘快速进入对应事项"
+      ],
+      "mediaId": "ara-dashboard",
+      "layout": "right",
+      "sourceSlide": 30
+    },
+    {
+      "id": "my-work",
+      "eyebrow": "超级团队 · 11",
+      "title": "我的工作 · 指派任务与提交事项",
+      "description": "任务直达，责任分工清晰明确；个人工作全程可追踪。",
+      "points": [
+        "集中展示由他人指派给我的需求与任务，并同步呈现状态和优先级",
+        "集中展示由我提交的需求、人工确认、工具接入及 BUG 等事项",
+        "通过状态标签与数量统计掌握规划、开发、测试及验证进展"
+      ],
+      "mediaId": "ara-my-work",
+      "layout": "left",
+      "sourceSlide": 31
+    },
+    {
+      "id": "versions",
+      "eyebrow": "超级团队 · 12",
+      "title": "版本 / 计划 · 迭代进度管理",
+      "description": "按版本组织研发任务，集中展示版本状态、计划周期与负责人。",
+      "points": [
+        "进度条及需求、BUG、计划数量统计，直观掌握各版本推进情况",
+        "展开查看版本下属计划，快速定位延期、阻塞与未完成事项",
+        "以计划为单位拆分版本目标，形成版本—计划—事项层级",
+        "支持在线编辑和新建计划"
+      ],
+      "mediaId": "ara-versions",
+      "layout": "right",
+      "sourceSlide": 32
+    },
+    {
+      "id": "requirements",
+      "eyebrow": "超级团队 · 13",
+      "title": "需求全生命周期管理",
+      "description": "覆盖需求创建、分配、规划、开发与交付全过程，统一呈现状态、优先级、负责人及所属计划。",
+      "points": [
+        "多维检索：按关键词、状态、优先级、负责人和计划组合筛选",
+        "研发事项关联协同：关联版本计划、BUG、文档及附件",
+        "过程留痕与团队互动：完整记录需求变更、操作动态和成员评论"
+      ],
+      "mediaId": "ara-requirements-list",
+      "layout": "left",
+      "sourceSlide": 33
+    },
+    {
+      "id": "requirements-kanban",
+      "eyebrow": "超级团队 · 14",
+      "title": "需求看板 · 拖拽流转与敏捷协作",
+      "description": "以看板呈现需求从新建、指派、开发、测试、审批到完成的全流程状态。",
+      "points": [
+        "卡片分栏与数量统计，直观掌握需求分布、阶段进度及流程阻塞",
+        "支持拖拽需求卡片快速调整处理阶段",
+        "卡片同步展示负责人、所属计划、附件及子任务进度"
+      ],
+      "mediaId": "ara-requirements-kanban",
+      "layout": "right",
+      "sourceSlide": 35
+    },
+    {
+      "id": "bugs",
+      "eyebrow": "超级团队 · 15",
+      "title": "BUG 全流程管理与 AI 修复",
+      "description": "覆盖缺陷创建、分派、修复、验证与关闭，统一呈现状态、严重度、负责人及所属计划。",
+      "points": [
+        "按关键词、状态、严重度、负责人、计划和来源需求筛选",
+        "关联需求、版本计划、文档及附件，打通发现—修复—验证闭环",
+        "支持将 BUG 直接转交 AI Agent 处理，并记录修复进展与操作动态"
+      ],
+      "mediaId": "ara-bugs-list",
+      "layout": "left",
+      "sourceSlide": 34
+    },
+    {
+      "id": "agent-admin",
+      "eyebrow": "超级团队 · 16",
+      "title": "Agent 管理 · 统一管理与任务直派",
+      "description": "集中展示 Agent 名称、能力说明与运行状态，实时查看当前任务数量及资源占用情况。",
+      "points": [
+        "支持 Agent 配置、启停与删除等统一管理",
+        "支持将需求或 BUG 直接分派给指定 Agent",
+        "快速进入自动开发、修复与结果提交流程",
+        "清晰记录任务进展，便于团队持续跟踪与协作"
+      ],
+      "mediaId": "ara-agent-admin",
+      "layout": "right",
+      "sourceSlide": 36
+    },
+    {
+      "id": "members",
+      "eyebrow": "治理 · 17",
+      "title": "团队成员与角色权限管理",
+      "description": "集中展示成员账号、邮箱、站点角色及所属项目，支持按角色、状态、来源和项目快速筛选。",
+      "points": [
+        "提供成员编辑、角色调整、邀请与停用等管理操作",
+        "为成员配置项目角色与细粒度协作权限",
+        "清晰区分管理员、项目经理及普通成员的操作范围"
+      ],
+      "mediaId": "ara-members",
+      "layout": "left",
+      "sourceSlide": 37
+    },
+    {
+      "id": "docs",
+      "eyebrow": "治理 · 18",
+      "title": "多项目文档管理",
+      "description": "按项目统一归集合同、方案、需求说明及其他协作文件。",
+      "points": [
+        "查看文档数量、待处理事项与最近更新时间",
+        "提供未归属项目文档专区，避免文件遗漏或分类混乱",
+        "按标题、类型、上传人、版本及更新时间快速筛选",
+        "可将文档关联至具体需求或 BUG，打通文档与研发事项"
+      ],
+      "mediaId": "ara-docs-projects",
+      "layout": "right",
+      "sourceSlide": 38
+    },
+    {
+      "id": "audit",
+      "eyebrow": "治理 · 19",
+      "title": "审计 · 全量操作留痕与多维检索",
+      "description": "自动记录成员加入、停用、删除及角色变更等关键操作，形成完整审计链路。",
+      "points": [
+        "清晰展示操作主体、目标对象、动作类型与发生时间",
+        "支持按实体、动作、操作对象及时间范围组合筛选",
+        "快速定位特定成员、角色或项目的历史变更记录",
+        "辅助排查异常操作与权限变动，提升平台治理安全性"
+      ],
+      "mediaId": "ara-audit",
+      "layout": "left",
+      "sourceSlide": 39
+    }
+  ],
+  "highlights": [
+    {
+      "value": "84+",
+      "unit": null,
+      "label": "程序侧消息类型",
+      "source": "PPT p.40"
+    },
+    {
+      "value": "64",
+      "unit": "KB",
+      "label": "单帧分片阈值",
+      "source": "PPT p.40"
+    },
+    {
+      "value": "100",
+      "unit": null,
+      "label": "全图回边硬上限",
+      "source": "PPT p.41"
+    },
+    {
+      "value": "24",
+      "unit": "h",
+      "label": "长作业等待软超时",
+      "source": "PPT p.41"
+    }
+  ],
+  "pillars": [
+    "ara-governance-base",
+    "ara-graph-kernel"
+  ],
+  "papers": [
+    "lamar",
+    "mussel"
+  ],
+  "delivery": [
+    "私有化服务器：数据不出企业网，模型、知识与执行全部内网闭环",
+    "便携式一体机：本地模型 + AI 算力 + 协作平台三合一，断网现场也能即刻组队",
+    "私有云服务：私有网络内开箱即用，适用于公司与团队办公场地"
+  ],
+  "cta": {
+    "title": "把智能体接进您现有的研发流程",
+    "description": "我们可以按贵司的 IPD / 敏捷 / 瀑布流程做一次针对性演示，并给出私有化落地的分阶段建议。",
+    "primaryLabel": "预约产品演示",
+    "primaryHref": "/contact?intent=demo&product=aragonteam",
+    "secondaryLabel": "查看核心技术",
+    "secondaryHref": "/research"
+  },
+  "sourceSlides": [
+    11,
+    13,
+    14,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42
+  ],
+  "taglineLocalized": {
+    "zh": "让一个人像一支队伍，让一支队伍变成 AI 原生组织",
+    "en": null
+  }
+}

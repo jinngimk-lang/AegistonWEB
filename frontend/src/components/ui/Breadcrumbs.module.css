@@ -1,0 +1,36 @@
+/* 面包屑。ref/1.html 中不存在此组件，故使用 CSS Module。
+   内部不出现任何 ref 类名，与全局层之间无跨层后代选择器。 */
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 0;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link {
+  color: var(--ink-2);
+  transition: color .2s;
+}
+
+.link:hover {
+  color: var(--red);
+}
+
+.divider {
+  color: var(--border-strong);
+}
+
+.current {
+  color: var(--navy);
+  font-weight: 500;
+}

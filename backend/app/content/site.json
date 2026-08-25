@@ -1,0 +1,153 @@
+{
+  "settings": {
+    "nameCn": "智瞳安宇",
+    "nameEn": "Aegiston",
+    "legalName": "西安智瞳安宇科技有限公司",
+    "tagline": "「AI+」企业智能化赋能与安全保障专家",
+    "description": "西安智瞳安宇科技有限公司是「AI+」企业智能化赋能与安全保障专家，以组织级 AragonTeam、通用级 InkClaw、行业级 LegalLens 合约智审三层产品，构成同一套企业智能底座。支持私有化服务器、便携式一体机与私有云交付，数据不出企业网。",
+    "keywords": [
+      "企业 AI 原生人机协同工作站",
+      "多智能体协同",
+      "AragonTeam",
+      "InkClaw",
+      "合约智审",
+      "LegalLens",
+      "合同智能审核",
+      "私有化部署",
+      "信创",
+      "组织智能"
+    ],
+    "contact": {
+      "businessEmail": "bd@aegiston.com",
+      "careersEmail": "hr@aegiston.com",
+      "phone": null,
+      "address": "陕西省西安市",
+      "workingHours": "工作日 09:00–18:00（GMT+8）"
+    },
+    "icp": null,
+    "copyrightYear": 2026,
+    "foundedNote": "由高校教授团队为推进科技成果转化而创立的高科技企业",
+    "pendingConfirmation": [
+      "ICP 备案号：待客户提供（为空时页脚不渲染该行，spec R9）",
+      "商务电话：PPT 未提供，暂不展示，避免臆造联系方式",
+      "商务与招聘邮箱：占位域名，上线前需客户确认真实邮箱",
+      "公司注册地址：仅到市一级，详址待客户提供",
+      "/legal/terms 与 /legal/privacy 正式文本：待法务提供，当前为通用条款草案"
+    ]
+  },
+  "navigation": {
+    "utilityLeft": [
+      { "label": "公司简介", "href": "/about" },
+      { "label": "战略合作伙伴", "href": "/solutions" },
+      { "label": "科研实力", "href": "/about/strength" }
+    ],
+    "utilityRight": [
+      { "label": "企业邮箱", "href": "mailto:bd@aegiston.com", "external": true }
+    ],
+    "main": [
+      {
+        "label": "关于我们",
+        "href": "/about",
+        "items": [
+          { "label": "公司简介", "href": "/about", "note": "总览" },
+          { "label": "公司定位与三层底座", "href": "/about/positioning" },
+          { "label": "研发团队", "href": "/about/team" },
+          { "label": "科研实力与知识产权", "href": "/about/strength" }
+        ]
+      },
+      {
+        "label": "产品与方案",
+        "href": "/products",
+        "items": [
+          { "label": "产品总览", "href": "/products", "note": "总览" },
+          { "label": "AragonTeam", "href": "/products/aragonteam", "note": "组织级" },
+          { "label": "InkClaw", "href": "/products/inkclaw", "note": "通用级" },
+          { "label": "LegalLens 合约智审", "href": "/products/legallens", "note": "行业级" },
+          { "label": "交付形态", "href": "/products/deployment" }
+        ]
+      },
+      {
+        "label": "行业实践",
+        "href": "/solutions",
+        "items": [
+          { "label": "行业总览", "href": "/solutions", "note": "总览" },
+          { "label": "通信服务", "href": "/solutions/telecom" },
+          { "label": "交通基建", "href": "/solutions/transportation" },
+          { "label": "法律服务", "href": "/solutions/legal-services" },
+          { "label": "金融与强监管", "href": "/solutions/finance" }
+        ]
+      },
+      {
+        "label": "技术与研究",
+        "href": "/research",
+        "items": [
+          { "label": "核心技术总览", "href": "/research", "note": "11 项" },
+          { "label": "学术成果", "href": "/research/papers", "note": "5 篇" }
+        ]
+      },
+      {
+        "label": "洞察与动态",
+        "href": "/insights",
+        "items": [
+          { "label": "全部", "href": "/insights", "note": "总览" },
+          { "label": "行业洞察", "href": "/insights?category=insight" },
+          { "label": "公司动态", "href": "/insights?category=news" },
+          { "label": "研究进展", "href": "/insights?category=research" }
+        ]
+      },
+      {
+        "label": "加入我们",
+        "href": "/careers",
+        "items": []
+      }
+    ],
+    "cta": { "label": "联系我们", "href": "/contact" },
+    "footerColumns": [
+      {
+        "label": "关于我们",
+        "items": [
+          { "label": "公司简介", "href": "/about" },
+          { "label": "公司定位", "href": "/about/positioning" },
+          { "label": "研发团队", "href": "/about/team" },
+          { "label": "科研实力", "href": "/about/strength" },
+          { "label": "加入我们", "href": "/careers" }
+        ]
+      },
+      {
+        "label": "产品与方案",
+        "items": [
+          { "label": "产品总览", "href": "/products" },
+          { "label": "AragonTeam", "href": "/products/aragonteam" },
+          { "label": "InkClaw", "href": "/products/inkclaw" },
+          { "label": "LegalLens 合约智审", "href": "/products/legallens" },
+          { "label": "交付形态", "href": "/products/deployment" }
+        ]
+      },
+      {
+        "label": "行业与研究",
+        "items": [
+          { "label": "行业实践", "href": "/solutions" },
+          { "label": "通信服务", "href": "/solutions/telecom" },
+          { "label": "交通基建", "href": "/solutions/transportation" },
+          { "label": "核心技术", "href": "/research" },
+          { "label": "学术成果", "href": "/research/papers" }
+        ]
+      },
+      {
+        "label": "联系与洞察",
+        "items": [
+          { "label": "商务咨询", "href": "/contact?intent=consult" },
+          { "label": "预约产品演示", "href": "/contact?intent=demo" },
+          { "label": "生态合作", "href": "/contact?intent=partner" },
+          { "label": "洞察与动态", "href": "/insights" }
+        ]
+      }
+    ],
+    "footerLegal": [
+      { "label": "使用条款", "href": "/legal/terms" },
+      { "label": "个人信息保护政策", "href": "/legal/privacy" },
+      { "label": "图片来源", "href": "/legal/credits" },
+      { "label": "网站地图", "href": "/sitemap" }
+    ]
+  }
+}

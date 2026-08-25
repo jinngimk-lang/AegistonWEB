@@ -1,0 +1,163 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "items": [
+    {
+      "slug": "why-start-with-rd",
+      "title": "为什么从研发与项目交付场景切入",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "研发是企业里流程最完整、可验证性最强的场景——也是 AI 断点最密集的场景。在研发里跑通人机协同，才能把同一套机制复制到其他部门和业务场景。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-research",
+      "href": "/insights/why-start-with-rd",
+      "sourceSlides": [
+        8
+      ],
+      "bodyHtml": "<p>研发是企业里<strong>流程最完整、可验证性最强</strong>的场景——也是 AI 断点最密集的场景。</p>\n<h2>研发链路的断点：上下文在每一次交接处丢失</h2>\n<p>需求 →（断点）→ 规划 → 开发 →（断点）→ 测试 →（断点）→ 修复 → 验收</p>\n<ul>\n<li>每一次交接都要重新讲一遍背景，上下文在环节之间反复丢失。</li>\n<li>AI 只能覆盖单点（写一段代码、答一个问题），无法跨环节接力。</li>\n<li>链路越长，人工搬运与二次确认的成本越吃掉效率增益。</li>\n</ul>\n<h2>01 Agent 会写代码，却进不了流程</h2>\n<table>\n<thead>\n<tr>\n<th>缺什么</th>\n<th>具体表现</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>无归属人</td>\n<td>产出不知道该算谁的工作量、由谁负责</td>\n</tr>\n<tr>\n<td>无评审</td>\n<td>没有走团队既有的评审与验收路径</td>\n</tr>\n<tr>\n<td>无版本</td>\n<td>变更没有进入版本与迭代计划</td>\n</tr>\n<tr>\n<td>无审计</td>\n<td>改了什么、为什么改，事后查不到</td>\n</tr>\n</tbody>\n</table>\n<p>结果：Agent 的产出只能靠人工搬运回研发系统，<strong>效率增益在交接处被吃掉</strong>。</p>\n<h2>02 交付现场的三重现实约束</h2>\n<p><strong>无外网</strong> —— 政企、军工、能源等交付现场普遍不允许连接公网，公有云 Agent 直接不可用。</p>\n<p><strong>无算力</strong> —— 现场没有 GPU 服务器，也来不及新建机房或申请算力资源。</p>\n<p><strong>临时队</strong> —— 项目制作业，队伍临时组建、随项目解散，环境必须即开即用。</p>\n<p>因此需要：<strong>开箱即用的本地算力 + 协作平台</strong>，而不是又一个云端订阅。</p>\n<h2>03 为什么先在研发里跑通</h2>\n<ul>\n<li><strong>流程最完整</strong>：需求、评审、版本、缺陷、验收环节齐备，能真实检验治理能力。</li>\n<li><strong>结果可验证</strong>：代码能否编译、测试是否通过、缺陷是否复现，都是硬指标，不靠主观判断。</li>\n<li><strong>回归最频繁</strong>：改了再测、测了再改，天然是环状流程，最能压测调度与重入机制。</li>\n<li><strong>可复制性强</strong>：跑通的身份、权限、流程与审计机制，可直接迁移到合同审核、方案评审等业务场景。</li>\n</ul>\n<h2>结论</h2>\n<p>在研发里跑通人机协同，才能把同一套机制复制到其他部门和业务场景。</p>",
+      "sources": [
+        "《智瞳安宇总体产品介绍 V7》p.8"
+      ]
+    },
+    {
+      "slug": "where-value-is-created",
+      "title": "AI 改变的不仅是效率，更是价值从哪里产生",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "前三次革命解决的是「如何管理人」；这一次要解决的是「人与 AI 如何共同产出判断」——这是现有管理体系里还没有的一层。智能的边际成本趋近于零，稀缺的变成「判断做什么、不做什么」。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-about",
+      "href": "/insights/where-value-is-created",
+      "sourceSlides": [
+        4,
+        5
+      ],
+      "bodyHtml": "<p>企业的 AI 投入在涨、使用率在涨，整体效能却几乎没动——原因在于<strong>智能第一次可以被规模化生产，价值创造的位置变了</strong>。</p>\n<h2>前三次革命，组织各长出了什么</h2>\n<table>\n<thead>\n<tr>\n<th>阶段</th>\n<th>稀缺的是什么</th>\n<th>组织为此长出了什么</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>工业革命</td>\n<td>动力与一致性</td>\n<td>工厂制度、岗位分工、层级结构</td>\n</tr>\n<tr>\n<td>管理革命</td>\n<td>大规模协同</td>\n<td>科层、流程、预算与考核</td>\n</tr>\n<tr>\n<td>知识革命</td>\n<td>专业知识</td>\n<td>项目制、专业序列、激励与期权</td>\n</tr>\n<tr>\n<td>当下</td>\n<td><strong>智能不再稀缺</strong></td>\n<td><strong>？</strong></td>\n</tr>\n</tbody>\n</table>\n<p>前三次革命解决的是「如何管理人」；这一次要解决的是「人与 AI 如何共同产出判断」——这是现有管理体系里还没有的一层。</p>\n<h2>01 拐点：价值创造的位置在移动</h2>\n<p>智能的边际成本趋近于零，<strong>执行不再是瓶颈</strong>，稀缺的变成「判断做什么、不做什么」。</p>\n<h2>02 已经发生：三个可核验的样本</h2>\n<p><strong>麦肯锡 · 协同调度</strong> —— 4 万人类员工 + 2.5 万 AI 智能体，AI 已超其整体「劳动力」的三分之一；内部不只把它们当 IT 工具，更是嵌入日常工作流程的长期协作者。</p>\n<p><strong>英伟达 · 反馈与归因</strong> —— 自 2020 年起，每位员工每周五提交「当下最重要的五件事」供随机查阅；管理者的职责是确保每个人接收到同样的信息。</p>\n<p><strong>Anthropic · 组织记忆</strong> —— Claude Cowork 从想法到上线 10 天。前提是全员共享同一份上下文——规模一旦超过这个边界，「信息同频对齐」就只能靠系统。</p>\n<h2>企业用 AI 的四个台阶</h2>\n<p>会回答 → 会补全 → 会干活 → <strong>在组织的权限与流程里干活</strong>。</p>\n<ul>\n<li><strong>L1 对话问答</strong>：会回答问题、能生成内容。卡在产出停在个人聊天框，不进入任何业务系统。</li>\n<li><strong>L2 助手辅助</strong>：会补全、会草拟，嵌入单个工具。卡在不担责任，输出需要人工二次搬运。</li>\n<li><strong>L3 智能体执行</strong>：会调工具、能完成多步任务。卡在没有企业身份、没有权限边界、操作不留痕。</li>\n<li><strong>L4 组织智能</strong>：人与 Agent 在同一套权限与流程中协同、留痕、进化。</li>\n</ul>\n<p>L1–L3 描述的是「单个 Agent 能做到什么」，不描述「组织能做到什么」。每上一阶，都要补齐四类企业级要件：<strong>身份与权限、知识与上下文、流程与状态、审计与留痕</strong>。</p>\n<h2>结论</h2>\n<p>下一阶段的竞争，不仅在于模型更会回答，更是在于<strong>组织能否让 AI 在约束下稳定完成真实工作</strong>。</p>",
+      "sources": [
+        "麦肯锡全球 CEO 公开对谈 (2026.01)",
+        "NVIDIA 公开报道",
+        "Steve Yegge 关于 Anthropic 的访谈",
+        "组织演化三阶段框架援引彼得·德鲁克"
+      ]
+    },
+    {
+      "slug": "product-overview-v7",
+      "title": "公司动态：三层产品体系成型，构成同一套企业智能底座",
+      "category": "news",
+      "categoryLabel": "公司动态",
+      "excerpt": "组织级 AragonTeam、通用级 InkClaw、行业级 LegalLens 合约智审三层产品体系正式成型，共享同一套企业级要件，并在通信、交通、法律三个行业完成私有化落地。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-contact",
+      "href": "/insights/product-overview-v7",
+      "sourceSlides": [
+        13,
+        93,
+        94
+      ],
+      "bodyHtml": "<p>公司三层产品体系正式成型：组织级 <strong>AragonTeam</strong>、通用级 <strong>InkClaw</strong>、行业级 <strong>LegalLens 合约智审</strong>，三者是同一套企业智能底座上的三层能力。</p>\n<h2>三层产品，一套底座</h2>\n<p><strong>组织级 · AragonTeam</strong> —— 业界首款融合了完整软件工程管理体系与智能体蜂群的超级团队平台。面向研发团队与组织管理者，把 Agent 纳入企业流程与治理：有身份、有权限、有评审、有审计。交付形态：私有化服务器 · 便携式一体机 · 私有云。</p>\n<p><strong>通用级 · InkClaw</strong> —— 线上安全通用智能体。面向需要通用 AI 执行能力的个人与团队，以隔离沙箱保障安全可靠：文件边界、命令策略与资源限额三重收口。交付形态：线上云端工作空间，开箱即用。</p>\n<p><strong>行业级 · LegalLens 合约智审</strong> —— 大模型 Agent 驱动的智能合同审核系统。面向法务、采购、合规与项目管理部门，中文法律知识 + 上下游合同交叉分析，识别倒挂、不一致与隐藏风险。交付形态：公有云 + 私有化，双形态并行。</p>\n<h2>共享同一套企业级要件</h2>\n<p>三层产品共享<strong>身份与权限、知识与上下文、流程与状态、审计与留痕</strong>四类要件。能力在三层之间流动：组织级提供约束与留痕，通用级提供安全的执行力，行业级提供领域深度。</p>\n<h2>已在三个行业完成私有化落地</h2>\n<ul>\n<li><strong>通信服务</strong>：中通服陕西等省公司，收入、支出、采购、技术服务四类合同及上下游一致性比对，已复制至福建、湖北、湖南。</li>\n<li><strong>交通基建</strong>：某省交控集团，业主—施工—分包—采购—运维五级合同链贯通比对，覆盖集团总公司及 13 家下属子公司。</li>\n<li><strong>法律服务</strong>：某省头部律师事务所，委托材料不出所内受控环境，审查口径与意见书模板沉淀在所内。</li>\n</ul>\n<p>同一套实施方法正在向金融等强监管行业复制。</p>\n<h2>公司定位</h2>\n<p>「AI+」企业智能化赋能与安全保障专家。依托西安电子科技大学的科研实力，拥有 20 多名博士、硕士组成的研发队伍，已形成 30 余项自主知识产权的核心技术。</p>",
+      "sources": [
+        "《智瞳安宇总体产品介绍 V7》(2026 年 8 月) p.13 / p.93 / p.94"
+      ]
+    },
+    {
+      "slug": "private-deployment-is-the-entry-ticket",
+      "title": "私有化与一体机：不仅是可选项，更是准入条件",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是数据出不出企业网。「能不能私有化」先于「好不好用」——而这一层只能重做，不能在既有平台上加装。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-deployment",
+      "href": "/insights/private-deployment-is-the-entry-ticket",
+      "sourceSlides": [
+        9
+      ],
+      "bodyHtml": "<p>对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是<strong>数据出不出企业网</strong>。</p>\n<h2>01 政策与合规：准入门槛</h2>\n<p><strong>「人工智能+」行动顶层设计</strong> —— 《国务院关于深入实施「人工智能+」行动的意见》（2025.08）是首个系统性顶层设计文件，明确将智能体列入国家级普及率指标。</p>\n<p><strong>数据安全与个人信息保护</strong> —— 核心数据、重要数据的处理与出域受严格约束，涉密与敏感业务系统不得对接公网服务。</p>\n<p><strong>信创国产化导向</strong> —— 政府、国企、央企客户对国产软硬件栈有明确采购导向，整套方案需可国产化替代。</p>\n<p><strong>结论</strong>：目标客户的第一道门槛是<strong>数据是否出域</strong>。</p>\n<h2>02 技术前提：已经具备</h2>\n<ul>\n<li><strong>模型侧</strong>：国产开源大模型能力达到企业可用阈值，本地部署不再等于「能力打折」。</li>\n<li><strong>算力侧</strong>：国产算力卡与推理优化持续推进，使本地部署成本进入可接受区间。</li>\n<li><strong>工程侧</strong>：Agent 编排、沙箱隔离、状态持久化与断点恢复等工程能力成熟，具备产品化条件。</li>\n<li><strong>协同侧</strong>：需求、缺陷、版本、文档与审计等企业协作能力可与 Agent 同域打通。</li>\n</ul>\n<p>「私有化」已从技术妥协，变成<strong>可行的产品形态</strong>。</p>\n<h2>03 由此推导出的三种交付形态</h2>\n<p><strong>Ⅰ 私有化服务器部署</strong> —— 数据不出企业网，模型、知识与执行全部内网闭环；对接企业现有身份、权限与审计体系。适用：有机房与运维能力的总部级客户。</p>\n<p><strong>Ⅱ 便携式一体机</strong> —— 本地模型 + AI 算力 + 协作平台三合一，开箱即用；断网环境下仍可运行完整人机协同流程。适用：项目现场、临时团队、无外网场景。</p>\n<p><strong>Ⅲ 私有云服务</strong> —— 私有网络模型 + AI 算力 + 协作平台三合一，开箱即用；私有网络环境下仍可运行完整人机协同流程。适用：公司与团队办公场地。</p>\n<h2>结论</h2>\n<p>对目标客户而言，「能不能私有化」<strong>先于</strong>「好不好用」——而这一层只能重做，不能在既有平台上加装。</p>",
+      "sources": [
+        "《国务院关于深入实施「人工智能+」行动的意见》(2025.08)"
+      ]
+    },
+    {
+      "slug": "papers-behind-the-platform",
+      "title": "研究进展：论文里的机制，在产品里指得到模块",
+      "category": "research",
+      "categoryLabel": "研究进展",
+      "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 3,
+      "heroMedia": "stock-research",
+      "href": "/insights/papers-behind-the-platform",
+      "sourceSlides": [
+        42,
+        85
+      ],
+      "bodyHtml": "<p>产品里的多智能体编排与缺陷闭环，不是工程经验的堆叠。团队已发表的两篇 CCF-A 类软件工程国际顶会论文与三篇前沿研究，给出了可复现的方法、公开基准上的实测数据与消融结论。</p>\n<h2>两篇 CCF-A 顶会</h2>\n<p><strong>LaMAR（ASE 2026）</strong> —— 以 KV-Cache 直连取代「文本传话」的多智能体自动程序修复框架。多智能体之间用 token 交流，每次都要把内部状态解码成离散符号、再由下一个智能体重新编码——信息有损，且 token 开销随智能体数量呈 O(N²) 增长。论文提出隐空间智能体通信 LAC，并给出理论证明：该信道的信息容量严格更高，token 复杂度由 O(N²) 降为 O(N)。实测：Qwen3-8B 上 Defects4J 修复成功率 24.5%，DebugBench / QuixBugs 62.1%–87.5%，覆盖 Java / Python / C++ 三类语言、三个模型族。</p>\n<p><strong>MUSSEL（ASE 2025）</strong> —— 面向漏洞修复的「一次命中」多样本自奖励反馈框架。三阶段训练：领域监督微调 → 自奖励反馈学习 → 专用提示词对齐。one-shot 查询下稳定优于当前最优方案，即使 beam size 很小依然高效，GPU 显存占用极低。</p>\n<p>一次命中率直接决定人工复核的工作量——这正是 Agent 产出能否真正进入研发流程的关键门槛。</p>\n<h2>三篇前沿研究</h2>\n<p><strong>Trustworthy Reasoning</strong> —— 终答正确，不代表每一步都对。即便是领先模型，推理事实准确率也只有 Claude-3.7 81.93%、GPT-o1 82.57%。该方法把事实鲁棒性最高提升 49.90%，同时在 Math-500 / AIME-2024 / GPQA 上性能不降。→ 支撑大模型幻觉检测与抑制。</p>\n<p><strong>P-LyRA</strong> —— 把隐空间协同从「确定性向量」升级为「带不确定性的概率导航」。角色特定对齐抑制分布漂移，熵引导共识按模型内在置信度聚合推理路径。→ 支撑隐空间思维链多智能体推理架构。</p>\n<p><strong>Santoryu</strong> —— 免训练后门植入：先证明攻击可行，才谈得上怎么防。基于机制可解释性定位三类关键向量，Phi-3.5-Vision 攻击成功率 71.78%，Llava-1.5-7B 高达 99.36%。攻防同源——同一套能力在产品里翻转为防守方。→ 支撑机制可解释的控制与安全监测。</p>\n<h2>从论文机制到产品模块</h2>\n<table>\n<thead>\n<tr>\n<th>论文能力</th>\n<th>对应产品模块</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>隐空间通信 O(N)</td>\n<td>多智能体编排：上下文不再靠文本反复搬运，长链路协同的开销可控</td>\n</tr>\n<tr>\n<td>双链「诊断—修复」</td>\n<td>BUG 全生命周期：定位 → 修复 → 验证形成闭环，每一步留痕</td>\n</tr>\n<tr>\n<td>自奖励一次命中</td>\n<td>Agent 产出的一次通过率提升，人工复核与返工同步下降</td>\n</tr>\n<tr>\n<td>三语言 × 三模型族</td>\n<td>呼应能力槽位治理：模型可替换、能力可分档，不被单一供应商绑定</td>\n</tr>\n<tr>\n<td>公开基准 + 消融</td>\n<td>交付验收看公开数据，不靠「感觉不错」</td>\n</tr>\n</tbody>\n</table>\n<h2>结论</h2>\n<p>论文里的每一项机制，在产品里都能指到对应的运行时模块——<strong>研究成果是这套底座的设计依据</strong>。</p>",
+      "sources": [
+        "《智瞳安宇总体产品介绍 V7》p.42 / p.85"
+      ]
+    },
+    {
+      "slug": "model-can-wait-accumulation-cannot",
+      "title": "可以等的是模型，不能等的是沉淀",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "「等模型更强、工具更成熟再做」看起来是稳妥的判断，但它对两件事的判断是反的：模型能力买得到，而且对所有人同时到达；组织记忆买不到，只能从今天开始累积。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 1,
+      "heroMedia": "stock-finance",
+      "href": "/insights/model-can-wait-accumulation-cannot",
+      "sourceSlides": [
+        10
+      ],
+      "bodyHtml": "<p>「等模型更强、工具更成熟再做」看起来是稳妥的判断，但它对两件事的判断是反的。</p>\n<h2>01 买得到的与买不到的</h2>\n<p>模型能力买得到，而且对所有人同时到达；<strong>组织记忆买不到</strong>，只能从今天开始累积。晚一年开始，就少一年的沉淀——这一项无法补做。</p>\n<h2>02 模型越强，治理需求越高</h2>\n<p>模型越强，Agent 自主度越高，权限、安全、责任归属与审计的需求<strong>不是减少而是增加</strong>。自由度越高，越需要清晰的边界设计。</p>\n<h2>03 「累积」具体指什么</h2>\n<ul>\n<li>人员流动时经验不再归零——离职带走的是岗位，不是能力；</li>\n<li>新人融入从「跟着人学」变成「问系统」；</li>\n<li>一次决策的背景、分歧与复盘，下一次可以直接调用。</li>\n</ul>\n<h2>同样的模型阶跃，两条完全不同的曲线</h2>\n<p>有组织 OS 的团队与只买工具的团队，分叉从<strong>第一次模型换代</strong>就开始——差的不是模型，是这段时间里沉淀了多少。</p>\n<h2>L4「组织智能」真正落地时要拆成几步</h2>\n<p>① 个人用好 AI 工具 → ② AI 独立完成整段工作 → ③ Agent 之间协同 → ④ 人机分工与权限 → ⑤ 人的能力与身份重构</p>\n<p>其中 ①② 是<strong>个人能力问题</strong>，市场已在解；③④⑤ 是<strong>组织系统问题</strong>，尚无成熟答案——需要同一套组织 OS。</p>\n<h2>结论</h2>\n<p><strong>可以等的是模型，不能等的是沉淀。</strong></p>",
+      "sources": [
+        "麦肯锡全球 CEO 公开对谈 (2026.01)",
+        "MIT Media Lab Project NANDA《The GenAI Divide》(2025)"
+      ]
+    },
+    {
+      "slug": "four-dilemmas-one-root-cause",
+      "title": "企业落地 AI 的四重困境：同一个根因",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "工具孤岛、治理缺位、流程失配、数据主权，看起来是四个问题，实际是同一个缺口——并不是制度错了，是制度还缺一层。5% 与 95% 的差别，不在模型，在组织。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 3,
+      "heroMedia": "stock-products",
+      "href": "/insights/four-dilemmas-one-root-cause",
+      "sourceSlides": [
+        6,
+        7
+      ],
+      "bodyHtml": "<p>三个数字先摆在这里：</p>\n<ul>\n<li><strong>95%</strong> 的企业生成式 AI 试点没有产生可衡量的业务回报（MIT Project NANDA, 2025）</li>\n<li><strong>40%+</strong> 的现有 Agentic AI 项目成本失控、业务价值不清、风险管控不足（Gartner, 2025.06）</li>\n<li><strong>5%</strong> 的定制 AI 工具真正进入生产环境（MIT Project NANDA, 2025）</li>\n</ul>\n<h2>01 工具孤岛困境：AI 用量在涨，组织能力没涨</h2>\n<p><strong>现象</strong>：AI 能力散落在员工个人账号与各类插件里，提示词、经验、上下文不出个人电脑。</p>\n<p><strong>后果</strong>：用得越多，组织越没有沉淀；能力无法复制到第二个人。</p>\n<blockquote>\n<p>典型场景：同一段提示词在三个人手里有三个版本，员工离职后经验随账号一起消失。</p>\n</blockquote>\n<h2>02 治理缺位困境：不是不能用，是不敢用</h2>\n<p><strong>现象</strong>：Agent 没有企业身份、没有权限边界、操作不可审计。</p>\n<p><strong>后果</strong>：不敢接入需求、代码、合同等核心流程，只能停留在边缘场景。</p>\n<blockquote>\n<p>典型场景：Agent 用谁的账号提交代码？改错了追责到谁？没有答案就无法上生产。</p>\n</blockquote>\n<h2>03 流程失配困境：真实流程会绕回来，直线自动化跑不通</h2>\n<p><strong>现象</strong>：真实业务是「评审—打回—返工—再评审」的环状流程，重复轮数在运行前无法确定。</p>\n<p><strong>后果</strong>：直线式自动化必须预设轮数，未走分支悬空，无法判断流程是否真正结束。</p>\n<blockquote>\n<p>典型场景：方案评审被打回三次，而自动化流程图只画了一轮，第二轮就无处可去。</p>\n</blockquote>\n<h2>04 数据主权困境：合规不通过，再好也上不了线</h2>\n<p><strong>现象</strong>：代码库、合同、内部文档、客户数据不能出企业网。</p>\n<p><strong>后果</strong>：公有云 Agent 从合规源头被排除，试点做完也无法规模化。</p>\n<blockquote>\n<p>典型场景：把合同与代码库上传公有云做试点，法务与安全评审直接一票否决。</p>\n</blockquote>\n<h2>同一个根因：制度还缺一层</h2>\n<p>四个现象，同一个缺口——问题不在于 AI 够不够聪明，而在于企业还没有让 AI 参与工作的那一层。</p>\n<p>把「跑通这一次任务的静态条件」升级为「跨任务可累积的资产」，同一组名字差的是<strong>时间维度</strong>：</p>\n<table>\n<thead>\n<tr>\n<th>四类企业级要件</th>\n<th>→</th>\n<th>组织 OS 四能力</th>\n<th>差在哪</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>身份与权限</td>\n<td>→</td>\n<td>治理与边界</td>\n<td>不只是这次能不能调，更是责任归属、越权阻断、边界随任务动态收敛</td>\n</tr>\n<tr>\n<td>知识与上下文</td>\n<td>→</td>\n<td>组织记忆</td>\n<td>不只是这次喂进去什么，更是这次产生的判断能不能回流成组织资产</td>\n</tr>\n<tr>\n<td>流程与状态</td>\n<td>→</td>\n<td>协同调度</td>\n<td>不只是这一条流程跑通，更是人与 Agent 作为「能力节点」按任务被组合</td>\n</tr>\n<tr>\n<td>审计与留痕</td>\n<td>→</td>\n<td>反馈与归因</td>\n<td>不只是事后可查，更是把真实结果接回系统，改进下一轮</td>\n</tr>\n</tbody>\n</table>\n<p><strong>对既有体系的承诺</strong>：组织 OS 不改变审批链，只让审批链对 AI 也可执行、可留痕、可追责。</p>\n<p><strong>为什么这次不一样</strong>：过去二十年的知识管理与「学习型组织」停在口号，不是决心不够，是缺少一套能把学习记录、回放、改进的系统。</p>\n<h2>结论</h2>\n<p><strong>5% 与 95% 的差别，不在模型，在组织。</strong></p>",
+      "sources": [
+        "Gartner《Predicts Over 40% of Agentic AI Projects Will Be Canceled by End of 2027》(2025.06)",
+        "MIT Media Lab Project NANDA《The GenAI Divide: State of AI in Business 2025》"
+      ]
+    },
+    {
+      "slug": "agent-as-new-productivity",
+      "title": "AI Agent 正在成为企业新的数字生产力",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "Agent 正在从软件的一项功能，变成企业运转的一类生产力——全球市场、渗透拐点与国家时间表同时给出信号。市场规模与政策节奏已经确定；不确定的是企业把 Agent 买回来之后，能不能真的用起来。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-insights",
+      "href": "/insights/agent-as-new-productivity",
+      "sourceSlides": [
+        3
+      ],
+      "bodyHtml": "<p>Agent 正在从软件的<strong>一项功能</strong>，变成企业运转的<strong>一类生产力</strong>——全球市场、渗透拐点与国家时间表同时给出信号。</p>\n<h2>01 全球市场：独立且高速的新赛道</h2>\n<p>企业级 Agentic AI 市场规模从 2025 年的 <strong>67.6 亿美元</strong>增长到 2030 年的 <strong>460.4 亿美元</strong>，年复合增长率 <strong>47%</strong>。IDC 预测：到 2030 年，全球将有 <strong>22 亿个 AI Agent</strong> 作为「新数字劳动力」投入运行。</p>\n<p>值得注意的是，增长并非来自模型本身的采购，而是来自企业把 Agent 接入真实业务流程所需的<strong>平台、治理与集成投入</strong>。这个区别决定了钱最终花在哪里。</p>\n<h2>02 渗透拐点：从可选功能到标准配置</h2>\n<ul>\n<li><strong>33%</strong> 的企业软件将内置 Agentic AI（2028 年预测值；2024 年这一比例不足 1%）</li>\n<li><strong>15%</strong> 的日常工作决策将由 Agent 自主完成（2028 年预测值，至少；2024 年为 0%）</li>\n</ul>\n<p>判断很直接：Agent 不再只是某个软件的附加功能，而是<strong>企业软件本身的新形态</strong>。</p>\n<h2>03 中国节奏：国家已给出普及率时间表</h2>\n<p>《国务院关于深入实施「人工智能+」行动的意见》于 2025 年 8 月印发，是首个系统性人工智能顶层设计文件：</p>\n<table>\n<thead>\n<tr>\n<th>时间节点</th>\n<th>目标</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>2027</td>\n<td>新一代智能终端、智能体等应用普及率 &gt;70%</td>\n</tr>\n<tr>\n<td>2030</td>\n<td>智能经济成为经济发展重要增长极，普及率 &gt;90%</td>\n</tr>\n</tbody>\n</table>\n<p>六大重点行动领域覆盖科学技术、产业发展、消费提质、民生福祉、治理能力与全球合作。</p>\n<p>普及率被写入国家级目标口径——对政府、国企、央企客户而言，「有没有用上智能体」正在从选择题变成必答题。</p>\n<h2>结论</h2>\n<p>市场规模与政策节奏已经确定；不确定的是——<strong>企业把 Agent 买回来之后，能不能真的用起来。</strong></p>",
+      "sources": [
+        "MarketsandMarkets《Enterprise Agentic AI Market》",
+        "IDC",
+        "Gartner (2025)",
+        "《国务院关于深入实施「人工智能+」行动的意见》(2025.08)"
+      ]
+    }
+  ]
+}

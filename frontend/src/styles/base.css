@@ -1,0 +1,125 @@
+/* ==========================================================================
+   基础层（Reset / 排版 / 容器 / 无障碍）
+   前半部分逐条来自 ref/1.html；后半部分是 spec §5.3 登记在案的必要新增。
+
+   文本用色规则（spec §10.3，强制）
+   1. --ink-3 / --ink-4 退出**全部文本用途**（含大字号、figcaption、placeholder），
+      仅可用于 1px 分隔线、图标描边、禁用态图形等非文本图形。
+      ref 中落在 --ink-3 上的正文（.footer-brand p / .domain-en / .news-item-date
+      / .solution-category / .submenu .ext / .footer-bottom）一律改用 --ink-2。
+   2. 顶栏 EN 切换用 --utility-muted（#8AA0BE，6.46:1），不用 ref 的 #6A80A0。
+   3. tests/unit/contrast.spec.ts 对全部文本用途组合断言 ≥ 4.5:1。
+   ========================================================================== */
+
+/* --- ref/1.html 原样搬运 ------------------------------------------------ */
+* { margin: 0; padding: 0; box-sizing: border-box }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--sans-cn);
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+a { color: inherit; text-decoration: none }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit }
+img { max-width: 100%; display: block }
+ul { list-style: none }
+
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px }
+
+/* --- 以下为 spec §5.3 登记的新增（ref 无任何键盘焦点样式） ---------------- */
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* 鼠标点击不显示焦点环，键盘导航显示 —— :focus-visible 已经处理，
+   这里只把 UA 默认的 :focus 轮廓收掉，避免双层描边。 */
+:focus:not(:focus-visible) { outline: none }
+
+/* 跳过导航（每页第一个可聚焦元素） */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 12px 24px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+}
+.skip-link:focus {
+  left: 0;
+  outline: 2px solid var(--white);
+  outline-offset: -4px;
+}
+
+/* 视觉隐藏但对读屏器可见 */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 表格/代码等宽内容在窄屏不撑破页面 */
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch }
+
+/* 正文排版（内页 Markdown / 长文用） */
+.prose { font-size: 16px; line-height: 1.9; color: var(--ink-2) }
+.prose > * + * { margin-top: 20px }
+.prose h2 {
+  font-family: var(--serif-cn);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-top: 44px;
+}
+.prose h3 {
+  font-family: var(--serif-cn);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 34px;
+}
+.prose p { color: var(--ink-2) }
+.prose strong { color: var(--ink); font-weight: 700 }
+.prose ul, .prose ol { padding-left: 22px }
+.prose ul li { list-style: disc }
+.prose ol li { list-style: decimal }
+.prose li { margin-bottom: 8px; color: var(--ink-2) }
+.prose blockquote {
+  border-left: 3px solid var(--red);
+  padding: 4px 0 4px 20px;
+  color: var(--ink-2);
+  font-family: var(--serif-cn);
+}
+.prose a { color: var(--red); text-decoration: underline; text-underline-offset: 3px }
+.prose a:hover { color: var(--red-dark) }
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92em;
+  background: var(--bg-gray);
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+}
+.prose table { width: 100%; border-collapse: collapse; font-size: 14px }
+.prose th, .prose td { border: 1px solid var(--border); padding: 10px 14px; text-align: left }
+.prose th { background: var(--bg-gray); color: var(--navy); font-weight: 700 }

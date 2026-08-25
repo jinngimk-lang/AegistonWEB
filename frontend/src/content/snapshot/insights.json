@@ -1,0 +1,127 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "items": [
+    {
+      "slug": "why-start-with-rd",
+      "title": "为什么从研发与项目交付场景切入",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "研发是企业里流程最完整、可验证性最强的场景——也是 AI 断点最密集的场景。在研发里跑通人机协同，才能把同一套机制复制到其他部门和业务场景。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-research",
+      "href": "/insights/why-start-with-rd",
+      "sourceSlides": [
+        8
+      ]
+    },
+    {
+      "slug": "where-value-is-created",
+      "title": "AI 改变的不仅是效率，更是价值从哪里产生",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "前三次革命解决的是「如何管理人」；这一次要解决的是「人与 AI 如何共同产出判断」——这是现有管理体系里还没有的一层。智能的边际成本趋近于零，稀缺的变成「判断做什么、不做什么」。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-about",
+      "href": "/insights/where-value-is-created",
+      "sourceSlides": [
+        4,
+        5
+      ]
+    },
+    {
+      "slug": "product-overview-v7",
+      "title": "公司动态：三层产品体系成型，构成同一套企业智能底座",
+      "category": "news",
+      "categoryLabel": "公司动态",
+      "excerpt": "组织级 AragonTeam、通用级 InkClaw、行业级 LegalLens 合约智审三层产品体系正式成型，共享同一套企业级要件，并在通信、交通、法律三个行业完成私有化落地。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-contact",
+      "href": "/insights/product-overview-v7",
+      "sourceSlides": [
+        13,
+        93,
+        94
+      ]
+    },
+    {
+      "slug": "private-deployment-is-the-entry-ticket",
+      "title": "私有化与一体机：不仅是可选项，更是准入条件",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是数据出不出企业网。「能不能私有化」先于「好不好用」——而这一层只能重做，不能在既有平台上加装。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-deployment",
+      "href": "/insights/private-deployment-is-the-entry-ticket",
+      "sourceSlides": [
+        9
+      ]
+    },
+    {
+      "slug": "papers-behind-the-platform",
+      "title": "研究进展：论文里的机制，在产品里指得到模块",
+      "category": "research",
+      "categoryLabel": "研究进展",
+      "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 3,
+      "heroMedia": "stock-research",
+      "href": "/insights/papers-behind-the-platform",
+      "sourceSlides": [
+        42,
+        85
+      ]
+    },
+    {
+      "slug": "model-can-wait-accumulation-cannot",
+      "title": "可以等的是模型，不能等的是沉淀",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "「等模型更强、工具更成熟再做」看起来是稳妥的判断，但它对两件事的判断是反的：模型能力买得到，而且对所有人同时到达；组织记忆买不到，只能从今天开始累积。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 1,
+      "heroMedia": "stock-finance",
+      "href": "/insights/model-can-wait-accumulation-cannot",
+      "sourceSlides": [
+        10
+      ]
+    },
+    {
+      "slug": "four-dilemmas-one-root-cause",
+      "title": "企业落地 AI 的四重困境：同一个根因",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "工具孤岛、治理缺位、流程失配、数据主权，看起来是四个问题，实际是同一个缺口——并不是制度错了，是制度还缺一层。5% 与 95% 的差别，不在模型，在组织。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 3,
+      "heroMedia": "stock-products",
+      "href": "/insights/four-dilemmas-one-root-cause",
+      "sourceSlides": [
+        6,
+        7
+      ]
+    },
+    {
+      "slug": "agent-as-new-productivity",
+      "title": "AI Agent 正在成为企业新的数字生产力",
+      "category": "insight",
+      "categoryLabel": "行业洞察",
+      "excerpt": "Agent 正在从软件的一项功能，变成企业运转的一类生产力——全球市场、渗透拐点与国家时间表同时给出信号。市场规模与政策节奏已经确定；不确定的是企业把 Agent 买回来之后，能不能真的用起来。",
+      "publishedAt": "2026-08-01",
+      "readingMinutes": 2,
+      "heroMedia": "stock-insights",
+      "href": "/insights/agent-as-new-productivity",
+      "sourceSlides": [
+        3
+      ]
+    }
+  ],
+  "total": 8,
+  "page": 1,
+  "pageSize": 24,
+  "hasNext": false
+}

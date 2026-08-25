@@ -1,0 +1,57 @@
+/* 提交结果提示。ref 中不存在，使用 CSS Module。 */
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+
+.success {
+  border-left-color: var(--red);
+  background: var(--red-soft);
+}
+
+.error {
+  border-left-color: #A3364B;
+  background: #FBEFF2;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+}
+
+.success .icon {
+  color: var(--red);
+}
+
+.error .icon {
+  color: #A3364B;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.body :global(a) {
+  color: var(--red);
+  font-weight: 500;
+}
+
+.body :global(a:hover) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

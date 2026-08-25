@@ -1,0 +1,148 @@
+/* 线索表单。ref/1.html 中不存在此组件，使用 CSS Module。
+   内部不出现任何 ref 类名；提交按钮复用全局 .btn/.btn-primary（在 JSX 中
+   以字符串字面量给出，不经 styles.* 间接层）。 */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  padding: 36px 38px;
+  box-shadow: var(--shadow-md);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: .04em;
+}
+
+.required {
+  color: var(--red);
+  margin-left: 4px;
+}
+
+.input,
+.select,
+.textarea {
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--border-2);
+  padding: 12px 14px;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ink-2);
+  opacity: .72;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--border-strong);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(45, 99, 138, .16);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 132px;
+}
+
+.invalid {
+  border-color: #A3364B;
+}
+
+.invalid:focus {
+  border-color: #A3364B;
+  box-shadow: 0 0 0 3px rgba(163, 54, 75, .16);
+}
+
+.error {
+  font-size: 13px;
+  color: #8C2B3E;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.8;
+}
+
+.consent input {
+  margin-top: 4px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--red);
+  flex-shrink: 0;
+}
+
+.consent a {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.submitting {
+  opacity: .7;
+  pointer-events: none;
+}
+
+.live {
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .form { padding: 28px 24px }
+  .row { grid-template-columns: 1fr }
+}

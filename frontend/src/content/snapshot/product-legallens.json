@@ -1,0 +1,468 @@
+{
+  "_contentHash": "c309722b16a7fb84",
+  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "slug": "legallens",
+  "tier": "industry",
+  "tierLabel": "行业级",
+  "nameCn": "合约智审",
+  "nameEn": "LegalLens",
+  "code": "LGL · 03",
+  "tagline": "以合规为盾，效率为矛——自主可控的全流程 AI 合同智能审核系统",
+  "taglineLocalized": {
+    "zh": "以合规为盾，效率为矛——自主可控的全流程 AI 合同智能审核系统",
+    "en": null
+  },
+  "positioning": "大模型 Agent 驱动的智能合同审核系统。AI 全量通读、逐条比对、自动标雷，把可疑点集中呈现；法务与律所在已聚焦的风险点上做专业判断并签字负责。不取代法务和律所，而是作为智能助手提升其工作效率、质量与覆盖深度。",
+  "heroMedia": "legal-home",
+  "background": [
+    {
+      "index": "01",
+      "title": "效率：人均产能上不去",
+      "description": "合同越多、链条越长，逐条人工翻阅的产能天花板就越明显。",
+      "icon": null
+    },
+    {
+      "index": "02",
+      "title": "成本：外部律师费高企",
+      "description": "审得越多越靠外部资源，成本与返工同步上升。",
+      "icon": null
+    },
+    {
+      "index": "03",
+      "title": "风险：漏检一处即赔付",
+      "description": "合同倒挂、上下游义务断裂、付款节点不匹配、交付与质保口径不一致、违约责任不对等——五类高发风险任一漏检都可能直接转化为赔付。",
+      "icon": null
+    },
+    {
+      "index": "04",
+      "title": "资产：审过的经验留不下",
+      "description": "审过的判断与口径没有沉淀成可复用的资产，下一份合同还是从头开始。",
+      "icon": null
+    }
+  ],
+  "coreValues": [
+    {
+      "index": "01",
+      "title": "降本",
+      "description": "成本降低 70% 以上，外部律师费与返工同步下降。",
+      "icon": null
+    },
+    {
+      "index": "02",
+      "title": "控险",
+      "description": "规避罚款，风险敞口可控、可追溯。",
+      "icon": null
+    },
+    {
+      "index": "03",
+      "title": "提效",
+      "description": "效率提升 5–10 倍，一份合同从数小时缩到数分钟。",
+      "icon": null
+    },
+    {
+      "index": "04",
+      "title": "标准化",
+      "description": "统一风险和审核标准，不同人、不同项目口径一致。",
+      "icon": null
+    },
+    {
+      "index": "05",
+      "title": "加速交易",
+      "description": "审查不再是签约的瓶颈，合同链条整体提速。",
+      "icon": null
+    },
+    {
+      "index": "06",
+      "title": "保障安全运营",
+      "description": "自主可控、本地化部署，数据与规则都留在企业侧。",
+      "icon": null
+    }
+  ],
+  "featureGroups": [
+    {
+      "title": "审查引擎",
+      "countLabel": "5 项",
+      "items": [
+        {
+          "index": "01",
+          "title": "智能审查",
+          "description": "多维度并行审查合同全文，高亮风险条款并输出风险评级与法理依据。",
+          "icon": null
+        },
+        {
+          "index": "02",
+          "title": "简洁审查",
+          "description": "对话式跨文档比对，自然语言下达指令即可启动，无需逐条翻阅。",
+          "icon": null
+        },
+        {
+          "index": "03",
+          "title": "专项审查",
+          "description": "围绕特定法律风险或业务场景，对重点条款做深度合规核查。",
+          "icon": null
+        },
+        {
+          "index": "04",
+          "title": "倾向审查",
+          "description": "把甲乙方倾向需求注入审查，兼顾谈判立场与条款可执行性。",
+          "icon": null
+        },
+        {
+          "index": "05",
+          "title": "多智能体校验",
+          "description": "法律、风控与合规多角色并行复核，交叉定位核心风险点。",
+          "icon": null
+        }
+      ]
+    },
+    {
+      "title": "专项与扩展",
+      "countLabel": "4 项",
+      "items": [
+        {
+          "index": "06",
+          "title": "资信审查",
+          "description": "工商、司法等外部数据与内部历史数据聚合，5 级风险量化评级。",
+          "icon": null
+        },
+        {
+          "index": "07",
+          "title": "文稿智审",
+          "description": "起草阶段即对齐法律规范，实时捕捉文本冗余与逻辑漏洞。",
+          "icon": null
+        },
+        {
+          "index": "08",
+          "title": "上下游合同一致性审查",
+          "description": "背靠背场景自动比对价格、工期、付款与违约责任，防倒挂。",
+          "icon": null
+        },
+        {
+          "index": "09",
+          "title": "标前评审",
+          "description": "把合同风险前置到投标环节识别，避免中标即亏损。",
+          "icon": null
+        }
+      ]
+    },
+    {
+      "title": "生成与知识",
+      "countLabel": "2 项",
+      "items": [
+        {
+          "index": "10",
+          "title": "合同生成",
+          "description": "依模板与要素自动成稿，一键生成规范统一的专业法律意见书。",
+          "icon": null
+        },
+        {
+          "index": "11",
+          "title": "文档库 / 知识库",
+          "description": "语义检索底座 + 知识图谱，条款关系与隐藏逻辑矛盾可视可查。",
+          "icon": null
+        }
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "home",
+      "eyebrow": "总览 · 01",
+      "title": "系统总体功能界面",
+      "description": "全景覆盖，一站式服务。平台聚合智能审查、资信评估、合同生成及知识库管理等核心模块。",
+      "points": [
+        "利用 AI 深度解析合同条款，快速识别潜在风险与漏洞",
+        "提供专业级法律建议，为企业权益保驾护航",
+        "支持上下游一致性校验及自定义任务创建",
+        "满足从起草到履约的全场景法律需求"
+      ],
+      "mediaId": "legal-home",
+      "layout": "left",
+      "sourceSlide": 67
+    },
+    {
+      "id": "review-result",
+      "eyebrow": "审查引擎 · 02",
+      "title": "专业审查：风险透视与精准预警",
+      "description": "创新融合「主体资信 + 条款内容」双重审查模型，让决策更有据可依。",
+      "points": [
+        "支持自定义合规、合法、风险等多维度审查方向",
+        "内置多线程智能引擎，海量文档并行处理与秒级分析",
+        "直观预警高风险合作方，自动高亮并评分关键风险条款",
+        "提供智能摘要与原文对比"
+      ],
+      "mediaId": "legal-review-result",
+      "layout": "right",
+      "sourceSlide": 68
+    },
+    {
+      "id": "review-settings",
+      "eyebrow": "审查引擎 · 03",
+      "title": "审查参数设置",
+      "description": "专业审查与倾向性审查的维度、权重与立场参数可按项目特性配置。",
+      "points": [
+        "自定义合规、合法、风险、完备性等审查维度",
+        "把甲乙方立场写进审查参数",
+        "兼顾谈判立场与条款可执行性"
+      ],
+      "mediaId": "legal-review-settings",
+      "layout": "left",
+      "sourceSlide": 69
+    },
+    {
+      "id": "review-editor",
+      "eyebrow": "审查引擎 · 04",
+      "title": "专业审查结果编辑界面",
+      "description": "AI 对话辅助审查，工具引擎自动扫描合同全文，合同原文实时高亮潜在风险条款。",
+      "points": [
+        "帮助用户快速锁定审查焦点",
+        "左侧面板自动输出风险评级（如高风险提示）",
+        "依据法律依据提供具体的法理分析与专业修改措辞建议",
+        "辅助高效定稿"
+      ],
+      "mediaId": "legal-review-editor",
+      "layout": "right",
+      "sourceSlide": 70
+    },
+    {
+      "id": "opinion",
+      "eyebrow": "生成 · 05",
+      "title": "专业法律意见书生成",
+      "description": "快速生成专业法律意见书，减少人工撰写时间；确保法律建议内容规范统一。",
+      "points": [
+        "提升合同审查效率，减少人工撰写时间",
+        "标准化审查结果输出，降低人为错误风险",
+        "清晰展示合同中的风险点及修改建议，便于理解和决策"
+      ],
+      "mediaId": "legal-opinion-result",
+      "layout": "left",
+      "sourceSlide": 71
+    },
+    {
+      "id": "multi-agent",
+      "eyebrow": "审查引擎 · 06",
+      "title": "多智能体校验",
+      "description": "打破单一模型局限，配置多角色 AI 引擎并行作业。",
+      "points": [
+        "法律专家把控法规红线，风控专家量化模糊条款，合规顾问优化管理流程",
+        "实现对合同条款的深度语义理解与全链路分析",
+        "自动识别并高亮仲裁条款、不可抗力定义等核心风险点",
+        "通过多方博弈输出最优解决方案，提升签约安全系数"
+      ],
+      "mediaId": "legal-multi-agent",
+      "layout": "right",
+      "sourceSlide": 72
+    },
+    {
+      "id": "simple-review",
+      "eyebrow": "审查引擎 · 07",
+      "title": "简洁审查：对话式跨文档比对",
+      "description": "一键上传上下游关联合同（如背靠背协议），系统自动进行向量化解析。",
+      "points": [
+        "用自然语言下达指令，即可快速启动跨文档的深度对比",
+        "无需人工逐条翻阅；鼠标停留到法律条例或案例上自动显示详细内容",
+        "自动生成结构化的对比分析报表，多维度展示条款差异",
+        "精准识别「禁止转包」「知识产权归属」等潜在法律风险"
+      ],
+      "mediaId": "legal-simple-review",
+      "layout": "left",
+      "sourceSlide": 66
+    },
+    {
+      "id": "draft-review",
+      "eyebrow": "专项 · 08",
+      "title": "文稿智审：起草阶段的合规校对",
+      "description": "集成化编辑面板，支持对复杂合同条款的快速录入、修改与格式调整。",
+      "points": [
+        "让起草工作更专注",
+        "AI 引擎自动对齐法律规范",
+        "实时捕捉文本中的冗余与逻辑漏洞，辅助快速完成合规校对"
+      ],
+      "mediaId": "legal-draft-review",
+      "layout": "right",
+      "sourceSlide": 74
+    },
+    {
+      "id": "credit-profile",
+      "eyebrow": "专项 · 09",
+      "title": "资信审查：智能风险画像",
+      "description": "从「看见风险」到「驾驭风险」——多维数据聚合与 5 级风险量化评级。",
+      "points": [
+        "一键检索企业名称，实时调取工商、司法等外部权威数据",
+        "深度融合企业内部历史积淀数据，打破信息孤岛",
+        "自动生成企业安全评分与风险等级",
+        "全景展示注册资本、经营范围及信用状况，辅助规避签约主体风险"
+      ],
+      "mediaId": "legal-credit-profile",
+      "layout": "left",
+      "sourceSlide": 76
+    },
+    {
+      "id": "credit-engine",
+      "eyebrow": "专项 · 10",
+      "title": "企业知识图谱智能引擎",
+      "description": "并非简单的数据聚合商，而是风险洞察的架构师。",
+      "points": [
+        "以自研 AI 算法引擎为基础，统一工商、司法、舆情等多源异构数据",
+        "揭示隐藏在数据表层之下的深层关联风险",
+        "高可扩展的微服务架构"
+      ],
+      "mediaId": "legal-credit-engine",
+      "layout": "right",
+      "sourceSlide": 75
+    },
+    {
+      "id": "consistency",
+      "eyebrow": "专项 · 11",
+      "title": "上下游合同一致性审查",
+      "description": "针对背靠背签约场景，自动比对上下游合同中的价格、工期、付款节点及违约责任等关键要素。",
+      "points": [
+        "智能识别条款冲突，确保上下游权利义务对等，有效规避履约风险",
+        "系统预置 8 大专家级审查模板",
+        "支持「自定义条款」与「AI 智能生成」双重模式",
+        "可按项目特性灵活调整审查维度（合规、合法、风险、完备性）"
+      ],
+      "mediaId": "legal-consistency",
+      "layout": "left",
+      "sourceSlide": 77
+    },
+    {
+      "id": "consistency-report",
+      "eyebrow": "专项 · 12",
+      "title": "一致性审查报告",
+      "description": "核对上下游合同条款一致性，识别差异风险。",
+      "points": [
+        "对价格 / 交付 / 违约等主题语义对齐",
+        "产出差异报告与修改建议",
+        "支持一对一与一对多批量审查，提供原文证据定位"
+      ],
+      "mediaId": "legal-consistency-report",
+      "layout": "right",
+      "sourceSlide": 78
+    },
+    {
+      "id": "semantic-search",
+      "eyebrow": "知识 · 13",
+      "title": "语义检索分析",
+      "description": "构建可复用语义检索底座，实现高质量证据召回。",
+      "points": [
+        "上传合同自动分块、计算向量、写入索引，支持手动调参",
+        "指纹去重与增量更新",
+        "一对多场景批量对齐"
+      ],
+      "mediaId": "legal-semantic-search",
+      "layout": "left",
+      "sourceSlide": 79
+    },
+    {
+      "id": "knowledge-graph",
+      "eyebrow": "知识 · 14",
+      "title": "知识图谱可视化",
+      "description": "自动抽取合同术语、实体、金额、时间等要素，构建知识图谱并可视化。",
+      "points": [
+        "识别定义-引用、条件-后果、约束-例外等条款关系",
+        "隐藏逻辑矛盾一目了然，风险发现更彻底",
+        "交互式探索条款链路，理解效率大幅提升",
+        "风险项自动高亮关联子图，审查解释更有说服力"
+      ],
+      "mediaId": "legal-knowledge-graph",
+      "layout": "right",
+      "sourceSlide": 80
+    },
+    {
+      "id": "preference",
+      "eyebrow": "审查引擎 · 15",
+      "title": "倾向性需求审查",
+      "description": "在合同审查中加入甲乙方的倾向需求，提升审查针对性和效率。",
+      "points": [
+        "支持谈判与修改，降低履约风险",
+        "增强合同的合规性与合理性",
+        "更好地平衡双方利益、确保条款切实可行并减少纠纷"
+      ],
+      "mediaId": "legal-preference-ui",
+      "layout": "left",
+      "sourceSlide": 81
+    }
+  ],
+  "highlights": [
+    {
+      "value": "9",
+      "unit": "大",
+      "label": "业务模块 + 规则库",
+      "note": null,
+      "source": "PPT p.86"
+    },
+    {
+      "value": "11",
+      "unit": "项",
+      "label": "签前到履约的平台能力",
+      "note": null,
+      "source": "PPT p.66"
+    },
+    {
+      "value": "5–10",
+      "unit": "倍",
+      "label": "审查效率提升",
+      "note": null,
+      "source": "PPT p.64"
+    },
+    {
+      "value": "70%",
+      "unit": "+",
+      "label": "成本降低",
+      "note": null,
+      "source": "PPT p.64"
+    }
+  ],
+  "pillars": [
+    "legal-reasoning",
+    "legal-safety",
+    "legal-domain-data"
+  ],
+  "papers": [
+    "trustworthy",
+    "p-lyra",
+    "santoryu"
+  ],
+  "delivery": [
+    "公有云部署：快速接入，按需使用，无需自建机房，适合中小客户与试点验证",
+    "私有化部署：数据不出企业网，满足信创要求，适合政府、国企、央企等受监管客户",
+    "差异化优势：深度绑定本土强监管需求（一键式合规体检）",
+    "高质量中文法律知识库（海量合同 + 判例 + 法规）"
+  ],
+  "cta": {
+    "title": "从「审一份合同」到「审一条合同链」",
+    "description": "我们可以用贵司真实的上下游合同样本（脱敏后）做一次一致性穿透演示，并给出规则库共建的路径。",
+    "primaryLabel": "商务咨询",
+    "primaryHref": "/contact?intent=consult&product=legallens",
+    "secondaryLabel": "查看行业实践",
+    "secondaryHref": "/solutions"
+  },
+  "sourceSlides": [
+    13,
+    16,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85
+  ]
+}

@@ -1,0 +1,77 @@
+/* 合约智审系统总体架构（PPT p.65）。
+   原始素材是 `image94.emf`（EMF 矢量），Web 无法直接使用；光栅化后会模糊。
+   方案（spec §6.4）：用 React + 内联 SVG **重绘** —— 重绘后可响应式、
+   可主题化、可无障碍（<title>/<desc>），并且随令牌变化。
+   本组件在 ref 中不存在，使用 CSS Module，内部无 ref 类名。 */
+
+.wrap {
+  border: 1px solid var(--border);
+  background: var(--white);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.layerLabel {
+  font-family: var(--sans-en);
+  font-size: 11px;
+  letter-spacing: .18em;
+  fill: var(--red);
+  font-weight: 600;
+}
+
+.layerName {
+  font-family: var(--serif-cn);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--navy);
+}
+
+.nodeText {
+  font-size: 12.5px;
+  fill: var(--ink-2);
+}
+
+.notes {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.noteBlock h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.noteBlock li {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.85;
+  padding-left: 16px;
+  position: relative;
+}
+
+.noteBlock li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 6px;
+  height: 1px;
+  background: var(--red);
+}
+
+@media (max-width: 900px) {
+  .wrap { padding: 20px }
+  .notes { grid-template-columns: 1fr; gap: 20px }
+}

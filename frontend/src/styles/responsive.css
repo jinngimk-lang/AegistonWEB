@@ -1,0 +1,119 @@
+/* ==========================================================================
+   响应式层（Responsive）
+   spec §5.2.1「响应式断点全量表」——ref/1.html 共 9 条 media query，
+   断点为 1024 / 900 / 768 / 640 四档，**按 ref 原顺序逐条搬运**。
+
+   ⚠️ 900px 是本站点真正的主力断点（5 条规则挂在它上面），不是 768px。
+   ⚠️ 唯一允许的偏离：`@media(max-width:1024px){.nav-menu{display:none}}`
+      —— ref 在 <1024px 直接隐藏主导航，移动端完全无法导航（HCI 缺陷）。
+      本工程改为「隐藏桌面菜单 + 显示汉堡按钮 + 全屏抽屉」（spec §5.3 第 1 行）。
+   ========================================================================== */
+
+/* --- ref 第 1 条 --------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .nav-menu { display: none }
+  /* [§5.3 偏离] ref 到此为止；以下两行是移动端导航入口 */
+  .nav-menu-toggle { display: flex }
+  .nav-contact { display: none }
+}
+
+/* --- ref 第 2 条 --------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .domains { grid-template-columns: repeat(2, 1fr) }
+}
+
+/* --- ref 第 3 条 --------------------------------------------------------- */
+@media (max-width: 900px) {
+  .solution { grid-template-columns: 1fr; gap: 40px; margin-bottom: 64px }
+  .solution:nth-child(even) .solution-visual, .solution:nth-child(even) .solution-body { order: 0 }
+  .solution-points { grid-template-columns: 1fr }
+}
+
+/* --- ref 第 4 条 --------------------------------------------------------- */
+@media (max-width: 900px) {
+  .values { grid-template-columns: 1fr }
+}
+
+/* --- ref 第 5 条 --------------------------------------------------------- */
+@media (max-width: 900px) {
+  .news-grid { grid-template-columns: 1fr }
+}
+
+/* --- ref 第 6 条 --------------------------------------------------------- */
+@media (max-width: 900px) {
+  .sustain { grid-template-columns: 1fr; gap: 40px }
+}
+
+/* --- ref 第 7 条 --------------------------------------------------------- */
+@media (max-width: 900px) {
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 40px }
+  .footer-brand { grid-column: 1/-1 }
+}
+
+/* --- ref 第 8 条 --------------------------------------------------------- */
+@media (max-width: 768px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 44px 24px }
+  .metric:not(:last-child)::after { display: none }
+}
+
+/* --- ref 第 9 条 --------------------------------------------------------- */
+@media (max-width: 640px) {
+  .domains { grid-template-columns: 1fr }
+}
+
+/* ==========================================================================
+   扩展区块的断点（sections-ext.css 对应项）
+   断点档位与 ref 保持一致：1024 / 900 / 768 / 640，不引入新档位。
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .feature-grid[data-cols='4'] { grid-template-columns: repeat(2, 1fr) }
+  .card-grid { grid-template-columns: repeat(2, 1fr) }
+  .sitemap-grid { grid-template-columns: repeat(2, 1fr) }
+}
+
+@media (max-width: 900px) {
+  .container { padding: 0 28px }
+  .section { padding: 72px 0 }
+  .screen-section { grid-template-columns: 1fr; gap: 36px; margin-bottom: 64px }
+  .screen-section[data-layout='right'] .screen-visual,
+  .screen-section[data-layout='right'] .screen-body { order: 0 }
+  .split, .split-narrow { grid-template-columns: 1fr; gap: 40px }
+  .contact-layout { grid-template-columns: 1fr; gap: 48px }
+  .feature-grid, .feature-grid[data-cols='4'] { grid-template-columns: repeat(2, 1fr) }
+  .paper-grid { grid-template-columns: 1fr }
+  .pillar-rows { grid-template-columns: 1fr; gap: 18px }
+  .case-metrics { grid-template-columns: 1fr; gap: 32px; padding: 32px 0 }
+  .case-metric:not(:last-child)::after { display: none }
+  .page-hero-content { padding: 56px 0 }
+  .page-hero { min-height: 260px }
+  .hero-content { padding: 92px 0 }
+  .hero { min-height: 520px }
+}
+
+@media (max-width: 768px) {
+  .card-grid, .card-grid[data-cols='2'] { grid-template-columns: 1fr }
+  .deflist { grid-template-columns: 1fr; gap: 8px 0 }
+  .deflist dt { margin-top: 14px }
+  .sitemap-grid { grid-template-columns: 1fr }
+  .totop { bottom: 20px; right: 20px }
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 20px }
+  .feature-grid, .feature-grid[data-cols='2'], .feature-grid[data-cols='4'] { grid-template-columns: 1fr }
+  .pillar, .paper, .value { padding: 28px 24px }
+  .cta-inner { padding: 0 24px }
+  .utility-left { display: none }
+  .utility-inner { justify-content: flex-end }
+  .hero-cta .btn, .cta-actions .btn, .status-actions .btn { width: 100%; justify-content: center }
+}
+
+/* ==========================================================================
+   降低动效（ref 最后一条 media query，原样保留）
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important }
+  .reveal { opacity: 1; transform: none }
+  html { scroll-behavior: auto }
+}
