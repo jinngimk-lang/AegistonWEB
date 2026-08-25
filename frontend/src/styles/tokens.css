@@ -55,4 +55,9 @@
   --utility-sep: #3A5070;
   /* 键盘焦点环 */
   --focus-ring: var(--navy);
+
+  /* v3：sticky 顶栏高度（sections.css 的 `.nav-inner { height: 80px }`）。
+     锚点跳转的 scroll-margin-top 以它为准 —— 不写死 80px，是为了让「顶栏改高
+     了但锚点还按老高度让位」这种漂移只需要改一处。 */
+  --header-h: 80px;
 }

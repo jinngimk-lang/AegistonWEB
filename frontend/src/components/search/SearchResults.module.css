@@ -1,0 +1,95 @@
+/**
+ * 检索结果（`/search` 页与 ⌘K 面板共用）。
+ *
+ * 自包含：不出现任何 ref/1.html 的类名，也不与它们发生后代关系
+ * → 按 CLAUDE.md §1 归 CSS Module。类名前缀 `sr-`，避开 ref 的
+ * `.item` / `.sep` / `.ext` 等短名（v2 B-1 的教训）。
+ *
+ * ⚠️ 颜色只用 tokens.css 已有的令牌，且 `--ink-3` / `--ink-4` 一律不用于文本
+ * （CLAUDE.md §2）—— 次要说明文字用 `--ink-2`（对 --white 7.16:1）。
+ */
+
+.sr-root { display: flex; flex-direction: column; gap: 28px }
+.sr-root[data-variant='dialog'] { gap: 18px }
+
+.sr-group { display: flex; flex-direction: column; gap: 10px }
+
+.sr-group-label {
+  font-family: var(--sans-en);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sr-list { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0 }
+
+.sr-item { border-bottom: 1px solid var(--border) }
+.sr-item:last-child { border-bottom: 0 }
+
+.sr-link,
+.sr-option {
+  display: grid;
+  gap: 4px;
+  padding: 14px 12px;
+  text-decoration: none;
+  transition: background-color .18s;
+}
+/* dialog 变体的选项**不是链接**（见 SearchResults.tsx 抬头），
+   但它要看起来、用起来都像一行可点的结果 */
+.sr-option { cursor: pointer; border-bottom: 1px solid var(--border) }
+.sr-option:last-child { border-bottom: 0 }
+.sr-option[data-active],
+.sr-link:hover,
+.sr-link:focus-visible { background: var(--red-soft) }
+
+.sr-title {
+  font-family: var(--serif-cn);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.5;
+}
+.sr-root[data-variant='page'] .sr-title { font-size: 18px }
+
+.sr-subtitle {
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--red);
+  font-weight: 600;
+}
+
+.sr-excerpt {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sr-path {
+  font-family: var(--sans-en);
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--ink-2);
+}
+
+/* 高亮：仅背景与字重，不改字号，避免结果行在输入过程中跳动 */
+.sr-title mark,
+.sr-excerpt mark {
+  background: var(--red-soft);
+  color: var(--red-dark);
+  font-weight: 700;
+  padding: 0 1px;
+}
+
+.sr-empty-hint { display: none }
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-link { transition: none }
+}

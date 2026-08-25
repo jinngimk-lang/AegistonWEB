@@ -12,12 +12,30 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.services.content import ContentError, ContentRepository
+from app.services.search import build_search_index
+
+#: 竞品与第三方主体名。CLAUDE.md §4 硬禁止竞品对照上公开页 ——
+#: 其中的评价性措辞可能触及《反不正当竞争法》第十一条与《广告法》第十三条。
+#: 能力矩阵是最容易犯这条的地方（横向表格天然想多加一列），因此单独扫一遍。
+THIRD_PARTY_TERMS = (
+    "OpenAI", "ChatGPT", "GPT-4", "Claude", "Anthropic", "Gemini", "Copilot",
+    "DeepSeek", "Kimi", "文心", "通义", "讯飞", "智谱", "百川", "月之暗面",
+    "阿里", "腾讯", "百度", "字节", "华为", "Notion", "Cursor", "Devin",
+)
+
+#: 索引里不该出现的 PII 形状。索引正文来自已脱敏的内容包，这条是回归护栏。
+PII_PATTERNS = (
+    ("完整邮箱", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")),
+    ("11 位手机号", re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)")),
+    ("明文 IPv4", re.compile(r"(?<!\d)(?:\d{1,3}\.){3}\d{1,3}(?!\d)")),
+)
 
 
 def log(msg: str) -> None:
@@ -72,6 +90,31 @@ def main() -> int:
         for metric in detail.metrics:
             if not metric.source:
                 problems.append(f"solutions/{slug} 的指标「{metric.label}」缺少 source 标注")
+
+    # --- v3 新增：能力矩阵与检索索引 -------------------------------------
+    matrix = repo.capability_matrix
+    if matrix is not None:
+        log(f"OK  能力矩阵 {len(matrix.rows)} 行 × 3 个自家产品（不含任何第三方主体）")
+        matrix_text = " ".join(
+            [matrix.title, matrix.description or "", matrix.source_note]
+            + [f"{r.capability} {r.note or ''}" for r in matrix.rows]
+            + [c.detail or "" for r in matrix.rows for c in r.cells]
+        )
+        for term in THIRD_PARTY_TERMS:
+            if term.lower() in matrix_text.lower():
+                problems.append(f"能力矩阵文案出现第三方主体「{term}」—— CLAUDE.md §4 禁止竞品对照")
+
+    index = build_search_index(repo)
+    legal_paths = repo.route_paths()
+    log(f"OK  检索索引 {len(index.docs)} 篇文档（后端不打分，响应体无 score 字段）")
+    for doc in index.docs:
+        if doc.href.split("#")[0] not in legal_paths:
+            problems.append(f"检索索引 {doc.id} 的 href {doc.href!r} 不在路由清单内（死链）")
+        haystack = f"{doc.title} {doc.subtitle or ''} {doc.excerpt} {doc.body}"
+        for label, pattern in PII_PATTERNS:
+            hit = pattern.search(haystack)
+            if hit:
+                problems.append(f"检索索引 {doc.id} 出现{label}：{hit.group()!r}")
 
     if problems:
         log(f"FAIL {len(problems)} 项检查未通过：")

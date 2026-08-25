@@ -26,6 +26,7 @@ function read(file: string): string {
 }
 
 const sections = read('sections.css');
+const sectionsExt = read('sections-ext.css');
 const tokens = read('tokens.css');
 const base = read('base.css');
 const responsive = read('responsive.css');
@@ -258,5 +259,49 @@ describe('§5.1 设计令牌原样搬入', () => {
   it('base.css 补齐了 ref 缺失的键盘焦点样式', () => {
     expect(base).toMatch(/:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--focus-ring\)/);
     expect(base).toMatch(/\.skip-link/);
+  });
+});
+
+
+/**
+ * v3 新增区块的**归属**断言（§8 / 放行条件 C3）。
+ *
+ * 凡与 ref 类名（`.nav` / `.article` / `.card` / `.section`）发生后代关系的
+ * 规则，必须留在全局层 `sections-ext.css`。写进 CSS Module 会被哈希成页面上
+ * 不存在的类名 —— 不报错、不告警、不进 lint，只是样式没生效。
+ *
+ * ⚠️ 这条测试守不住「目录真的在正文右边」，那需要人眼看（C3 明说了）。
+ * 它守的是「定位上下文没有被挪进 Module」。
+ */
+describe('v3 新增全局类必须留在 sections-ext.css（CLAUDE.md §1）', () => {
+  const GLOBAL_RULES: [string, RegExp][] = [
+    ['顶栏检索按钮还原为 <button>', /\.nav-search\s*\{[^}]*background:\s*none[^}]*border:\s*0/],
+    ['⌘K 提示徽标', /\.nav-search-hint\s*\{/],
+    ['命中区扩到 44×44（视觉圆形仍 40px）', /\.nav-search::after\s*\{[^}]*width:\s*44px[^}]*height:\s*44px/],
+    ['目录定位上下文建在 .article 这一层', /\.article-layout\s*\{[^}]*display:\s*grid/],
+    ['目录轨道 sticky 让开顶栏', /\.article-rail\s*\{[^}]*position:\s*sticky/],
+    ['锚点不被固定顶栏遮挡', /\.article h2[^{]*\{[^}]*scroll-margin-top:\s*calc\(var\(--header-h\)/],
+    ['上一篇/下一篇', /\.article-nav\s*\{[^}]*display:\s*grid/],
+    ['相关阅读复用全局 .card-grid', /\.related-block \.card-grid\s*\{/],
+    ['能力矩阵可横向滚动区域', /\.matrix-scroll\s*\{[^}]*overflow-x:\s*auto/],
+    ['能力矩阵首列 sticky 且背景不透明', /\.capability-matrix tbody th\s*\{[^}]*position:\s*sticky[^}]*background:\s*var\(--white\)/],
+    ['检索页表单与 .btn-primary 的后代关系', /\.search-field \.btn-primary\s*\{/],
+  ];
+
+  it.each(GLOBAL_RULES)('%s', (_label, pattern) => {
+    expect(sectionsExt).toMatch(pattern);
+  });
+
+  it('--header-h 令牌存在且是 .nav-inner 的实测高度', () => {
+    expect(tokens).toMatch(/--header-h:\s*80px/);
+    expect(sections).toMatch(/\.nav-inner\s*\{[^}]*height:\s*80px/);
+  });
+
+  it('新增区块没有把 --ink-3 / --ink-4 用于文本', () => {
+    // 这两个令牌只保留 1px 分隔线、图标描边、禁用态图形等非文本图形用途
+    // （CLAUDE.md §2）。检索结果次要说明、目录未激活项、矩阵「—」是最容易犯的三处。
+    const v3Block = sectionsExt.slice(sectionsExt.indexOf('v3 增量'));
+    expect(v3Block).not.toMatch(/color:\s*var\(--ink-3\)/);
+    expect(v3Block).not.toMatch(/color:\s*var\(--ink-4\)/);
   });
 });

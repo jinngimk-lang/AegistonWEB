@@ -22,6 +22,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.core.config import Settings, get_settings
 from app.core.errors import RateLimitedError
 from app.core.logging import get_logger, request_id_var
+from app.core.metrics import observe_lead, observe_ratelimit
 from app.core.ratelimit import (
     SlidingWindowLimiter,
     contact_key,
@@ -71,6 +72,7 @@ async def create_lead(
     # --- L3 honeypot：静默接受，不落库、不计配额 ---------------------------
     if payload.website.strip():
         logger.info("lead_honeypot_hit", path=payload.source_path or "-")
+        observe_lead("honeypot")
         response.status_code = status.HTTP_202_ACCEPTED
         return LeadCreated(id="ld_ignored", created_at=now_cst(), duplicate=True)
 
@@ -81,6 +83,8 @@ async def create_lead(
     allowed, retry_after = get_ip_limiter(settings).check(bucket)
     if not allowed:
         logger.warning("lead_ratelimit", layer="L1-ip-bucket", retry_after=retry_after)
+        observe_lead("ratelimited")
+        observe_ratelimit("L1-ip-bucket")
         raise RateLimitedError(
             "提交过于频繁，请稍后再试；如需立即联系，请直接致电商务或发送邮件。",
             retry_after,
@@ -101,6 +105,8 @@ async def create_lead(
     )
     if existing is not None:
         logger.info("lead_idempotent_hit", lead_id=existing.id)
+        observe_lead("accepted")
+        observe_ratelimit("L4-idempotency")
         return LeadCreated(id=existing.id, created_at=as_cst(existing.created_at), duplicate=True)
 
     # --- L2 联系方式配额 --------------------------------------------------
@@ -112,8 +118,11 @@ async def create_lead(
         )
     except QuotaExceeded as exc:
         logger.warning("lead_ratelimit", layer=exc.layer, retry_after=exc.retry_after)
+        observe_lead("ratelimited")
+        observe_ratelimit(exc.layer)
         raise RateLimitedError(exc.message, exc.retry_after, exc.layer) from exc
 
+    observe_lead("accepted")
     return await service.create(
         payload,
         contact_hash=contact_hash,

@@ -8,8 +8,19 @@
  * CSP Level 2+ 规定一旦出现 nonce 就忽略同一指令里的 `'unsafe-inline'`，
  * 二者没有中间态；而 Next.js 的 nonce 必须由 middleware 逐请求下发，
  * 读取 nonce 的页面会被强制转为动态渲染，直接推翻 ISR + Full Route Cache。
- * 本站没有用户输入回显、没有富文本渲染（洞察正文经 bleach 白名单净化）、
- * 没有第三方脚本，XSS 注入点接近于零。详见 spec §11.3。
+ *
+ * ⚠️ v3 修订（v3 spec §4.2.7）：v2 这段论证的第一条前提是「站内不存在任何
+ * 用户输入的回显路径」。`/search?q=…` 上线后那条前提就不成立了，而留着一句
+ * 已经不成立的安全论证比没有论证更危险。现在的论证是：
+ *
+ *   本站唯一的用户输入回显点是 `/search` 的查询串，且它**只经文本节点渲染**
+ *   （`components/search/Highlight.tsx`；`react/no-danger` 在 `src/components/
+ *   search/**` 与 `src/app/search/**` 下由 eslint 强制打开），**不进任何
+ *   JSON-LD 与内联脚本** —— `JSON.stringify` 不转义 `<` 与 `/`，一个
+ *   `</script>` 就能闭合标签，那才是真正的注入点，`<mark>` 反而不是；
+ *   洞察正文经 bleach 白名单净化；无第三方脚本。
+ *
+ * 因此 'unsafe-inline' 的取舍前提依然成立。详见 v2 spec §11.3 与 v3 spec §4.2.7。
  */
 
 const CSP = [

@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.core.logging import get_logger, request_id_var
+from app.core.metrics import observe_lead
 
 logger = get_logger("aegiston.error")
 
@@ -119,6 +120,10 @@ def register_exception_handlers(app: FastAPI) -> None:
         for err in exc.errors():
             loc = [str(p) for p in err.get("loc", []) if p not in ("body", "query", "path")]
             errors.append({"field": ".".join(loc) or "_", "code": str(err.get("type", "invalid"))})
+        if request.url.path.endswith("/leads") and request.method == "POST":
+            # 校验失败也是线索转化漏斗上的一格，缺了它「提交了多少 / 成了多少」
+            # 就对不上账（v3 spec §4.8.1）。
+            observe_lead("invalid")
         first = errors[0] if errors else {"field": "_", "code": "invalid"}
         detail = f"{first['field']}: {exc.errors()[0].get('msg', '校验失败')}" if exc.errors() else "校验失败"
         return problem(request, status.HTTP_422_UNPROCESSABLE_ENTITY, detail, errors=errors)

@@ -41,9 +41,30 @@ test.describe('桌面导航', () => {
     await expect(page.getByRole('link', { name: '跳到主要内容' })).toBeFocused();
   });
 
-  test('检索按钮指向站点地图，不留死按钮', async ({ page }) => {
+  /**
+   * v3：`.nav-search` 从 `<Link href="/sitemap">` 还原成 ref/1.html:436 原本的
+   * `<button>`（v3 §9 / P1-3）。role 从 link 变成 button，本用例必然要同批改写。
+   * 同时补一条「网站地图的入口没有因为这次改动而丢失」。
+   */
+  test('顶栏检索按钮唤起命令面板', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: '站点地图与检索' }).click();
+    const trigger = page.locator('.nav-search');
+    await expect(trigger).toHaveJSProperty('tagName', 'BUTTON');
+    await expect(trigger).toHaveAttribute('aria-label', '搜索');
+    await trigger.click();
+    await expect(page.getByRole('dialog', { name: '站内检索' })).toBeVisible();
+  });
+
+  test('网站地图仍可从面板与页脚到达（入口没丢）', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.nav-search').click();
+    const dialog = page.getByRole('dialog', { name: '站内检索' });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('link', { name: '打开检索页' }).click();
+    await expect(page).toHaveURL(/\/search$/);
+
+    await page.goto('/');
+    await page.locator('.footer').getByRole('link', { name: '网站地图' }).first().click();
     await expect(page).toHaveURL(/\/sitemap$/);
   });
 });

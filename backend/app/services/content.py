@@ -29,9 +29,20 @@ from pydantic import BaseModel, ValidationError
 
 from app.schemas.about import AboutPage, CareersPage, TeamPage
 from app.schemas.home import HomePage
-from app.schemas.insight import CATEGORY_LABELS, InsightDetail, InsightIndexEntry, InsightSummary
+from app.schemas.insight import (
+    CATEGORY_LABELS,
+    InsightDetail,
+    InsightIndexEntry,
+    InsightSummary,
+    TocItem,
+)
 from app.schemas.media import MediaAsset, StockCredit
-from app.schemas.product import DeploymentPage, ProductDetail, ProductsOverview
+from app.schemas.product import (
+    CapabilityMatrix,
+    DeploymentPage,
+    ProductDetail,
+    ProductsOverview,
+)
 from app.schemas.research import PapersPage, ResearchOverview
 from app.schemas.site import Navigation, SiteSettings
 from app.schemas.solution import SolutionDetail, SolutionsOverview
@@ -39,6 +50,35 @@ from app.services.insights import parse_post, reading_minutes
 
 PRODUCT_SLUGS = ("aragonteam", "inkclaw", "legallens")
 SOLUTION_SLUGS = ("telecom", "transportation", "legal-services", "finance")
+
+#: 相关阅读取几条（v3 spec §4.3.1）。
+RELATED_LIMIT = 3
+
+#: 路由清单的**唯一事实源**（CLAUDE.md §6「四者同源」的第四者就是这里）。
+#: `/api/v1/site/routes` → 快照 `site-routes.json` → `sitemap.ts` / `routes.spec.ts`
+#: 全部下游都从这一份派生；`route_paths()` 同时供检索索引的死链校验复用
+#: （v3 spec §6.1 校验点 3 / P1-4）。
+STATIC_ROUTE_TABLE: tuple[dict[str, Any], ...] = (
+    {"path": "/", "changeFrequency": "daily", "priority": 1.0},
+    {"path": "/about", "changeFrequency": "monthly", "priority": 0.8},
+    {"path": "/about/positioning", "changeFrequency": "monthly", "priority": 0.7},
+    {"path": "/about/team", "changeFrequency": "monthly", "priority": 0.7},
+    {"path": "/about/strength", "changeFrequency": "monthly", "priority": 0.7},
+    {"path": "/products", "changeFrequency": "weekly", "priority": 0.9},
+    {"path": "/products/deployment", "changeFrequency": "monthly", "priority": 0.8},
+    {"path": "/solutions", "changeFrequency": "weekly", "priority": 0.9},
+    {"path": "/research", "changeFrequency": "monthly", "priority": 0.8},
+    {"path": "/research/papers", "changeFrequency": "monthly", "priority": 0.7},
+    {"path": "/insights", "changeFrequency": "daily", "priority": 0.8},
+    {"path": "/careers", "changeFrequency": "monthly", "priority": 0.6},
+    {"path": "/contact", "changeFrequency": "monthly", "priority": 0.9},
+    # v3 新增：站内检索页。只有带 ?q= 的结果页 noindex，入口页本身可索引。
+    {"path": "/search", "changeFrequency": "monthly", "priority": 0.4},
+    {"path": "/sitemap", "changeFrequency": "monthly", "priority": 0.3},
+    {"path": "/legal/terms", "changeFrequency": "yearly", "priority": 0.2},
+    {"path": "/legal/privacy", "changeFrequency": "yearly", "priority": 0.2},
+    {"path": "/legal/credits", "changeFrequency": "yearly", "priority": 0.2},
+)
 
 
 class ContentError(RuntimeError):
@@ -69,6 +109,7 @@ class ContentRepository:
         self.navigation: Navigation
         self.home: HomePage
         self.products_overview: ProductsOverview
+        self.capability_matrix: CapabilityMatrix | None = None
         self.products: dict[str, ProductDetail] = {}
         self.deployment: DeploymentPage
         self.solutions_overview: SolutionsOverview
@@ -126,6 +167,14 @@ class ContentRepository:
             "products/deployment.json",
         )
 
+        # 能力矩阵是**可选**内容（v3 spec §5.1）：矩阵尚未定稿时不阻塞其他页面。
+        matrix_path = d / "products" / "capability-matrix.json"
+        if matrix_path.exists():
+            self.capability_matrix = _parse(
+                CapabilityMatrix, _read_json(matrix_path), "products/capability-matrix.json"
+            )
+            self.products_overview.capability_matrix = self.capability_matrix
+
         self.solutions_overview = _parse(
             SolutionsOverview, _read_json(d / "solutions" / "index.json"), "solutions/index.json"
         )
@@ -165,7 +214,7 @@ class ContentRepository:
             md_path = posts_dir / f"{entry.slug}.md"
             if not md_path.exists():
                 raise ContentError(f"洞察 {entry.slug} 缺少正文：{md_path}")
-            body_html, plain = parse_post(md_path.read_text(encoding="utf-8"))
+            body_html, plain, toc_raw = parse_post(md_path.read_text(encoding="utf-8"))
             if entry.published_at > today:
                 # spec R10：拒绝任何未来发布日期，避免出现 ref 里 2026.07 那种未来时间
                 raise ContentError(
@@ -185,11 +234,47 @@ class ContentRepository:
                     source_slides=entry.source_slides,
                     body_html=body_html,
                     sources=entry.sources,
+                    toc=[TocItem(**item) for item in toc_raw],
                 )
             )
         details.sort(key=lambda p: (p.published_at, p.slug), reverse=True)
+        self._link_insights(details)
         self.insights = details
         self.insights_by_slug = {p.slug: p for p in details}
+
+    @staticmethod
+    def _link_insights(details: list[InsightDetail]) -> None:
+        """就地补齐 ``related`` / ``prev`` / ``next``（v3 spec §4.3.1）。
+
+        ``details`` 已按 ``publishedAt`` 降序排好。相关阅读的排序必须**完全确定**
+        （同 category 优先 → tags 交集数 → publishedAt → slug），否则同一篇文章
+        两次加载给出不同的「相关阅读」，E2E 无从断言。本项目没有 ``tags`` 字段，
+        用 ``sourceSlides`` 的交集作为主题邻近度的代理量 —— 它是 PPT 页码，
+        两篇引用同一批页码即讨论同一批材料。
+        """
+        summaries = {
+            p.slug: InsightSummary(**p.model_dump(include=set(InsightSummary.model_fields)))
+            for p in details
+        }
+        for index, post in enumerate(details):
+            post.prev = summaries[details[index - 1].slug] if index > 0 else None
+            post.next = (
+                summaries[details[index + 1].slug] if index + 1 < len(details) else None
+            )
+
+            own_slides = set(post.source_slides)
+            candidates = [
+                (
+                    0 if other.category == post.category else 1,
+                    -len(own_slides & set(other.source_slides)),
+                    -other.published_at.toordinal(),
+                    other.slug,
+                )
+                for other in details
+                if other.slug != post.slug
+            ]
+            candidates.sort()
+            post.related = [summaries[key[3]] for key in candidates[:RELATED_LIMIT]]
 
     def insight_previews(self, limit: int) -> list[InsightSummary]:
         return [
@@ -208,6 +293,38 @@ class ContentRepository:
             [InsightSummary(**p.model_dump(include=set(InsightSummary.model_fields))) for p in window],
             total,
         )
+
+    # ---------------------------------------------------------------- routes
+    def route_entries(self) -> list[dict[str, Any]]:
+        """站点路由清单。``/api/v1/site/routes`` 与死链校验**共用这一份**。
+
+        CLAUDE.md §6：`ROUTES` 常量、导航数据、`sitemap.ts`、`routes.spec.ts`
+        四者始终同源，而第四者其实是**后端**（`sitemap.ts` 全文只有一句
+        `getRoutes()`）。把构造从端点里抽到这里，是为了让 `route_paths()`
+        能被内容校验复用 —— 索引里出现死链等价于站内出现死链（v3 P1-4）。
+        """
+        dynamic: list[dict[str, Any]] = [
+            {"path": f"/products/{slug}", "changeFrequency": "weekly", "priority": 0.9}
+            for slug in self.products
+        ]
+        dynamic += [
+            {"path": f"/solutions/{slug}", "changeFrequency": "monthly", "priority": 0.8}
+            for slug in self.solutions
+        ]
+        dynamic += [
+            {
+                "path": f"/insights/{post.slug}",
+                "changeFrequency": "monthly",
+                "priority": 0.6,
+                "lastModified": post.published_at.isoformat(),
+            }
+            for post in self.insights
+        ]
+        return [dict(entry) for entry in STATIC_ROUTE_TABLE] + dynamic
+
+    def route_paths(self) -> set[str]:
+        """全部合法路由路径的集合。``SearchDoc.href`` 必须命中它。"""
+        return {str(entry["path"]) for entry in self.route_entries()}
 
     # ------------------------------------------------------------ integrity
     def _media_refs(self) -> list[tuple[str, str]]:
@@ -284,8 +401,51 @@ class ContentRepository:
             if href.startswith("#") or href == "":
                 problems.append(f"{where} 出现死链 {href!r} —— 未实现的入口必须从导航中移除")
 
+        problems.extend(self._check_capability_matrix())
+        problems.extend(self._check_search_index())
+
         if problems:
             raise ContentError("内容包引用完整性校验失败：\n  - " + "\n  - ".join(problems))
+
+    def _check_capability_matrix(self) -> list[str]:
+        """能力矩阵：溯源必填 + 三个 slug 不重不漏（v3 spec §6.1 校验点 1/2）。"""
+        matrix = self.capability_matrix
+        if matrix is None:
+            return []
+        problems: list[str] = []
+        expected = set(PRODUCT_SLUGS)
+        for row in matrix.rows:
+            if not row.source_slides:
+                problems.append(f"能力矩阵「{row.capability}」缺少 sourceSlides —— 违反内容不臆造")
+            slugs = [cell.product_slug for cell in row.cells]
+            if len(set(slugs)) != len(slugs):
+                problems.append(f"能力矩阵「{row.capability}」的 cells 出现重复产品：{slugs}")
+            if set(slugs) != expected:
+                problems.append(
+                    f"能力矩阵「{row.capability}」的 cells 未覆盖三个产品：{sorted(slugs)}"
+                )
+        return problems
+
+    def _check_search_index(self) -> list[str]:
+        """检索索引里的 href 必须命中真实路由。
+
+        「索引里出现死链」等价于「站内出现死链」—— CLAUDE.md §6 的零容忍项。
+        带 fragment 的 href（如 ``/research#pillar-x``）按 ``split("#")[0]`` 比对。
+        """
+        # 局部导入：search.py 依赖本模块的类型，模块级导入会构成循环。
+        from app.services.search import build_search_index
+
+        legal = self.route_paths()
+        problems: list[str] = []
+        seen: set[str] = set()
+        for doc in build_search_index(self).docs:
+            if doc.id in seen:
+                problems.append(f"检索索引出现重复文档 id {doc.id!r}")
+            seen.add(doc.id)
+            path = doc.href.split("#")[0]
+            if path not in legal:
+                problems.append(f"检索索引 {doc.id} 的 href {doc.href!r} 不在路由清单内（死链）")
+        return problems
 
     def _internal_links(self) -> list[tuple[str, str]]:
         out: list[tuple[str, str]] = []

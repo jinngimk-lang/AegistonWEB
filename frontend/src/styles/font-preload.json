@@ -1,0 +1,9 @@
+{
+  "_note": "由 scripts/pick-preload-fonts.mjs 生成，勿手改。硬上限 4 片（§4.6.4）。",
+  "preload": [
+    "/fonts/noto-sans-sc-k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "/fonts/noto-sans-sc-k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "/fonts/noto-sans-sc-k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "/fonts/noto-sans-sc-k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2"
+  ]
+}

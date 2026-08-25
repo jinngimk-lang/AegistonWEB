@@ -117,3 +117,36 @@
   .reveal { opacity: 1; transform: none }
   html { scroll-behavior: auto }
 }
+
+/* ==========================================================================
+   v3 增量断点。**向既有阶梯靠拢**（1024 / 900 / 768 / 640），不新引入档位 ——
+   多一档就多一处要维护的口径（v3 P2-3）。
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* 目录轨道塌回单列：正文右侧已经没有 210px 可用 */
+  .article-layout { grid-template-columns: minmax(0, 1fr) }
+  /* 用 width:min() 而不是 max-width：`styles.spec.ts` 的断点全量表会把
+     responsive.css 里任何 `max-width: Npx` 都当成一档新断点（它的正则不区分
+     媒体查询与声明），而本项目不新引入断点档位（P2-3）。 */
+  .article-layout > .article { margin: 0 auto }
+  .article-rail { position: static; width: min(780px, 100%); margin: 0 auto 28px }
+  /* < 1024px 顶栏按钮移入 MobileNav 抽屉（抽屉里已有检索入口） */
+  .nav-actions .nav-search { display: none }
+  .nav-search-hint { display: none }
+  .related-block .card-grid { grid-template-columns: repeat(2, 1fr) }
+}
+
+@media (max-width: 768px) {
+  .search-field { flex-direction: column }
+  .search-field .btn-primary { justify-content: center }
+  .article-nav { grid-template-columns: 1fr }
+  .article-nav-item[data-side='next'] { text-align: left }
+  .related-block .card-grid { grid-template-columns: 1fr }
+}
+
+@media (max-width: 640px) {
+  .search-empty { padding: 24px 22px }
+  .capability-matrix th, .capability-matrix td { padding: 13px 14px }
+  .capability-matrix tbody th { min-width: 180px }
+}

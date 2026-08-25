@@ -1,0 +1,33 @@
+{
+  "_note": "体积门禁（v3 spec §4.6.2 / §10.4 / 决策 A-13）。**gzip 是硬门禁，raw 只打印不判定**。数值按本机实测基线 + 约 2 kB 余量设定，不是拍脑袋的整数。下调门槛必须在 spec 回写小节写明实测值；**不允许把断言改成 warn 蒙混**。",
+  "_口径": "一条路由的数字 = union(全部祖先 layout 条目, 该 page 条目) 去重后按扩展名分成 js / css 两组分别求 gzip。这比 `next build` 表格高约 5 kB —— 差额是 `static/chunks/app/layout-*.js`（实测 8.3 kB gzip），Next 把它排除在页面 First Load JS 之外，而它在浏览器里确实要在首次渲染前下载。详见脚本抬头。",
+  "_baseline": {
+    "measuredOn": "2026-08-25 · Windows 11 · Node 22.18 · next 15.5.23 · zlib level 9",
+    "口径说明": "下表用**条目**口径（`app-build-manifest` 逐条），因为 v2 的构建产物只留下了这一组数字，改用 union 口径就没法逐条对比了。union 口径的 after 值见 `_after_union`。",
+    "before_v2": {
+      "/page js gzip": "109.2 kB (raw 365.1 kB)",
+      "/layout js gzip": "106.8 kB (raw 360.5 kB)",
+      "/layout css gzip": "161.1 kB (raw 527.5 kB) —— 渲染阻塞，位置在 LCP 之前",
+      "next build 报的 / First Load JS": "112 kB",
+      "biggest js chunk raw": "169.6 kB (framework)"
+    },
+    "after_v3": {
+      "/page js gzip": "109.7 kB (raw 366.4 kB) · +0.5 kB",
+      "/layout js gzip": "109.1 kB (raw 367.0 kB) · +2.3 kB",
+      "/layout css gzip": "16.9 kB (raw 147.7 kB) · **−144.2 kB / −89.5%**",
+      "next build 报的 / First Load JS": "112 kB · 与 v2 持平",
+      "biggest js chunk raw": "169.6 kB · 不变"
+    },
+    "_after_union": {
+      "/page": "js 114.7 kB · css 16.9 kB",
+      "/contact/page": "js 118.3 kB · css 18.1 kB（全站最重）",
+      "/products/[slug]/page": "js 117.5 kB · css 19.5 kB",
+      "/search/page": "js 115.0 kB · css 19.9 kB"
+    }
+  },
+  "maxSingleJsChunkRawKb": 175,
+  "routes": {
+    "default": { "jsGzipKb": 120, "cssGzipKb": 24 },
+    "/page": { "jsGzipKb": 117, "cssGzipKb": 20 }
+  }
+}

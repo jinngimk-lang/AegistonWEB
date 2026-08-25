@@ -22,10 +22,12 @@ from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.errors import register_exception_handlers
 from app.core.logging import configure_logging, get_logger
+from app.core.metrics import install_metrics, set_content_info
 from app.core.security import RequestContextMiddleware
 from app.db.base import SQLModel
 from app.db.session import dispose_engine, get_engine
 from app.services.content import ContentError, load_repository
+from app.services.search import build_search_index
 
 logger = get_logger("aegiston.main")
 
@@ -61,6 +63,12 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         await conn.run_sync(SQLModel.metadata.create_all)
 
     app.state.content_hash = repo.content_hash
+    # 检索索引是内容的派生物：与内容一样只读、一样常驻内存，构建一次即可
+    # （v3 spec §4.2.6）。它只在构建期被 sync-content.mjs 取走一次。
+    app.state.search_index = build_search_index(repo)
+    logger.info("search_index_built", docs=len(app.state.search_index.docs))
+    if settings.metrics_enabled:
+        set_content_info(repo, settings.version)
     try:
         yield
     finally:
@@ -81,6 +89,13 @@ def create_app() -> FastAPI:
         redoc_url=None,
         lifespan=lifespan,
     )
+
+    # ⚠️ 指标默认关闭（AEGISTON_METRICS_ENABLED=false），与 v2 的 metrics_enabled
+    # 默认值一致。开启时才挂 middleware 与 /metrics —— /metrics **不在 api_prefix
+    # 下**，nginx 侧 `location = /metrics { deny all; }` 让它公网 403，
+    # 内网 Prometheus 直连 api 容器抓取（v3 spec §4.8.1 / R12）。
+    if settings.metrics_enabled:
+        install_metrics(app)
 
     app.add_middleware(RequestContextMiddleware)
     app.add_middleware(GZipMiddleware, minimum_size=1024)

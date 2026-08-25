@@ -18,6 +18,9 @@ dependencies = [
   "python-ulid>=2.7",
   "markdown-it-py>=3.0",
   "bleach>=6.1",
+  # 纯 Python，无编译。只用它的 registry 与文本格式化；middleware 是手写的
+  # （app/core/metrics.py 抬头写了为什么不用 instrumentator）。
+  "prometheus-client>=0.20",
 ]
 
 [project.optional-dependencies]

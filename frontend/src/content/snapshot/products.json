@@ -1,6 +1,6 @@
 {
-  "_contentHash": "c309722b16a7fb84",
-  "_generatedAt": "2026-08-25T08:05:07.091Z",
+  "_contentHash": "30b9a74455a7f794",
+  "_generatedAt": "2026-08-25T09:36:30.588Z",
   "eyebrow": "PRODUCT SYSTEM",
   "title": "一套企业智能底座，三层产品",
   "description": "三个产品是同一套企业智能底座上的三层能力——组织级、通用级、行业级。能力在三层之间流动：组织级提供约束与留痕，通用级提供安全的执行力，行业级提供领域深度。",
@@ -121,5 +121,199 @@
   },
   "sourceSlides": [
     13
-  ]
+  ],
+  "capabilityMatrix": {
+    "title": "三层产品的能力分布",
+    "description": "同一套工程底座在三个层次上的覆盖差异。三档取值表示的是产品定位分工，不是优劣评价；未覆盖的能力渲染为「—」，不使用任何否定性图形。",
+    "rows": [
+      {
+        "capability": "多智能体编排与 DAG 协同执行",
+        "note": "把一次任务拆成有依赖关系的节点，并行推进、状态可见",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "core",
+            "detail": "智能体任务编排 + 运行图模板"
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "core",
+            "detail": "DAG 协作与并行分支"
+          },
+          {
+            "productSlug": "legallens",
+            "level": "supported",
+            "detail": "三角色并行复核校验"
+          }
+        ],
+        "sourceSlides": [
+          25,
+          50,
+          72
+        ]
+      },
+      {
+        "capability": "研发流程管理（需求 / BUG / 版本）",
+        "note": "需求、缺陷与版本计划在同一工作空间内流转",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "core",
+            "detail": "需求 / BUG / 版本 / 看板全流程"
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "none",
+            "detail": null
+          },
+          {
+            "productSlug": "legallens",
+            "level": "none",
+            "detail": null
+          }
+        ],
+        "sourceSlides": [
+          32,
+          33,
+          34,
+          35
+        ]
+      },
+      {
+        "capability": "智能文档协作与审校",
+        "note": "围绕段落与章节做局部修改，并按多个维度校验文稿",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "supported",
+            "detail": "多项目文档管理与关联"
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "core",
+            "detail": "文档协作 + 四维审校"
+          },
+          {
+            "productSlug": "legallens",
+            "level": "supported",
+            "detail": "文稿智审（起草阶段）"
+          }
+        ],
+        "sourceSlides": [
+          38,
+          56,
+          57,
+          74
+        ]
+      },
+      {
+        "capability": "合同与法律文本审查",
+        "note": "条款级风险识别、法理分析与修改措辞建议",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "none",
+            "detail": null
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "none",
+            "detail": null
+          },
+          {
+            "productSlug": "legallens",
+            "level": "core",
+            "detail": "智能 / 简洁 / 专项 / 倾向四类审查"
+          }
+        ],
+        "sourceSlides": [
+          67,
+          68,
+          70,
+          71
+        ]
+      },
+      {
+        "capability": "企业知识沉淀（知识库 / 记忆 / 图谱）",
+        "note": "把一次性产出变成可复用的组织资产",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "supported",
+            "detail": "企业知识库构建与持续管理"
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "supported",
+            "detail": "记忆 / 灵魂 / Skill 配置"
+          },
+          {
+            "productSlug": "legallens",
+            "level": "core",
+            "detail": "合同知识图谱与语义检索"
+          }
+        ],
+        "sourceSlides": [
+          38,
+          53,
+          55,
+          80
+        ]
+      },
+      {
+        "capability": "私有化部署，数据不出企业",
+        "note": "交付形态与数据边界",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "core",
+            "detail": "私有化服务器 / 一体机 / 私有云"
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "supported",
+            "detail": "云端为主，可驻场本地化部署"
+          },
+          {
+            "productSlug": "legallens",
+            "level": "core",
+            "detail": "公有云 + 私有化双形态"
+          }
+        ],
+        "sourceSlides": [
+          13,
+          14,
+          15,
+          16
+        ]
+      },
+      {
+        "capability": "全流程审计与可追溯",
+        "note": "谁在什么时候做了什么，可逐条回放",
+        "cells": [
+          {
+            "productSlug": "aragonteam",
+            "level": "core",
+            "detail": "成员、角色与操作逐条留痕"
+          },
+          {
+            "productSlug": "inkclaw",
+            "level": "supported",
+            "detail": "文档变更逐条审阅与事件流"
+          },
+          {
+            "productSlug": "legallens",
+            "level": "supported",
+            "detail": "四层安全链路与输出核验"
+          }
+        ],
+        "sourceSlides": [
+          39,
+          61,
+          83
+        ]
+      }
+    ],
+    "sourceNote": "本表内容逐行取自《智瞳安宇 · 总体产品介绍 V7》对应页面，页码见每行标注。"
+  }
 }

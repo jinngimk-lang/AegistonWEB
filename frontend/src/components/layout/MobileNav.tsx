@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useRef } from 'react';
 
 import styles from '@/components/layout/MobileNav.module.css';
+import { SearchIcon } from '@/components/search/SearchTrigger';
 import { cn } from '@/lib/cn';
 import type { Navigation } from '@/types/content';
 
@@ -20,12 +21,22 @@ interface Props {
   open: boolean;
   onClose: () => void;
   isCurrent: (href: string | null | undefined) => boolean;
+  /** 打开命令面板。⚠️ 面板本体挂在顶栏而不是这里 —— 抽屉关闭时的 `inert`
+   *  会把挂在它内部的 `<dialog>` 一起惰性化（见 SearchTrigger 抬头）。 */
+  onSearch: () => void;
 }
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), summary, input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-export function MobileNav({ id, navigation, open, onClose, isCurrent }: Props) {
+export function MobileNav({
+  id,
+  navigation,
+  open,
+  onClose,
+  isCurrent,
+  onSearch,
+}: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const restoreFocus = useRef<HTMLElement | null>(null);
 
@@ -112,6 +123,12 @@ export function MobileNav({ id, navigation, open, onClose, isCurrent }: Props) {
         </div>
 
         <div className={styles.body}>
+          {/* 检索入口放在抽屉顶部：移动端没有 ⌘K，可见入口是唯一的发现路径
+              （v3 spec §4.2.4）。点开面板时先收起抽屉，避免两层模态叠加。 */}
+          <button type="button" className={styles.search} aria-label="搜索" onClick={onSearch}>
+            <SearchIcon />
+            <span>站内检索</span>
+          </button>
           {navigation.main.map((group) =>
             group.items.length === 0 ? (
               <Link

@@ -23,6 +23,7 @@ import products from './products.json';
 import productsDeployment from './products-deployment.json';
 import researchPapers from './research-papers.json';
 import researchPillars from './research-pillars.json';
+import searchIndex from './search-index.json';
 import siteNavigation from './site-navigation.json';
 import siteRoutes from './site-routes.json';
 import siteSettings from './site-settings.json';
@@ -47,6 +48,7 @@ const REGISTRY = {
   'products-deployment': productsDeployment,
   'research-papers': researchPapers,
   'research-pillars': researchPillars,
+  'search-index': searchIndex,
   'site-navigation': siteNavigation,
   'site-routes': siteRoutes,
   'site-settings': siteSettings,

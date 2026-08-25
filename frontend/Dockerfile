@@ -3,6 +3,10 @@
 #
 # ⚠️ 构建期**完全不触网**（除 npm 依赖安装外）：字体分片已入库 public/fonts/，
 # 图片已入库 public/media/，降级快照已入库 src/content/snapshot/。
+# v3 追加的三类产物同样入库、同样在 public/ 下，随第 40 行的 COPY 一起进镜像：
+#   public/search-index.json   检索索引（⌘K 面板 fetch，运行期不打后端）
+#   public/og/*.png            分享图与清单
+#   public/styles/fonts-rest.css  字体声明表的后半段（异步挂载）
 # 客户在隔离网内 docker build 只需要一个私有 npm 镜像即可（spec §5.3 / §11.2.1）。
 
 FROM node:22-alpine AS deps

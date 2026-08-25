@@ -68,6 +68,15 @@ const TEXT_PAIRS: [string, string, string][] = [
   ['白字 / 海军蓝底', WHITE, tokenValue('--navy')],
   ['顶栏正文 --utility-fg / --navy-deep', tokenValue('--utility-fg'), tokenValue('--navy-deep')],
   ['顶栏 EN --utility-muted / --navy-deep', tokenValue('--utility-muted'), tokenValue('--navy-deep')],
+  // --- v3 新增用色（§8 三条硬要求：新增文本颜色一律先过这里） ---
+  // 检索结果的次要说明、目录未激活项、矩阵的「—」单元格 —— 这三处最容易
+  // 顺手用上 --ink-3 / --ink-4，所以特意把它们的实际用色列进来。
+  ['检索结果次要说明 --ink-2 / --cream', tokenValue('--ink-2'), tokenValue('--cream')],
+  ['目录未激活项 --ink-2 / 白', tokenValue('--ink-2'), WHITE],
+  ['矩阵「—」单元格 --ink-2 / 白', tokenValue('--ink-2'), WHITE],
+  ['高亮命中 --red-dark / --red-soft', tokenValue('--red-dark'), tokenValue('--red-soft')],
+  ['面板底栏 --ink-2 / --cream', tokenValue('--ink-2'), tokenValue('--cream')],
+  ['检索筛选选中 白字 / --red', WHITE, tokenValue('--red')],
 ];
 
 describe('WCAG 2.1 AA 对比度（正文门槛 4.5:1）', () => {

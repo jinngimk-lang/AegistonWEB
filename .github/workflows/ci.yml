@@ -12,6 +12,11 @@ concurrency:
 env:
   PYTHON_VERSION: '3.11'
   NODE_VERSION: '22'
+  # ⚠️ frontend / e2e / lighthouse 三处**必须用同一组值**：它们复用同一份
+  # `.next` 产物，环境变量一旦不同，复用的就是一份「别人的」产物。
+  # 症状是 E2E 里出现莫名其妙的 URL，而不是构建失败 —— 所以集中在这里管理。
+  E2E_API_BASE_URL: 'http://127.0.0.1:8000'
+  E2E_SITE_URL: 'http://127.0.0.1:3000'
 
 jobs:
   backend:
@@ -77,11 +82,32 @@ jobs:
       # 视觉契约锚点：ref 的 60 条跨元素选择器 + §5.2 度量 + 对比度
       - name: vitest
         run: npm --prefix frontend run test
+      # OG 漂移检查放在这里而不是 content job：后者只有 setup-python，
+      # 没有 setup-node / npm ci，npm 命令在那里必然失败（v3 P1-5）
+      - name: og:check（四条比对：文件 / 映射表 / 底图 sha256 / 尺寸）
+        run: npm --prefix frontend run og:check
+      # 改了 fonts.css 或首屏文案却没重跑拆分 → 关键路径上的 CSS 会悄悄变回整表
+      - name: 字体拆分漂移检查
+        run: npm --prefix frontend run fonts:preload:check
       - name: build
         run: npm --prefix frontend run build
         env:
-          API_BASE_URL: http://127.0.0.1:8000
-          NEXT_PUBLIC_SITE_URL: https://example.invalid
+          API_BASE_URL: ${{ env.E2E_API_BASE_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ env.E2E_SITE_URL }}
+      # 先有门禁再改代码：每次改动的体积影响都是可见的（决策 A-11）
+      - name: 打包体积门禁
+        run: npm --prefix frontend run budget
+      # ⚠️ `needs:` 只表达先后顺序，**不传文件系统**。不上传产物的话，
+      # e2e 三条腿 + lighthouse 会各自再 build 一次 = 单次 PR build ×4（v3 P1-6）。
+      - name: 上传 .next 供 e2e / lighthouse 复用
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          path: |
+            frontend/.next
+            !frontend/.next/cache
+          retention-days: 1
+          include-hidden-files: true
 
   snapshot:
     name: 降级快照漂移检查
@@ -108,9 +134,15 @@ jobs:
         run: npm --prefix frontend run content:snapshot:check
 
   e2e:
-    name: E2E · 路由 / 导航 / 视觉契约 / a11y / 安全头
+    # 「声明即执行」：v2 声明了三个 Playwright project 却只跑 chromium。
+    # project 在这里被提升为 CI 的 matrix 维度（v3 G7 / M6）。
+    name: E2E · ${{ matrix.project }}
     runs-on: ubuntu-latest
     needs: [backend, frontend]
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, webkit, mobile-chrome]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -119,7 +151,12 @@ jobs:
         with: { node-version: '22', cache: npm, cache-dependency-path: frontend/package-lock.json }
       - run: python -m pip install -e "./backend"
       - run: npm --prefix frontend ci --include=dev
-      - run: npx --prefix frontend playwright install --with-deps chromium
+      # 按腿装浏览器：mobile-chrome 用的也是 chromium 内核
+      - name: 安装浏览器
+        run: |
+          BROWSER=${{ matrix.project }}
+          if [ "$BROWSER" = "mobile-chrome" ]; then BROWSER=chromium; fi
+          npx --prefix frontend playwright install --with-deps "$BROWSER"
       - name: 启动 API
         run: |
           cd backend
@@ -130,25 +167,38 @@ jobs:
             curl -sf http://127.0.0.1:8000/api/v1/health/ready && break
             sleep 1
           done
-      - name: 构建并启动前端
+      # 复用 frontend job 的产物，不再各自 build（v3 P1-6）
+      # ⚠️ `path:` 必须写到 `frontend/.next`：upload-artifact 以「全部命中文件的
+      # 最近公共祖先」为归档根，上传 `frontend/.next` 得到的包里是**目录内容**
+      # （BUILD_ID / server/ / static/ …）而不是 `.next/` 这一层。下载到
+      # `frontend` 会把它们摊在 frontend/ 下，`next start` 随即报
+      # 「Could not find a production build in the '.next' directory」。
+      - name: 取回 .next
+        uses: actions/download-artifact@v4
+        with:
+          name: next-build
+          path: frontend/.next
+      - name: 启动前端
         run: |
-          npm --prefix frontend run build
           npm --prefix frontend run start &
           for i in $(seq 1 60); do
             curl -sf http://127.0.0.1:3000/ && break
             sleep 1
           done
         env:
-          API_BASE_URL: http://127.0.0.1:8000
-          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+          API_BASE_URL: ${{ env.E2E_API_BASE_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ env.E2E_SITE_URL }}
+      # --workers=1：v2 实测本机与 CI 在默认并行度下会出现
+      # `browserContext.newPage: Test timeout exceeded` 这类环境噪声。
+      # 矩阵化后并行度由 job 维度提供，不需要 worker 维度再叠。
       - name: playwright
-        run: npm --prefix frontend run e2e -- --project=chromium
+        run: npm --prefix frontend run e2e -- --project=${{ matrix.project }} --workers=1
         env:
-          E2E_BASE_URL: http://127.0.0.1:3000
+          E2E_BASE_URL: ${{ env.E2E_SITE_URL }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.project }}
           path: frontend/playwright-report/
 
   cold-start:
@@ -175,8 +225,60 @@ jobs:
         env:
           API_BASE_URL: http://127.0.0.1:9
           NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
-      - name: 断言全站仍返回 200
-        run: npm --prefix frontend run e2e -- --project=chromium tests/e2e/offline-api.spec.ts
+      # ⚠️ 本 job **不能复用** frontend 的产物：它要求用一个指向空端口的
+      # API_BASE_URL 重新构建，否则测的就不是「API 从未启动」这个场景。
+      # 断言里含「/search?q=法律 在 API 不可达时仍非空」（v3 G2）。
+      - name: 断言全站仍返回 200，且检索仍可用
+        run: npm --prefix frontend run e2e -- --project=chromium --workers=1 tests/e2e/offline-api.spec.ts
         env:
           E2E_BASE_URL: http://127.0.0.1:3000
           AEGISTON_E2E_NO_API: '1'
+
+  lighthouse:
+    name: Lighthouse CI（desktop + mobile）
+    runs-on: ubuntu-latest
+    needs: [frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11', cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: python -m pip install -e "./backend"
+      - run: npm --prefix frontend ci --include=dev
+      - name: 启动 API
+        run: |
+          cd backend
+          AEGISTON_DATABASE_URL="sqlite+aiosqlite:///./ci.db" \
+          python -m uvicorn app.main:app --port 8000 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8000/api/v1/health/ready && break
+            sleep 1
+          done
+      # `needs:` 只表达先后顺序，不传文件；产物必须显式取回（v3 P1-6）
+      # 归档根是 `.next` 的**内容**，所以要落回 `frontend/.next`（同 e2e job）
+      - name: 取回 .next
+        uses: actions/download-artifact@v4
+        with:
+          name: next-build
+          path: frontend/.next
+      - name: 启动前端
+        run: |
+          npm --prefix frontend run start &
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:3000/ && break
+            sleep 1
+          done
+        env:
+          API_BASE_URL: ${{ env.E2E_API_BASE_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ env.E2E_SITE_URL }}
+      - name: LHCI desktop
+        run: npm --prefix frontend run lhci
+      - name: LHCI mobile
+        run: npm --prefix frontend run lhci:mobile
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-report
+          path: frontend/.lighthouseci/
+          retention-days: 7

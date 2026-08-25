@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-08-25T09:48:07.972Z",
+  "images": {
+    "default": {
+      "file": "default.png",
+      "bytes": 120941,
+      "sha256": "0f88c643b0fb5e19f26787db143168779ea96e7e1487ad5739c01650606c19fd",
+      "sourceMediaId": "stock-hero",
+      "sourceSha256": "6979a4c6c05ce396efa4675996e4ff762883a06dd67005bff0be3956295ce73b"
+    },
+    "home": {
+      "file": "home.png",
+      "bytes": 120941,
+      "sha256": "0f88c643b0fb5e19f26787db143168779ea96e7e1487ad5739c01650606c19fd",
+      "sourceMediaId": "stock-hero",
+      "sourceSha256": "6979a4c6c05ce396efa4675996e4ff762883a06dd67005bff0be3956295ce73b"
+    },
+    "about": {
+      "file": "about.png",
+      "bytes": 135569,
+      "sha256": "0d7d594c9a3f02b12d17def835ae7a47fc912dfedae3730fe58628d2c758cc65",
+      "sourceMediaId": "stock-about",
+      "sourceSha256": "51cfafe24c046743e4a941f2efc97eff080bdce1003fbf9a641c5c9f8fde284b"
+    },
+    "about-positioning": {
+      "file": "about-positioning.png",
+      "bytes": 135569,
+      "sha256": "0d7d594c9a3f02b12d17def835ae7a47fc912dfedae3730fe58628d2c758cc65",
+      "sourceMediaId": "stock-about",
+      "sourceSha256": "51cfafe24c046743e4a941f2efc97eff080bdce1003fbf9a641c5c9f8fde284b"
+    },
+    "about-team": {
+      "file": "about-team.png",
+      "bytes": 89267,
+      "sha256": "ce238cad29e6d239523fd38a8e2cd83bdaaebef2876b0895e7f4c9941853ee1d",
+      "sourceMediaId": "ara-members",
+      "sourceSha256": "c35ad57356f259d7f9b945bf709b6523ab975e1adb93cf1e8ca2110feccb012e"
+    },
+    "about-strength": {
+      "file": "about-strength.png",
+      "bytes": 138173,
+      "sha256": "91f7d9f8189e247c8eca9a3857ec73f77eb81b45a58896014e6095efbdf0c546",
+      "sourceMediaId": "stock-research",
+      "sourceSha256": "abbbe94d02e2e6831c3dcaa83478bc56f083eb430f83cff9d25885ca16cd833c"
+    },
+    "products": {
+      "file": "products.png",
+      "bytes": 113355,
+      "sha256": "97a4866411bce7c2bd09912a05a4f77bf7e75e8eeb3c02a12404a02a14088f9e",
+      "sourceMediaId": "stock-products",
+      "sourceSha256": "64fcae1136c64038345e64fb9b63411fa6dd1d2bf53179a1acb9294480471b6d"
+    },
+    "products-aragonteam": {
+      "file": "products-aragonteam.png",
+      "bytes": 77198,
+      "sha256": "23d85477e51b4a8646c310a6ce7a8a7921f38ab3237b78256a88e042da3dbfd8",
+      "sourceMediaId": "ara-team-home",
+      "sourceSha256": "fe05d088a4f75c6251209f4a7984d1f8b29ce1d808ca8b2ed2a81b825cff80ff"
+    },
+    "products-inkclaw": {
+      "file": "products-inkclaw.png",
+      "bytes": 67786,
+      "sha256": "36cb65f22d87f15f04450602c0e6812837912eee0750f91b7f4354487f4afb59",
+      "sourceMediaId": "ink-chat",
+      "sourceSha256": "65dbb7c1fafc3f2fa1b2e96d336dee4877de8a27cf9fc781330695a3f23b5e53"
+    },
+    "products-legallens": {
+      "file": "products-legallens.png",
+      "bytes": 132865,
+      "sha256": "de9e3c1411e32c3518e59adfaabc748f62150d970124a327b9a15c6500d3a148",
+      "sourceMediaId": "legal-review-result",
+      "sourceSha256": "64607570d034c6ec4645230d178ef7a04f72b4a2cedc2f5fb35b8fed8d70c50c"
+    },
+    "products-deployment": {
+      "file": "products-deployment.png",
+      "bytes": 112784,
+      "sha256": "6af586c1cfe77aadb2e73db93380a79bda634ca764419cbb1ab27fe0adc10f6b",
+      "sourceMediaId": "stock-deployment",
+      "sourceSha256": "92b54cd3a29bff2823f21b1f3b1c32eda71806d670ae9f7efbe5c42ca5f54035"
+    },
+    "solutions": {
+      "file": "solutions.png",
+      "bytes": 114965,
+      "sha256": "4d246aceff359b7e8e5dead9f5139d609ab18a77a2e4dca76ffb0382a51f8789",
+      "sourceMediaId": "stock-telecom",
+      "sourceSha256": "108f4cdb7a3a8e1e362549847cbfb4f5d4b30e88dee90fd084ccf177a22ce119"
+    },
+    "solutions-telecom": {
+      "file": "solutions-telecom.png",
+      "bytes": 125304,
+      "sha256": "480b2a6553b4cc881a77feadbe07a5bcf2b0e538928a166d5a8aed3a313af076",
+      "sourceMediaId": "case-telecom",
+      "sourceSha256": "989b7bfdc1ea2fe70a32319c44e01a5536dd0bd35ad4ae0be090dad8a3627ec0"
+    },
+    "solutions-transportation": {
+      "file": "solutions-transportation.png",
+      "bytes": 154657,
+      "sha256": "a708036b2eac6ce5e7920ae3ffdc7b89291cd7d8173e8df96be4a948a9893ee9",
+      "sourceMediaId": "case-transportation",
+      "sourceSha256": "951f92636c6448a0e6cb28b90b71bc507289f113ebb5977b80a3d99a0218bf5b"
+    },
+    "solutions-legal-services": {
+      "file": "solutions-legal-services.png",
+      "bytes": 102065,
+      "sha256": "d3cc0aada412a79ae65b5270a46c1d6a67bb59186349d385780b42b56ab0394c",
+      "sourceMediaId": "legal-consistency",
+      "sourceSha256": "e237f1a57d114fafcb8ec3559279fc3b1ed8a2af8ea138eafa520bb9591fe4d7"
+    },
+    "solutions-finance": {
+      "file": "solutions-finance.png",
+      "bytes": 136595,
+      "sha256": "6c9840efedad775657099c0938d47e57b73717b318ae0057c3bb6d3a1726d0c9",
+      "sourceMediaId": "stock-finance",
+      "sourceSha256": "be5563a249076807c684c18f99e2145d86f7126143dbfb96b2ee5fe38966a986"
+    },
+    "research": {
+      "file": "research.png",
+      "bytes": 138173,
+      "sha256": "91f7d9f8189e247c8eca9a3857ec73f77eb81b45a58896014e6095efbdf0c546",
+      "sourceMediaId": "stock-research",
+      "sourceSha256": "abbbe94d02e2e6831c3dcaa83478bc56f083eb430f83cff9d25885ca16cd833c"
+    },
+    "research-papers": {
+      "file": "research-papers.png",
+      "bytes": 138173,
+      "sha256": "91f7d9f8189e247c8eca9a3857ec73f77eb81b45a58896014e6095efbdf0c546",
+      "sourceMediaId": "stock-research",
+      "sourceSha256": "abbbe94d02e2e6831c3dcaa83478bc56f083eb430f83cff9d25885ca16cd833c"
+    },
+    "insights": {
+      "file": "insights.png",
+      "bytes": 132722,
+      "sha256": "0a00cb20a8b2f1d6fd0d850f14ae94ab5e904edc060f45421a623f25d0097c5d",
+      "sourceMediaId": "stock-insights",
+      "sourceSha256": "fe2740f327ea3a41fe18084d141ebcec70f6f5b43782aa1735562aa08cd7086c"
+    },
+    "careers": {
+      "file": "careers.png",
+      "bytes": 151554,
+      "sha256": "0bae0d61f782377b8a832e23b7011121c7c145efd3eeb16cf17f932418c4a881",
+      "sourceMediaId": "stock-careers",
+      "sourceSha256": "707cfc817e878c5c474839336d2a1b3311b243ad09c4c08dff53b4da8145218a"
+    },
+    "contact": {
+      "file": "contact.png",
+      "bytes": 112220,
+      "sha256": "8f21cbd0789c7bc7f8bb019f2124260bd1ee4daa1eff15294606abd8784d9833",
+      "sourceMediaId": "stock-contact",
+      "sourceSha256": "2e81fcbc4f77ba540b8996a3bb3a9a77f27cbd888b9715f38db2600aa9cf69a6"
+    },
+    "search": {
+      "file": "search.png",
+      "bytes": 135569,
+      "sha256": "0d7d594c9a3f02b12d17def835ae7a47fc912dfedae3730fe58628d2c758cc65",
+      "sourceMediaId": "stock-about",
+      "sourceSha256": "51cfafe24c046743e4a941f2efc97eff080bdce1003fbf9a641c5c9f8fde284b"
+    },
+    "sitemap": {
+      "file": "sitemap.png",
+      "bytes": 135569,
+      "sha256": "0d7d594c9a3f02b12d17def835ae7a47fc912dfedae3730fe58628d2c758cc65",
+      "sourceMediaId": "stock-about",
+      "sourceSha256": "51cfafe24c046743e4a941f2efc97eff080bdce1003fbf9a641c5c9f8fde284b"
+    },
+    "legal": {
+      "file": "legal.png",
+      "bytes": 135569,
+      "sha256": "0d7d594c9a3f02b12d17def835ae7a47fc912dfedae3730fe58628d2c758cc65",
+      "sourceMediaId": "stock-about",
+      "sourceSha256": "51cfafe24c046743e4a941f2efc97eff080bdce1003fbf9a641c5c9f8fde284b"
+    }
+  }
+}

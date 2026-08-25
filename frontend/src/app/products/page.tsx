@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { CtaBand } from '@/components/sections/CtaBand';
 import { PageHero } from '@/components/sections/PageHero';
+import { CapabilityMatrix } from '@/components/content/CapabilityMatrix';
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { MediaFill } from '@/components/media/MediaFill';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
@@ -107,7 +108,33 @@ export default async function ProductsPage() {
         </div>
       </section>
 
-      <section className="section section-gray" aria-labelledby="foundation-title">
+      {data.capabilityMatrix ? (
+        <section className="section section-gray" aria-labelledby="matrix-title">
+          <div className="container">
+            <Reveal className="section-head">
+              <div className="section-head-left">
+                <div className="section-label">CAPABILITY MATRIX</div>
+                <h2 className="section-title" id="matrix-title">
+                  {data.capabilityMatrix.title}
+                </h2>
+                {data.capabilityMatrix.description ? (
+                  <p className="section-desc">{data.capabilityMatrix.description}</p>
+                ) : null}
+              </div>
+            </Reveal>
+            <CapabilityMatrix
+              matrix={data.capabilityMatrix}
+              productNames={data.products.map((product) => ({
+                slug: product.slug,
+                name: product.nameEn,
+                tierLabel: product.tierLabel,
+              }))}
+            />
+          </div>
+        </section>
+      ) : null}
+
+      <section className="section" aria-labelledby="foundation-title">
         <div className="container">
           <Reveal className="solutions-intro">
             <div className="section-label">SHARED FOUNDATION</div>

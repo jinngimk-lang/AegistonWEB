@@ -1,0 +1,43 @@
+/** 产品页节内锚点条。自包含 → CSS Module，前缀 `sn-`。 */
+
+.sn-root {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 90;              /* .nav 是 100，锚点条压在正文之上、顶栏之下 */
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.sn-root:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px }
+
+.sn-inner {
+  display: flex;
+  gap: 4px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+  white-space: nowrap;
+}
+
+.sn-link {
+  display: inline-block;
+  padding: 14px 14px;
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.sn-link:hover { color: var(--red) }
+.sn-link[aria-current='location'] { color: var(--red); border-bottom-color: var(--red); font-weight: 600 }
+
+@media (max-width: 768px) {
+  .sn-inner { padding: 0 20px }
+  .sn-link { padding: 12px 10px; font-size: 12px }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sn-link { transition: none }
+}

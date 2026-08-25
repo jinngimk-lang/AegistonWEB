@@ -38,9 +38,11 @@ from app.schemas.product import (
     ProductsOverview,
 )
 from app.schemas.research import PapersPage, ResearchOverview
+from app.schemas.search import SearchIndexPayload
 from app.schemas.site import Navigation, SiteSettings
 from app.schemas.solution import SolutionDetail, SolutionSlug, SolutionsOverview
 from app.services.content import get_repository
+from app.services.search import build_search_index
 
 router = APIRouter()
 
@@ -210,6 +212,28 @@ async def insight_detail(slug: str, request: Request, response: Response) -> Any
     return detail
 
 
+# ------------------------------------------------------------------- search
+# 无动态路径段，因此不存在静态/动态遮蔽问题；仍按本文件的既有秩序把它放在
+# 全部动态段路由之后的独立小节里，避免读者误以为顺序是随意的。
+@router.get("/search/index", response_model=SearchIndexPayload, tags=["search"])
+async def search_index(request: Request, response: Response) -> Any:
+    """检索索引。**只在构建期**被 `frontend/scripts/sync-content.mjs` 调用一次。
+
+    ⚠️ 响应体中**不得出现 `score` 或任何排序字段**（v3 spec §4.2.1 / R1）：
+    打分算法只在 `frontend/src/lib/search.ts` 实现一份，后端只负责摊平内容包。
+    `tests/test_search.py::test_search_index_shape` 从接口形状上守这条。
+    """
+    not_modified = _not_modified(request, response, "search/index", static=True)
+    if not_modified is not None:
+        return not_modified
+    request_app = request.app
+    cached: SearchIndexPayload | None = getattr(request_app.state, "search_index", None)
+    if cached is None:  # pragma: no cover - lifespan 正常执行时不会走到
+        cached = build_search_index(get_repository())
+        request_app.state.search_index = cached
+    return cached
+
+
 # -------------------------------------------------------------------- media
 @router.get("/media/manifest", tags=["media"])
 async def media_manifest(request: Request, response: Response) -> Any:
@@ -242,33 +266,7 @@ async def site_routes(request: Request, response: Response) -> Any:
     not_modified = _not_modified(request, response, "site/routes", static=True)
     if not_modified is not None:
         return not_modified
-    repo = get_repository()
-    static_routes = [
-        {"path": "/", "changeFrequency": "daily", "priority": 1.0},
-        {"path": "/about", "changeFrequency": "monthly", "priority": 0.8},
-        {"path": "/about/positioning", "changeFrequency": "monthly", "priority": 0.7},
-        {"path": "/about/team", "changeFrequency": "monthly", "priority": 0.7},
-        {"path": "/about/strength", "changeFrequency": "monthly", "priority": 0.7},
-        {"path": "/products", "changeFrequency": "weekly", "priority": 0.9},
-        {"path": "/products/deployment", "changeFrequency": "monthly", "priority": 0.8},
-        {"path": "/solutions", "changeFrequency": "weekly", "priority": 0.9},
-        {"path": "/research", "changeFrequency": "monthly", "priority": 0.8},
-        {"path": "/research/papers", "changeFrequency": "monthly", "priority": 0.7},
-        {"path": "/insights", "changeFrequency": "daily", "priority": 0.8},
-        {"path": "/careers", "changeFrequency": "monthly", "priority": 0.6},
-        {"path": "/contact", "changeFrequency": "monthly", "priority": 0.9},
-        {"path": "/sitemap", "changeFrequency": "monthly", "priority": 0.3},
-        {"path": "/legal/terms", "changeFrequency": "yearly", "priority": 0.2},
-        {"path": "/legal/privacy", "changeFrequency": "yearly", "priority": 0.2},
-        {"path": "/legal/credits", "changeFrequency": "yearly", "priority": 0.2},
-    ]
-    dynamic = (
-        [{"path": f"/products/{s}", "changeFrequency": "weekly", "priority": 0.9}
-         for s in repo.products]
-        + [{"path": f"/solutions/{s}", "changeFrequency": "monthly", "priority": 0.8}
-           for s in repo.solutions]
-        + [{"path": f"/insights/{p.slug}", "changeFrequency": "monthly", "priority": 0.6,
-            "lastModified": p.published_at.isoformat()} for p in repo.insights]
-    )
-    return {"routes": static_routes + dynamic, "count": len(static_routes) + len(dynamic)}
-
+    # 清单本身在 ContentRepository.route_entries()：端点与内容校验共用同一份，
+    # 「索引里出现死链」才能和「站内出现死链」用同一把尺子量（v3 P1-4）。
+    routes = get_repository().route_entries()
+    return {"routes": routes, "count": len(routes)}

@@ -32,6 +32,7 @@ export const ROUTES = {
 
   careers: '/careers',
   contact: '/contact',
+  search: '/search',
   sitemap: '/sitemap',
 
   legalTerms: '/legal/terms',
@@ -74,6 +75,7 @@ export const STATIC_ROUTES: readonly string[] = [
   ROUTES.insights,
   ROUTES.careers,
   ROUTES.contact,
+  ROUTES.search,
   ROUTES.sitemap,
   ROUTES.legalTerms,
   ROUTES.legalPrivacy,
@@ -118,6 +120,7 @@ export const SEGMENT_LABELS: Record<string, string> = {
   insights: '洞察与动态',
   careers: '加入我们',
   contact: '联系我们',
+  search: '站内检索',
   sitemap: '网站地图',
   legal: '法务',
   terms: '使用条款',

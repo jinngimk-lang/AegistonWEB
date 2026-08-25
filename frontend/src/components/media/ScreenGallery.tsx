@@ -117,6 +117,14 @@ export function ScreenGallery({ sections, assets, vlabelPrefix }: Props) {
         );
       })}
 
+      {/* ⚠️ 灯箱**常驻挂载**：既不走 `next/dynamic`，也不按 openIndex 条件渲染。
+          - 动态导入实测净收益为负（v3 spec B-2：`/products/[slug]` +0.2 kB gzip），
+            loader 胶水比这个组件本身还重，M5-b 因此撤回；
+          - 条件渲染同样不行：点「✕」关闭时它把一个**仍处于 open 状态**的原生
+            `<dialog>` 直接从 DOM 上摘掉，浏览器就没有机会把焦点还给触发它的
+            缩略图按钮，焦点掉回 `<body>`。常驻挂载时走的是
+            `index → null` → 组件内 `dialog.close()`，焦点由浏览器还原。
+          组件在 `index === null` 时只渲染一个空的 `<dialog>`，没有额外开销。 */}
       <Lightbox
         items={ordered}
         index={openIndex}

@@ -262,3 +262,141 @@
 .credit-table th, .credit-table td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; color: var(--ink-2) }
 .credit-table th { background: var(--bg-gray); color: var(--navy); font-weight: 700; white-space: nowrap }
 .credit-table a { color: var(--red) }
+
+/* ==========================================================================
+   v3 增量：站内检索 / 长文阅读 / 能力矩阵
+   —— 凡与 ref 类名（.nav / .article / .card / .section / .btn）发生**后代
+   关系**的规则一律留在本全局层。写进 CSS Module 会被哈希成页面上不存在的
+   类名：不报错、不告警、不进 lint，只是样式没生效（CLAUDE.md §1）。
+   ========================================================================== */
+
+/* ---------- 顶栏检索按钮（ref/1.html:436 原本就是 <button class="nav-search">）
+   v2 因为当时没有检索页可指，把它做成了 <Link href="/sitemap">；这里是**还原**。
+   两条新增偏离已登记进 v2 spec §5.3 第 8 / 9 条：
+     8. 命中区 40×40 → 44×44（视觉圆形直径**仍是 40px**，靠 ::after 扩命中区，
+        不动 ref 的观感）—— WCAG 2.1 SC 2.5.5 / 2.2 SC 2.5.8
+     9. 桌面宽屏在按钮右侧显示 ⌘K / Ctrl K 提示徽标（ref 的按钮没有任何快捷键暗示）
+   ---------- */
+.nav-search { position: relative; background: none; border: 0; padding: 0 6px; cursor: pointer; gap: 8px; width: auto; min-width: 40px; height: 40px }
+.nav-search::after { content: ''; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%) }
+.nav-search-hint {
+  font-family: var(--sans-en);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--ink-2);
+  border: 1px solid var(--border-2);
+  border-radius: 4px;
+  padding: 2px 5px;
+  line-height: 1.2;
+}
+.nav-search:hover .nav-search-hint { border-color: var(--red); color: var(--red) }
+
+/* ---------- 站内检索页 ---------- */
+.search-layout { max-width: 840px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px }
+.search-label {
+  display: block;
+  font-family: var(--sans-en);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+.search-field { display: flex; gap: 12px; align-items: stretch }
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border-2);
+  background: var(--white);
+  padding: 0 18px;
+  height: 52px;
+  font-size: 16px;
+  font-family: var(--sans-cn);
+  color: var(--ink);
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-input::placeholder { color: var(--ink-2) }
+.search-input:focus { outline: 0; border-color: var(--red); box-shadow: 0 0 0 3px var(--red-soft) }
+.search-field .btn-primary { flex: 0 0 auto; height: 52px; display: inline-flex; align-items: center }
+
+.search-filters { display: flex; flex-wrap: wrap; gap: 8px 10px }
+.search-filters a {
+  font-size: 13px;
+  color: var(--ink-2);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  transition: all .2s;
+}
+.search-filters a:hover { border-color: var(--red); color: var(--red) }
+.search-filters a[aria-current] { background: var(--red); border-color: var(--red); color: var(--white) }
+
+.search-summary { font-size: 14px; color: var(--ink-2); line-height: 1.85 }
+.search-summary strong { color: var(--navy); font-weight: 700 }
+
+.search-empty { border: 1px solid var(--border); background: var(--cream); padding: 32px 34px }
+.search-empty h2 { font-family: var(--serif-cn); font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 10px }
+.search-empty p { font-size: 14px; color: var(--ink-2); line-height: 1.85 }
+.search-exits { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 20px }
+
+/* ---------- 长文阅读：目录轨道 ----------
+   ⚠️ 定位上下文必须在 `.article` 这一层建立，而 `.article` 是全局类。
+   把这段写进 ArticleToc.module.css 会得到「样式全对、位置不对」的目录 ——
+   编译后 `.article > .toc-rail` 指向一个页面上不存在的类名（v3 P1-9）。 */
+.article-layout { display: grid; grid-template-columns: minmax(0, 780px) 210px; gap: 40px; justify-content: center; align-items: start }
+.article-layout > .article { max-width: 780px; margin: 0 }
+.article-rail { position: sticky; top: calc(var(--header-h) + 24px); align-self: start }
+
+/* 锚点跳转不被固定顶栏遮挡。`.nav` 是 sticky top:0 且高 80px。 */
+.article h2, .article h3, .article h4, .prose h2, .prose h3, .prose h4 { scroll-margin-top: calc(var(--header-h) + 24px) }
+
+/* ---------- 上一篇 / 下一篇 ---------- */
+.article-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--border) }
+.article-nav-item { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--border); padding: 18px 20px; transition: border-color .2s, transform .2s }
+.article-nav-item:hover { border-color: var(--red); transform: translateY(-2px) }
+.article-nav-item[data-side='next'] { text-align: right }
+.article-nav-dir { font-family: var(--sans-en); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 600 }
+.article-nav-title { font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6 }
+.article-nav-empty { border: 1px dashed var(--border); padding: 18px 20px; font-size: 13px; color: var(--ink-2); display: flex; align-items: center }
+
+/* ---------- 相关阅读（复用全局 .card-grid / .card / .card-body） ---------- */
+.related-block { margin-top: 56px }
+.related-block .section-label { margin-bottom: 14px }
+.related-block .card-grid { grid-template-columns: repeat(3, 1fr) }
+.related-block .card-body { padding: 22px 24px 26px }
+.related-block .card h3 { font-size: 17px }
+
+/* ---------- 能力矩阵（复用 .section / .section-head / .source-note） ---------- */
+.capability-matrix { margin-top: 8px }
+.matrix-scroll { overflow-x: auto; border: 1px solid var(--border); background: var(--white) }
+.matrix-scroll:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px }
+.capability-matrix table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px }
+.capability-matrix caption { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+.capability-matrix th, .capability-matrix td { border-bottom: 1px solid var(--border); padding: 16px 18px; text-align: left; vertical-align: top }
+.capability-matrix thead th { background: var(--bg-gray); color: var(--navy); font-weight: 700; font-size: 13px; letter-spacing: .04em; white-space: nowrap; border-bottom: 1px solid var(--border-2) }
+.capability-matrix tbody th {
+  /* 首列固定：背景必须**不透明**，否则横向滚动时文字叠字 */
+  position: sticky; left: 0; z-index: 1;
+  background: var(--white);
+  color: var(--navy); font-weight: 600; min-width: 240px;
+  border-right: 1px solid var(--border);
+}
+.capability-matrix tbody tr:hover th, .capability-matrix tbody tr:hover td { background: var(--cream) }
+.matrix-capability { display: block; line-height: 1.6 }
+.matrix-note { display: block; margin-top: 6px; font-size: 12px; color: var(--ink-2); font-weight: 400; line-height: 1.7 }
+.matrix-slides { display: block; margin-top: 8px; font-family: var(--sans-en); font-size: 11px; letter-spacing: .08em; color: var(--ink-2); font-weight: 400 }
+.matrix-cell { display: flex; flex-direction: column; gap: 6px; min-width: 150px }
+.matrix-level {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; letter-spacing: .04em;
+}
+.matrix-cell[data-level='core'] .matrix-level { color: var(--red) }
+.matrix-cell[data-level='supported'] .matrix-level { color: var(--ink-2) }
+/* `none` 渲染为「—」并附视觉隐藏的「未覆盖」。**不用 ✗ 或任何否定性图形**：
+   同一家公司的产品分层是定位差异，不是优劣评价（决策 A-7）。 */
+.matrix-cell[data-level='none'] .matrix-level { color: var(--ink-2); font-weight: 400 }
+.matrix-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: 0 0 auto }
+.matrix-cell[data-level='supported'] .matrix-dot { background: none; border: 1.5px solid var(--border-strong) }
+.matrix-detail { font-size: 12px; color: var(--ink-2); line-height: 1.7 }
+.matrix-hint { font-size: 12px; color: var(--ink-2); margin-top: 12px }

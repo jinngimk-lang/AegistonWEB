@@ -346,6 +346,14 @@ frontend/scripts/sync-content.mjs       ──▶ src/content/snapshot/*.json（
 | **字体改为 `next/font/local` + 字体文件入库（v2 修正）** | ref 从 `fonts.googleapis.com` 外链，私有化/内网部署下会阻塞渲染。**但 `next/font/google` 只解决了运行期**——它在 **构建期**仍需访问 `fonts.googleapis.com` / `fonts.gstatic.com`，客户在隔离网内 `docker build` 会直接失败，也与 §11.3「CSP 无任何外部域白名单」的交付卖点不自洽。因此改为：一次性用 `frontend/scripts/fetch-fonts.mjs` 把 woff2 分片下载到 `frontend/src/assets/fonts/`（**入库**），页面侧统一用 `next/font/local` 声明 `src` + `unicode-range` + `display:'swap'`。构建与运行**全程零外网** |
 | 邮箱不再用 Cloudflare `__cf_email__` 混淆 | 依赖 CF 脚本，自建部署下会渲染成乱码 |
 | **`--ink-3` / `--ink-4` 退出文本用色；顶栏 `.lang-en` 由 `#6A80A0` 改为 `#8AA0BE`（v2 新增）** | 实测对比度分别为 2.97:1 / 1.88:1 / 4.29:1，均不满足 WCAG 2.1 AA，与 DoD #7「axe 零 serious 违规」直接冲突。**令牌值本身不改**（保持与 ref 比对时的可读性），改的是**用色规则**，详见 §10.3 |
+| **第 8 条 · `.nav-search` 命中区由 ref 的 40×40 放大到 44×44（v3 新增）** | WCAG 2.1 SC 2.5.5（AAA）/ 2.2 SC 2.5.8（AA，24×24 下限）。40×40 已过 AA，放大到 44 是给触摸目标留余量。**视觉圆形直径保持 40px**，靠 `::after` 的透明层扩大命中区，不动 ref 的观感。落点 `src/styles/sections-ext.css`（`.nav-search` 是 ref 类名，只能待在全局层） |
+| **第 9 条 · 桌面宽屏在 `.nav-search` 右侧显示 `⌘K` / `Ctrl K` 提示徽标（v3 新增）** | ref 的按钮没有任何快捷键暗示，而 v3 G1 要求「2 次按键内可达任意内容」——没有可见提示的快捷键，发现性为零。`≤1024px` 时随按钮一起移入移动端抽屉，不新引入断点档位 |
+
+> **不是偏离的一条（v3 澄清）**：`ref/1.html:436` 本来就有
+> `<button class="nav-search" aria-label="搜索">`，v2 因为当时没有检索页可指，
+> 把它实现成了 `<Link href="/sitemap">`。v3 把它**还原成 `<button>`** ——
+> 这是**消除**一处 v2 的临时替代，不是新增偏离。`sections.css:63-64` 的
+> `.nav-search` 两条规则始终与 ref 逐字一致，未做任何改动。
 
 ---
 
@@ -1071,7 +1079,29 @@ v1.0 定义了快照文件（`src/content/snapshot/*.json`）和生成脚本，�
 - **CSP Level 2+ 规定：一旦 `script-src` 中出现 nonce（或 hash），浏览器就会忽略同一指令里的 `'unsafe-inline'`。** 二者写在一起没有「先宽松再逐步收紧」的中间态。
 - **Next.js 的 nonce 必须由 middleware 逐请求生成并下发**，而读取 nonce 的页面**会被强制转为动态渲染**。这会直接推翻 §4.3 的 ISR + Full Route Cache，以及 §3.1 里 24 条路由的渲染策略——一个内容站为此放弃全站静态化，代价与收益完全不成比例。
 
-**v1 的选择：保 ISR，用 `'unsafe-inline'`，并用其余指令把攻击面压到最小。** 这是可接受的：本站没有用户输入回显、没有富文本渲染（洞察正文经 `bleach` 白名单净化，见 §9.2）、没有第三方脚本，XSS 注入点接近于零。
+**v1 的选择：保 ISR，用 `'unsafe-inline'`，并用其余指令把攻击面压到最小。**
+
+> **⚠️ v3 修订（v3 spec §4.2.7 / P0-2）：这一段的第一条前提变了，必须重写。**
+>
+> v1/v2 的原话是「本站**没有用户输入回显**、没有富文本渲染、没有第三方脚本」。
+> v3 上线 `/search?q=…` 之后，**第一条前提不再成立**。留着一句已经不成立的
+> 安全论证，比没有论证更危险 —— 下一个人会照着它做决定。
+>
+> **修订后的论证**：本站唯一的用户输入回显点是 `/search` 的查询串，且它
+> **只经文本节点渲染**（`components/search/Highlight.tsx`；eslint 的
+> `react/no-danger` 在 `src/components/search/**` 与 `src/app/search/**` 下
+> **强制打开**），**不进任何 JSON-LD 与内联脚本**——全仓有 10 处
+> `dangerouslySetInnerHTML={{__html: JSON.stringify(...)}}`，而 `JSON.stringify`
+> **不转义 `<` 与 `/`**，一个 `</script>` 就能闭合标签；**那才是真正的注入点，
+> `<mark>` 反而不是**。洞察正文经 `bleach` 白名单净化（见 §9.2）；无第三方脚本。
+> 因此 `'unsafe-inline'` 的取舍前提依然成立。
+>
+> 对应断言：`tests/e2e/search.spec.ts` 用 `?q=<script>alert(1)</script>` 与
+> `?q="></script><script>alert(1)</script>` 两种载荷验证「页面 200、零 dialog、
+> 未新增 script 元素、每个 `application/ld+json` 仍能 `JSON.parse`」。
+>
+> 同步修订的另外三处：`frontend/next.config.mjs`、`nginx/aegiston.conf`、
+> `frontend/tests/e2e/security-headers.spec.ts`。
 
 ```
 Content-Security-Policy:

@@ -55,3 +55,49 @@ def test_cache_control_present(client):
     res = client.get("/api/v1/home")
     assert "max-age" in res.headers["Cache-Control"]
     assert "stale-while-revalidate" in res.headers["Cache-Control"]
+
+
+# --------------------------------------------------------- v3 · 能力矩阵
+
+THIRD_PARTY_TERMS = ("OpenAI", "ChatGPT", "Claude", "Gemini", "Copilot", "DeepSeek", "文心", "通义")
+
+
+def test_capability_matrix_present_and_sourced(client):
+    matrix = client.get("/api/v1/products").json()["capabilityMatrix"]
+    assert matrix is not None
+    assert len(matrix["rows"]) >= 4
+    assert matrix["sourceNote"]
+    for row in matrix["rows"]:
+        assert row["sourceSlides"], f"「{row['capability']}」缺少 sourceSlides —— 违反内容不臆造"
+        slugs = [cell["productSlug"] for cell in row["cells"]]
+        assert sorted(slugs) == ["aragonteam", "inkclaw", "legallens"]
+
+
+def test_capability_matrix_levels_have_no_roadmap_tier(client):
+    """三档取值，**没有「规划中」**：前瞻表述在广告法语境下是承诺（决策 A-7）。"""
+    matrix = client.get("/api/v1/products").json()["capabilityMatrix"]
+    levels = {cell["level"] for row in matrix["rows"] for cell in row["cells"]}
+    assert levels <= {"core", "supported", "none"}
+
+
+def test_capability_matrix_no_third_party(client):
+    """CLAUDE.md §4：竞品对照不上公开页。矩阵只列本家三个产品。"""
+    matrix = client.get("/api/v1/products").json()["capabilityMatrix"]
+    text = " ".join(
+        [matrix["title"], matrix.get("description") or "", matrix["sourceNote"]]
+        + [f"{r['capability']} {r.get('note') or ''}" for r in matrix["rows"]]
+        + [c.get("detail") or "" for r in matrix["rows"] for c in r["cells"]]
+    ).lower()
+    for term in THIRD_PARTY_TERMS:
+        assert term.lower() not in text, f"矩阵文案出现第三方主体「{term}」"
+
+
+def test_capability_matrix_row_covers_each_product_at_least_once(client):
+    """每个产品至少在一行里是 core —— 否则这张表在讲一个不完整的故事。"""
+    matrix = client.get("/api/v1/products").json()["capabilityMatrix"]
+    core_by_slug: dict[str, int] = {}
+    for row in matrix["rows"]:
+        for cell in row["cells"]:
+            if cell["level"] == "core":
+                core_by_slug[cell["productSlug"]] = core_by_slug.get(cell["productSlug"], 0) + 1
+    assert set(core_by_slug) == {"aragonteam", "inkclaw", "legallens"}

@@ -108,7 +108,13 @@ CSS Modules 会把类名哈希成 `Button_btn-primary__x7f2`，写在 `CtaBand.m
 - **不存明文 IP**，只存 `sha256(ip + SECRET_SALT)`。
 - 手机号 / 邮箱在日志与管理接口出参中一律脱敏（`138****8000` / `z***@example.com`）。
 - 表单必须勾选同意才能提交，服务端同样校验（《个人信息保护法》告知同意）。
-- 429 时**必须同时给出邮件与电话兜底路径**，绝不让用户走进死路。
+- 429 时**必须给出一条真能走通的兜底联系路径**，绝不让用户走进死路。
+  口径：**商务邮箱恒给**；电话**只在内容包 `site.json` 的 `contact.phone`
+  非空时**一并给出（当前是 `null`，属 v2 §15 的待确认项）。
+  **不允许用 `"phone":""` 之类的空字段凑齐形状** —— 门禁会因此变绿，
+  用户拿到的仍是死路，而编一个号码又违反 §4「内容不臆造」。
+  两处落点必须同口径：`frontend/src/components/forms/LeadForm.tsx` 与
+  `nginx/aegiston-common.inc` 的 `/429.json`。
 
 ## 9. 编排：降级承诺必须自洽
 
@@ -124,10 +130,64 @@ api 的 healthcheck 保留，但作用是**给运维看**，不是卡住依赖�
 跨平台的规范入口是 `npm run <task>` 与 `python -m <module>`。
 脚本内部一律用 `pathlib` / `path.join`，命令行参数中的路径统一用正斜杠。
 
-## 11. 偏离 ref 的流程
+## 11. 检索算法只实现一份，OG 图不含文字
+
+这两条是 v3 引入的，性质与前面几条一样：**都是防静默失效的**。
+
+### 11.1 检索打分只在 TypeScript 实现一份
+
+`frontend/src/lib/search.ts` 是全站**唯一**的分词 / 打分 / 排序 / 分组实现。
+`/search` 页（Node）与 ⌘K 面板（浏览器）调用**同一个函数、同一份索引**。
+
+后端 `app/services/search.py` 只负责「遍历内容包 → 抽纯文本 → 截断」，
+**不打分、不排序**。理由不是分工好看：两份排序实现必然在中文分词边界、
+字段权重、同分排序上无声漂移，表现为「同一个词在 `/search` 页和 ⌘K 里排序不同」，
+而**没有任何测试会发现**。
+
+堵法是接口形状而不是约定：`SearchDoc` 里不存在 `score`，
+`backend/tests/test_search.py::test_search_index_shape` 逐字段断言它不出现。
+要在后端补一份打分实现，就必须往响应体里加排序字段，那条断言会红。
+
+配套约束：
+
+- 索引 JSON 里**只存原文，不存 tokens**。落地后由 `buildRuntimeIndex()` 一次性
+  构建内存倒排表 —— 存 tokens 会让索引体积翻倍（bigram 使 token 数≈字符数），
+  每次按键现分词则打不住 16 ms。
+- 索引 URL **必须带 `contentHash` 版本位**（`/search-index.json?v=…`）。
+  `force-cache` 的语义是「命中即用，不管新鲜与否」，固定 URL + 内容更新 =
+  浏览器里躺着一份会指向**死链**的旧索引，而零死链是 §6 的零容忍项。
+  nginx 侧**不得**把它并进 `immutable` 的媒体 location。
+- 查询串是全站**唯一**的用户输入回显点。它**只经文本节点渲染**
+  （`Highlight.tsx`），**不进任何 JSON-LD**——`JSON.stringify` 不转义 `<` 与 `/`。
+  eslint 的 `react/no-danger` 在 `src/components/search/**` 与 `src/app/search/**`
+  下**局部**打开（不能全局开：现有 10 处 JSON-LD 都要用）。
+
+### 11.2 OG 图不含任何文字，产物入库
+
+中文标题要排进 PNG 就需要一份**完整的** CJK 字体，而字体已按 `unicode-range`
+切成 209 个分片，satori / resvg / sharp 都无法从分片里自动挑片；补一份完整的
+Noto Sans SC（≈ 10 MB）入库只为生成几十张图，代价与收益不成比例；不入库则
+构建期必须联网下载，直接违反 §5。
+
+因此 OG 图由 sharp 三层合成（底图模糊压暗 + 品牌渐变 + logo 图形），
+**零文字、零新增依赖**。标题与描述由 `og:title` / `og:description` 承载。
+
+改了 `og-map.json` 就要重跑 `npm --prefix frontend run og:gen`；
+`og:check` 专门比对**映射表与清单的 key 集合**，就是为了拦住「改了映射表没重跑」
+——只比 sha256 的话，清单与文件依然自洽，检查照样 PASS。
+
+---
+
+## 12. 偏离 ref 的流程
 
 任何与 `ref/1.html` 的偏离，**先写进 spec §5.3 的偏离表，再改代码**。
-当前已登记 7 条（移动端汉堡菜单、focus-visible、键盘展开下拉、本地字体、
-邮箱不混淆、`--ink-3`/`--ink-4` 退出文本用途、顶栏 EN 替代色）。
+当前已登记 9 条（移动端汉堡菜单、focus-visible、键盘展开下拉、本地字体、
+邮箱不混淆、`--ink-3`/`--ink-4` 退出文本用途、顶栏 EN 替代色，
+以及 v3 新增的两条：`.nav-search` 命中区 40×40 → 44×44、`⌘K` 提示徽标）。
+
+⚠️ **顺手澄清一条容易认错的「偏离」**：`ref/1.html:436` 本来就有
+`<button class="nav-search">`，v2 因为当时没有检索页可指才把它做成了
+`<Link href="/sitemap">`。v3 把它还原成 `<button>` 是**消除**一处临时替代，
+**不是**新增偏离 —— `sections.css:63-64` 的两条规则始终与 ref 逐字一致。
 实施过程中新发现的方案缺陷写进 spec 末尾的
 `## 实施过程发现的方案缺陷`，不要口头决定。

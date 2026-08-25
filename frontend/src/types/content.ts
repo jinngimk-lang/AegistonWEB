@@ -228,9 +228,21 @@ export interface InsightSummary {
   sourceSlides: number[];
 }
 
+/** 正文目录的一项。`anchor` 形如 `sec-1`，由后端注入并过 bleach 白名单。 */
+export interface TocItem {
+  level: 2 | 3;
+  text: string;
+  anchor: string;
+}
+
 export interface InsightDetail extends InsightSummary {
   bodyHtml: string;
   sources: string[];
+  /** 以下四个是后端派生字段（v3 spec §5.1），内容包 JSON 里不出现。 */
+  toc: TocItem[];
+  related: InsightSummary[];
+  prev: InsightSummary | null;
+  next: InsightSummary | null;
 }
 
 export interface HomePage {
@@ -313,6 +325,36 @@ export interface ProductDetail {
   sourceSlides: number[];
 }
 
+/**
+ * 能力矩阵（v3 spec §6.1）。
+ *
+ * ⚠️ 取值只有三档，**没有 `roadmap`（规划中）**：前瞻性表述在《广告法》语境下
+ * 是承诺，且 PPT 里没有可溯源的路线图口径。`none` 渲染为「—」，
+ * **不使用 ✗ 或任何否定性图形**（决策 A-7）。
+ */
+export type CapabilityLevel = 'core' | 'supported' | 'none';
+
+export interface CapabilityCell {
+  productSlug: ProductSlug;
+  level: CapabilityLevel;
+  detail?: string | null;
+}
+
+export interface CapabilityRow {
+  capability: string;
+  note?: string | null;
+  cells: CapabilityCell[];
+  /** 内容溯源，必填且在页面上实际渲染（CLAUDE.md §4）。 */
+  sourceSlides: number[];
+}
+
+export interface CapabilityMatrix {
+  title: string;
+  description?: string | null;
+  rows: CapabilityRow[];
+  sourceNote: string;
+}
+
 export interface ProductsOverview {
   eyebrow: string;
   title: string;
@@ -324,6 +366,8 @@ export interface ProductsOverview {
   footnote: string;
   cta: CtaBlock;
   sourceSlides: number[];
+  /** 派生字段，来自 `backend/app/content/products/capability-matrix.json`。 */
+  capabilityMatrix?: CapabilityMatrix | null;
 }
 
 export interface DeliveryForm {

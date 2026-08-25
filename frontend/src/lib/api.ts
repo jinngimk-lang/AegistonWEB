@@ -34,6 +34,7 @@ import type {
   SolutionsOverview,
   TeamPage,
 } from '@/types/content';
+import type { SearchIndex } from '@/lib/search';
 import type { InsightCategory, ProductSlug, SolutionSlug } from '@/lib/routes';
 
 const API_BASE_URL = process.env.API_BASE_URL ?? 'http://localhost:8000';
@@ -280,6 +281,24 @@ export async function getInsight(slug: string): Promise<InsightDetail | null> {
     const snap = getSnapshot<{ items: InsightDetail[] }>('insights-detail');
     return snap?.items.find((p) => p.slug === slug) ?? null;
   }
+}
+
+/* ---------------------------------------------------------------- 检索索引 */
+
+/**
+ * 检索索引：**只读静态快照，不打网络**（v3 spec §4.2.2）。
+ *
+ * 索引是构建期产物（`npm run content:snapshot` 从 `/api/v1/search/index` 取），
+ * 运行期没有任何理由再去问后端一次 —— 那会让检索成为全站唯一一个「后端挂了
+ * 就转圈」的功能，把 R12 的降级承诺开一个口子。`cold-start` 流水线会守它。
+ */
+export function getSearchIndex(): SearchIndex & { _contentHash?: string } {
+  const snapshot = getSnapshot<SearchIndex & { _contentHash?: string }>('search-index');
+  if (!snapshot) {
+    // 静态 import 缺失只可能是快照没生成 —— 构建期就该炸，不要留到线上
+    throw new Error('检索索引快照缺失，请运行：npm --prefix frontend run content:snapshot');
+  }
+  return snapshot;
 }
 
 export { ApiUnavailableError };

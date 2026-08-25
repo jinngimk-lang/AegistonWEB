@@ -85,6 +85,36 @@ class DeploymentPage(CamelModel):
     source_slides: list[int] = []
 
 
+class CapabilityCell(CamelModel):
+    """能力矩阵的一格。
+
+    ⚠️ 合规设计（CLAUDE.md §4）：取值只有三档，**没有 ``roadmap``（规划中）**——
+    前瞻性表述在《广告法》语境下是承诺，且 PPT 里没有可溯源的路线图口径。
+    没有的能力就是 ``none``，页面上渲染为「—」而不是 ✗ 或任何否定性图形：
+    同一家公司的产品分层是**定位差异**，不是优劣评价（决策 A-7）。
+    """
+
+    product_slug: ProductSlug
+    level: Literal["core", "supported", "none"]
+    detail: str | None = Field(default=None, max_length=60)
+
+
+class CapabilityRow(CamelModel):
+    capability: str
+    note: str | None = None
+    cells: list[CapabilityCell] = Field(min_length=3, max_length=3)
+    source_slides: list[int] = Field(min_length=1, description="内容溯源，必填且页面上渲染")
+
+
+class CapabilityMatrix(CamelModel):
+    """三个自家产品的横向能力对照。**不含任何第三方主体**（CLAUDE.md §4）。"""
+
+    title: str
+    description: str | None = None
+    rows: list[CapabilityRow] = Field(min_length=4)
+    source_note: str = Field(description="页面上实际渲染的溯源说明")
+
+
 class ProductsOverview(CamelModel):
     eyebrow: str
     title: str
@@ -96,3 +126,6 @@ class ProductsOverview(CamelModel):
     footnote: str
     cta: CtaBlock
     source_slides: list[int] = []
+    # 派生字段：由 ContentRepository.load() 从 products/capability-matrix.json 注入。
+    # 可选 —— 矩阵尚未定稿时不阻塞其他页面（v3 spec §5.1）。
+    capability_matrix: CapabilityMatrix | None = None

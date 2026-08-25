@@ -19,11 +19,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { MobileNav } from '@/components/layout/MobileNav';
+import { SearchTrigger } from '@/components/search/SearchTrigger';
 import { cn } from '@/lib/cn';
-import type { Navigation } from '@/types/content';
+import type { LinkItem, Navigation } from '@/types/content';
 
 const CLOSE_DELAY_MS = 160;
 
@@ -31,14 +32,33 @@ interface Props {
   navigation: Navigation;
   brandCn: string;
   brandEn: string;
+  /** 检索索引的版本位，用于给 `/search-index.json` 加缓存键（v3 P0-4）。 */
+  contentHash: string;
 }
 
-export function SiteHeader({ navigation, brandCn, brandEn }: Props) {
+/**
+ * ⌘K 面板空查询态的「快捷入口」。
+ *
+ * **数据取自导航快照，不硬编码、不臆造**（v3 spec §4.2.4）：三个产品 +
+ * 四个行业 + 联系我们。带 `note: '总览'` 的是分组总览页，已经在导航里可达，
+ * 面板里不重复占位。
+ */
+function quickLinksFrom(navigation: Navigation): LinkItem[] {
+  const pick = (label: string) =>
+    (navigation.main.find((group) => group.label === label)?.items ?? []).filter(
+      (item) => item.note !== '总览' && !item.href.includes('?'),
+    );
+  return [...pick('产品与方案'), ...pick('行业实践'), navigation.cta];
+}
+
+export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props) {
   const pathname = usePathname();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const idPrefix = useId();
+  const quickLinks = useMemo(() => quickLinksFrom(navigation), [navigation]);
 
   const clearTimer = useCallback(() => {
     if (closeTimer.current) {
@@ -185,14 +205,15 @@ export function SiteHeader({ navigation, brandCn, brandEn }: Props) {
         </div>
 
         <div className="nav-actions">
-          <Link
-            href="/sitemap"
-            className="nav-search"
-            aria-label="站点地图与检索"
-            title="站点地图与检索"
-          >
-            <SearchIcon />
-          </Link>
+          {/* ref/1.html:436 本来就是 <button class="nav-search">；v2 因为当时没有
+              检索页可指才把它做成了 <Link href="/sitemap">。这里是**还原**，
+              不是新增偏离（v3 §9 / P1-3）。 */}
+          <SearchTrigger
+            quickLinks={quickLinks}
+            contentHash={contentHash}
+            open={searchOpen}
+            onOpenChange={setSearchOpen}
+          />
           <Link
             href={navigation.cta.href}
             className={cn('nav-contact')}
@@ -219,6 +240,12 @@ export function SiteHeader({ navigation, brandCn, brandEn }: Props) {
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         isCurrent={isCurrent}
+        onSearch={() => {
+          // 先收抽屉再开面板：面板挂在顶栏，抽屉关闭时会给自己加 inert，
+          // 而 inert 对后代一律生效 —— 面板若挂在抽屉里就会被惰性化。
+          setMobileOpen(false);
+          setSearchOpen(true);
+        }}
       />
     </nav>
   );
@@ -254,23 +281,6 @@ function BrandMark() {
         <path d="M17 26 L23 32 L35 20" />
       </svg>
     </span>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.5-3.5" />
-    </svg>
   );
 }
 

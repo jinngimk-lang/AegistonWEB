@@ -62,4 +62,29 @@ test.describe('后端不可用时的降级', () => {
     expect(response?.status()).toBe(200);
     await expect(page.locator('a[href^="mailto:"]').first()).toBeVisible();
   });
+
+  /**
+   * G2：**检索在 API 不可达时仍然工作**（v3 spec §2.1）。
+   *
+   * 检索是全站唯一一个「用户会在页面加载后主动触发」的读操作。如果它是唯一
+   * 一个「后端挂了就转圈」的功能，R12 的降级承诺就出现了破口。所以索引走
+   * 构建期落盘，而不是运行期查后端 —— 这条用例守住那个决定。
+   */
+  test('/search?q=法律 在 API 不可达时仍返回非空结果', async ({ page }) => {
+    const response = await page.goto('/search?q=%E6%B3%95%E5%BE%8B');
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('h1')).toHaveCount(1);
+    const summary = page.locator('.search-summary strong');
+    await expect(summary).toBeVisible();
+    await expect(summary).not.toHaveText('0');
+  });
+
+  test('⌘K 面板在 API 不可达时照常出结果（索引来自 public/，不打后端）', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.nav-search').click();
+    const dialog = page.getByRole('dialog', { name: '站内检索' });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('combobox').fill('合约');
+    await expect(dialog.getByRole('option').first()).toBeVisible();
+  });
 });

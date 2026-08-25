@@ -41,7 +41,14 @@ const REF_CLASS_PATTERN = `/(^|[\s>+~])\.(${REF_CLASS_NAMES.join('|')})(?![\w-])
 
 export default {
   extends: ['stylelint-config-standard'],
-  ignoreFiles: ['**/node_modules/**', '.next/**', 'src/styles/fonts.css'],
+  // fonts.css 及其拆分产物由 scripts/fetch-fonts.mjs / pick-preload-fonts.mjs 生成，
+  // 与 Google Fonts CSS2 逐字一致（含无引号 url()），不参与格式规则。
+  ignoreFiles: [
+    '**/node_modules/**',
+    '.next/**',
+    'src/styles/fonts.css',
+    'src/styles/fonts-critical.css',
+  ],
   rules: {
     'custom-property-empty-line-before': null,
     'declaration-empty-line-before': null,

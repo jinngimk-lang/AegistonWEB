@@ -26,6 +26,9 @@ const PAGES = [
   '/contact',
   '/sitemap',
   '/legal/privacy',
+  // v3 新增（`/products` 已在上面，能力矩阵随它一起被扫到）
+  '/search',
+  '/search?q=%E5%90%88%E7%BA%A6',
 ];
 
 test.describe('无障碍', () => {
@@ -62,6 +65,60 @@ test.describe('无障碍', () => {
         .count();
       expect(namedSections, `${path} 的区块缺少可访问名称`).toBeGreaterThan(0);
     }
+  });
+
+  /**
+   * ⌘K 面板**打开态**的 a11y。
+   *
+   * 面板是 `next/dynamic({ ssr: false })`，SSR HTML 里不存在 —— 必须先交互
+   * 再扫（R4）。原生 `<dialog>` + `showModal()` 会把背景内容惰性化，
+   * axe 只会扫到面板本身，这正是我们想测的范围。
+   */
+  test('⌘K 面板打开态无 serious / critical 违规', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+    await page.locator('.nav-search').click();
+    const dialog = page.getByRole('dialog', { name: '站内检索' });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('combobox').fill('合约');
+    await expect(dialog.getByRole('option').first()).toBeVisible();
+
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    const blocking = results.violations.filter((v) =>
+      ['serious', 'critical'].includes(v.impact ?? ''),
+    );
+    const summary = blocking.map((v) => `${v.id}(${v.impact}) × ${v.nodes.length}`).join('\n');
+    expect(blocking, `命令面板存在阻塞级违规：\n${summary}`).toEqual([]);
+  });
+
+  /**
+   * ⚠️ `role="listbox"` 只在**真的展示了选项**时才该存在。
+   *
+   * 空查询态的容器里装的是快捷入口（`<nav>` + 一串链接），无结果态里装的是三个
+   * 出口按钮 —— 二者都不是 `option`/`group`，常挂 listbox 会各自触发一次
+   * `aria-required-children`（critical）。所以这里分两段断言：折叠态看
+   * `aria-expanded=false`、展开态才看 listbox，而不是无条件要求 listbox 存在。
+   */
+  test('检索输入框是 combobox 且 ARIA 关系完整', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.nav-search').click();
+    const input = page.getByRole('combobox');
+    await expect(input).toHaveAttribute('aria-autocomplete', 'list');
+    // 折叠态：aria-controls 指向的容器必须真实存在（不能悬空），但还不是 listbox
+    const listboxId = await input.getAttribute('aria-controls');
+    expect(listboxId).toBeTruthy();
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.locator(`#${listboxId}`)).toHaveCount(1);
+
+    // 展开态：容器升格为 listbox，activedescendant 指向一个真实存在的 option
+    await input.fill('合约');
+    await expect(page.locator(`#${listboxId}`)).toHaveAttribute('role', 'listbox');
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    const activeId = await input.getAttribute('aria-activedescendant');
+    expect(activeId).toBeTruthy();
+    await expect(page.locator(`#${activeId}`)).toHaveAttribute('role', 'option');
   });
 
   test('导航区域有区分性的 aria-label', async ({ page }) => {

@@ -83,6 +83,37 @@ npm --prefix frontend run dev
 | `npm --prefix frontend run content:snapshot` | 生成降级快照（需 API 已在 8000 端口运行） |
 | `npm --prefix frontend run content:snapshot:check` | 快照漂移检查：内容包改了但没重新生成快照 → 失败 |
 | `npm --prefix frontend run gen:types` | 由 OpenAPI 生成 `src/types/api.d.ts` |
+| `npm --prefix frontend run og:gen` | 用 sharp 合成 `public/og/*.png`（1200×630）+ 清单 + 品牌图标 |
+| `npm --prefix frontend run og:check` | OG 漂移检查（文件 / 映射表 key 集合 / 底图 sha256 / 尺寸，四条），CI 门禁 |
+| `npm --prefix frontend run fonts:preload` | 把 `fonts.css` 按首屏字符拆成关键 / 其余两半，并算出 ≤ 4 个 preload 分片 |
+| `npm --prefix frontend run fonts:preload:check` | 字体拆分漂移检查，CI 门禁 |
+| `npm --prefix frontend run budget` | 打包体积门禁（需先 `build`）。gzip 硬门禁，raw 只打印 |
+| `npm --prefix frontend run lhci` / `lhci:mobile` | Lighthouse 实跑（需先 `build` + `start`） |
+| `python -m backend.scripts.backup_leads --out backups/ --keep 14` | 线索库备份（`VACUUM INTO`，无需停写） |
+| `python -m backend.scripts.backup_leads --check <file>` | 备份完整性校验（`integrity_check` + 行数 + sha256） |
+
+### 站内检索与分享图（v3）
+
+**检索索引是构建期产物，运行期不打后端。** `content:snapshot` 会把
+`/api/v1/search/index` 的结果同时写到两个地方：
+
+- `frontend/src/content/snapshot/search-index.json` —— `/search` 页 SSR 静态 import
+- `frontend/public/search-index.json` —— ⌘K 面板 `fetch`
+
+两份**逐字节相同**，`content:snapshot:check` 守这条。这样安排的代价是多占约
+200 KB 磁盘，换来的是「缺失即构建期报错」，以及**检索在 API 不可达时照常可用**
+（`public/` 下的文件无法被 import，`src/` 下的文件无法被浏览器 fetch，两边都要）。
+
+**打分算法只在 `frontend/src/lib/search.ts` 实现一份**，`/search` 页（Node）与
+⌘K 面板（浏览器）共用同一个函数。后端只负责把内容包摊平成文档列表，
+**不打分、不排序** —— 两份排序实现必然在中文分词边界、字段权重、同分排序上
+无声漂移，而没有任何测试会发现。`test_search_index_shape` 断言响应体里不存在
+`score` 字段，从接口形状上堵死这条路。
+
+**OG 图不含任何文字。** 中文标题要排进 PNG 就需要一份完整的 CJK 字体，而本项目
+已把字体按 `unicode-range` 切成 209 个分片，补一份完整的 Noto Sans SC（≈ 10 MB）
+入库只为生成几十张图，代价与收益不成比例；不入库则构建期必须联网下载。
+标题与描述由 `og:title` / `og:description` 文本承载，主流平台都会渲染在图旁。
 
 **GIF 特殊处理**：`image64.GIF`（25 MB 需求看板动图）在构建期由 ffmpeg 转为
 `ara-requirements-kanban.mp4`（188 KB）+ WebP 首帧海报，页面用
@@ -105,7 +136,12 @@ npm --prefix frontend run e2e
 |---|---|
 | 后端 pytest | 健康探针、内容完整性、路由遮蔽回归、分层限流、脱敏、CSV 导出 |
 | 前端 vitest | **视觉契约锚点**（ref 的 60 条跨元素选择器逐条断言）、§5.2 度量、对比度、路由常量 |
-| Playwright | 路由完整性、导航（含键盘与移动抽屉）、计算样式契约、响应式六档、截图与灯箱、表单、a11y（axe 零 serious）、安全响应头、离线降级 |
+| Playwright | 路由完整性、导航（含键盘与移动抽屉）、计算样式契约、响应式六档、截图与灯箱、表单、a11y（axe 零 serious）、安全响应头、离线降级、**站内检索与 ⌘K、长文目录与锚点、OG 全路由、能力矩阵合规** |
+
+CI 里 Playwright 跑**三个 project**（`chromium` / `webkit` / `mobile-chrome`），
+以 matrix 维度并行，统一 `--workers=1`。三条腿与 Lighthouse job 复用
+`frontend` job 上传的 `.next` 产物 —— `needs:` 只表达先后顺序、**不传文件系统**，
+不复用的话单次 PR 会 `next build` 四遍。
 
 ### 关键回归说明
 
@@ -114,8 +150,23 @@ npm --prefix frontend run e2e
   前端交付形态页随即取不到数据。这条测试守住注册顺序。
 - **`tests/unit/styles.spec.ts`** — 断言 ref 的跨元素后代选择器逐条存在于全局层。
   这是视觉契约在 CI 上**唯一可自动化的锚点**（像素比对在 CJK 字体 + 跨平台渲染下必然抖动）。
-- **`cold-start-without-api`** — 在 API **从未启动**的情况下拉起前端，断言全站仍返回 200。
-  这才是「后端挂了官网仍可访问」真正对应的场景。
+- **`cold-start-without-api`** — 在 API **从未启动**的情况下拉起前端，断言全站仍返回 200，
+  并且 `/search?q=法律` **仍然出结果**。这才是「后端挂了官网仍可访问」真正对应的场景；
+  检索是全站唯一一个用户会在页面加载后主动触发的读操作，它要是唯一一个「后端挂了
+  就转圈」的功能，降级承诺就出现了破口。
+- **`tests/unit/nginx-config.spec.ts`** — 读 `nginx/*.inc` 的**文本**断言
+  `/metrics` deny、`limit_req_status 429`、`/search-index.json` 不在 immutable location。
+  为什么不发请求：E2E 直连 `next start`，流水线里根本没有 nginx，访问 `/metrics`
+  拿到的是 Next 的 404 而不是 nginx 的 403 —— 把「没有 nginx 的环境里断言 nginx
+  行为」写成 E2E 是一种**假门禁**，它永远绿，而且绿得毫无意义。
+- **`tests/e2e/search.spec.ts` 的查询串载荷用例** — `/search?q=…` 是全站**唯一**的
+  用户输入回显点，而 CSP 选了 `'unsafe-inline'`。真正危险的不是 `<mark>`，是
+  **JSON-LD**：`JSON.stringify` 不转义 `<` 与 `/`，一个 `</script>` 就能闭合标签。
+  所以断言里除了「零 dialog、未新增 script 元素」，还要求页面上每个
+  `application/ld+json` 仍能 `JSON.parse`。
+- **`npm run budget`** — 体积门禁。**gzip 是硬门禁，raw 只打印**（`next build`
+  报的就是 gzip）；js 与 css **分开计量**，否则 500 KB 的字体声明表会被算进
+  「First Load JS」，得到一个与预算毫无对应关系的数字。
 
 ---
 
@@ -167,6 +218,16 @@ docker compose -f docker-compose.prod.yml up -d --build
   本站没有用户输入回显、没有富文本渲染（洞察正文经 bleach 白名单净化）、没有第三方脚本。
 - 线索表单四层反滥用：honeypot 静默 202 → IP 段 60/hour → 10 分钟幂等 → 联系方式 3/hour · 10/day。
   429 时页面**同时**展示商务邮箱与电话，不让用户走进死路。
+
+---
+
+## 运维
+
+值班手册见 **[`docs/ops/runbook.md`](docs/ops/runbook.md)**：内容包发布与回滚、
+检索索引的陈旧与死链排查、备份与恢复、指标含义与告警阈值、429 激增的处置
+（⚠️ nginx 拒掉的请求**不会**出现在应用指标里）、「api 挂了但站点仍 200」的
+确认步骤、Windows 上 `.next` 删不干净导致整站无样式这两个构建坑，
+以及上线核对清单。
 
 ---
 

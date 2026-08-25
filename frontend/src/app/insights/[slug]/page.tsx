@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { ArticleToc } from '@/components/article/ArticleToc';
+import { ReadingProgress } from '@/components/article/ReadingProgress';
+import { RelatedPosts } from '@/components/article/RelatedPosts';
 import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Reveal } from '@/components/ui/Reveal';
@@ -10,8 +13,8 @@ import { getInsight, getInsights } from '@/lib/api';
 import { formatDate, formatReading } from '@/lib/format';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/jsonld';
 import { getMediaLookup } from '@/lib/media';
-import { ROUTES } from '@/lib/routes';
-import { pageMetadata } from '@/lib/seo';
+import { ROUTES, absoluteUrl } from '@/lib/routes';
+import { ogImageUrl, pageMetadata } from '@/lib/seo';
 
 export const revalidate = 300;
 
@@ -55,6 +58,9 @@ export default async function InsightDetailPage({ params }: PageProps) {
               description: post.excerpt,
               path: ROUTES.insightDetail(slug),
               publishedAt: post.publishedAt,
+              image: absoluteUrl(ogImageUrl(ROUTES.insightDetail(slug))),
+              // 机构名，**不写自然人** —— v2 §15 第 6 条「洞察真实作者署名待确认」
+              // 在关闭之前，署任何个人的名都是臆造（CLAUDE.md §4）。
             }),
             breadcrumbJsonLd(crumbs),
           ]),
@@ -72,37 +78,66 @@ export default async function InsightDetailPage({ params }: PageProps) {
       />
       <Breadcrumbs items={crumbs} />
 
+      <ReadingProgress />
+
       <section className="section" aria-label="正文">
         <div className="container">
-          <article className="article">
-            <div className="article-meta">
-              <span className="cat">{post.categoryLabel}</span>
-              <span className="date">{formatDate(post.publishedAt)}</span>
-              <span>{formatReading(post.readingMinutes)}</span>
-            </div>
-
-            {/* 正文由后端 markdown-it 渲染后经 bleach 白名单净化，无第三方脚本注入面 */}
-            <div className="prose" dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
-
-            {post.sources.length > 0 ? (
-              <div className="article-sources">
-                <strong>资料来源</strong>
-                <ul>
-                  {post.sources.map((source) => (
-                    <li key={source}>{source}</li>
-                  ))}
-                </ul>
+          <div className="article-layout">
+            <article className="article">
+              <div className="article-meta">
+                <span className="cat">{post.categoryLabel}</span>
+                <span className="date">{formatDate(post.publishedAt)}</span>
+                <span>{formatReading(post.readingMinutes)}</span>
               </div>
-            ) : null}
 
-            <SourceNote slides={post.sourceSlides} />
+              {/* 正文由后端 markdown-it 渲染后经 bleach 白名单净化，无第三方脚本注入面 */}
+              <div className="prose" dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
 
-            <p style={{ marginTop: 32 }}>
-              <Link href={ROUTES.insights} className="btn-text">
-                返回洞察列表 <span aria-hidden="true">→</span>
-              </Link>
-            </p>
-          </article>
+              {post.sources.length > 0 ? (
+                <div className="article-sources">
+                  <strong>资料来源</strong>
+                  <ul>
+                    {post.sources.map((source) => (
+                      <li key={source}>{source}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              <SourceNote slides={post.sourceSlides} />
+
+              <nav className="article-nav" aria-label="上一篇 / 下一篇">
+                {post.prev ? (
+                  <Link className="article-nav-item" data-side="prev" href={post.prev.href}>
+                    <span className="article-nav-dir">← 上一篇</span>
+                    <span className="article-nav-title">{post.prev.title}</span>
+                  </Link>
+                ) : (
+                  <p className="article-nav-empty">已经是最新一篇</p>
+                )}
+                {post.next ? (
+                  <Link className="article-nav-item" data-side="next" href={post.next.href}>
+                    <span className="article-nav-dir">下一篇 →</span>
+                    <span className="article-nav-title">{post.next.title}</span>
+                  </Link>
+                ) : (
+                  <p className="article-nav-empty">已经是最早一篇</p>
+                )}
+              </nav>
+
+              <RelatedPosts items={post.related} media={media} />
+
+              <p style={{ marginTop: 32 }}>
+                <Link href={ROUTES.insights} className="btn-text">
+                  返回洞察列表 <span aria-hidden="true">→</span>
+                </Link>
+              </p>
+            </article>
+
+            <aside className="article-rail">
+              <ArticleToc items={post.toc} />
+            </aside>
+          </div>
         </div>
       </section>
 
