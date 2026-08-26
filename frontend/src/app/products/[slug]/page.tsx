@@ -8,7 +8,6 @@ import { PillarCard } from '@/components/content/PillarCard';
 import { ScreenGallery } from '@/components/media/ScreenGallery';
 import { CtaBand } from '@/components/sections/CtaBand';
 import { PageHero } from '@/components/sections/PageHero';
-import { SectionNav } from '@/components/sections/SectionNav';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Callout } from '@/components/ui/Callout';
 import { Reveal } from '@/components/ui/Reveal';
@@ -88,9 +87,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
         ]}
       />
       <Breadcrumbs items={crumbs} />
-      <SectionNav
-        items={product.screens.map((screen) => ({ id: screen.id, label: screen.title }))}
-      />
 
       {/* 定位 */}
       <section className="section" aria-labelledby="positioning-title">
