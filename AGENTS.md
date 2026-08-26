@@ -31,7 +31,20 @@ If you discover another issue, leave it for a later task instead of fixing it op
 - Production website: `https://aegiston.com/`
 - Working fork: `jinngimk-lang/AegistonWEB`
 - Upstream repository: `xdrshjr/AegistonWEB`
-- Normal product delivery after the groundwork phase: fork branch → validation → commit → focused PR to upstream `main`.
+- Fork governance/tooling baseline: `jinngimk-lang/AegistonWEB:main`.
+- Clean product baseline: `jinngimk-lang/AegistonWEB:upstream-main`.
+- Normal product delivery after the groundwork phase: `upstream-main` → one focused product branch → validation → commit → focused PR to upstream `main`.
+
+`upstream-main` exists specifically because fork `main` intentionally contains fork-local governance files, agent tooling, and submodules that must **not** hitchhike on upstream product PRs.
+
+Before every product task:
+
+1. read the current SHA of `xdrshjr/AegistonWEB:main`;
+2. make sure fork `upstream-main` points to that exact upstream product baseline (fast-forward/update it when upstream has advanced);
+3. create the product branch from `upstream-main`, **never from fork `main`**;
+4. before opening the PR, compare the product branch against upstream `main` and confirm that only the current product task is present.
+
+After an upstream PR is merged, advance `upstream-main` to the accepted upstream commit before starting the next product task.
 
 During the initial groundwork phase, governance and tooling changes are intentionally kept in the working fork until the foundation is declared complete in `STATUS.md`.
 
@@ -62,14 +75,16 @@ Never commit:
 When `STATUS.md` permits Phase 1 website work, every visible or behavioral website change must be handled as its own scoped task:
 
 1. identify the governing source/spec and exact affected area;
-2. inspect current code and current behavior;
-3. change only what the request requires;
-4. run targeted automated validation;
-5. run browser/visual verification for UI/interactions when applicable;
-6. inspect the final diff;
-7. commit;
-8. open a focused PR from the fork to upstream;
-9. use the merged result as the next recovery baseline.
+2. inspect the latest upstream `main` and align fork `upstream-main` to that exact product baseline;
+3. create a focused product branch from `upstream-main`, never from fork `main`;
+4. inspect current code and current behavior;
+5. change only what the request requires;
+6. run targeted automated validation;
+7. run browser/visual verification for UI/interactions when applicable;
+8. inspect the final diff against upstream `main` and confirm no fork-local governance/tooling is included;
+9. commit;
+10. open a focused PR from the fork product branch to upstream `main`;
+11. after merge, advance `upstream-main` to the accepted upstream commit and use that as the next product recovery baseline.
 
 No unrelated improvement is allowed to hitchhike on that PR.
 
