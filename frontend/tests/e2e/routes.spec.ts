@@ -48,6 +48,15 @@ test('全部路由可达且返回 200', async ({ request, page }) => {
   }
 });
 
+test('三个产品详情页只保留纵向浏览，不渲染横向小节导航', async ({ page }) => {
+  for (const path of ['/products/aragonteam', '/products/inkclaw', '/products/legallens']) {
+    await page.goto(path);
+    await expect(page.getByRole('navigation', { name: '本页内容' })).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: '产品定位' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /界面导览/ })).toBeVisible();
+  }
+});
+
 test('未知路径返回 404 页而不是白屏', async ({ page }) => {
   const response = await page.goto('/definitely-not-a-page');
   expect(response?.status()).toBe(404);
