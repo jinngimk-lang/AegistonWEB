@@ -1,32 +1,51 @@
 # AegistonWEB Project Operating Baseline
 
-> This file is the durable cross-context memory for ongoing work on AegistonWEB. Read it before making any change. If chat context becomes too long or is cleared, recover from this file, `CLAUDE.md`, the relevant spec, and the latest accepted commit/PR.
+> This file is the durable cross-context memory for ongoing work on AegistonWEB. Read it before making any change. If chat context becomes too long or is cleared, recover from this file, `STATUS.md`, `CLAUDE.md`, the relevant spec, and Git history.
 
 ## 1. Repositories and delivery path
 
 - Production website: https://aegiston.com/
 - Upstream repository: `xdrshjr/AegistonWEB`
 - Working fork: `jinngimk-lang/AegistonWEB`
-- Default upstream target: `xdrshjr/AegistonWEB:main`
-- Normal delivery path:
-  1. Sync/read upstream state.
-  2. Create one focused branch in `jinngimk-lang/AegistonWEB`.
-  3. Make exactly one scoped change.
-  4. Validate that change.
-  5. Commit it as an independently reversible checkpoint.
-  6. Open a PR from the fork branch to `xdrshjr/AegistonWEB:main`.
-  7. After merge, record the accepted PR/commit as the next recovery point.
+- Default upstream target for real website changes: `xdrshjr/AegistonWEB:main`
+
+There are two distinct operating phases.
+
+### Phase 0 — governance and tooling foundation
+
+Foundation-only changes stay in the working fork unless the project owner explicitly decides otherwise.
+
+1. Create one focused branch in `jinngimk-lang/AegistonWEB`.
+2. Make exactly one governance/tooling change.
+3. Validate that the diff contains no product behavior change.
+4. Commit it as an independently reversible checkpoint.
+5. Fast-forward/merge it into the fork `main`.
+6. Do **not** open an upstream PR merely to store agent governance or local tooling.
+
+### Phase 1+ — real website/product work
+
+Once `STATUS.md` declares the foundation complete, the normal product delivery path is:
+
+1. Sync/read upstream state.
+2. Create one focused branch in `jinngimk-lang/AegistonWEB`.
+3. Make exactly one scoped website/product change.
+4. Validate that change.
+5. Commit it as an independently reversible checkpoint.
+6. Open a focused PR from the fork branch to `xdrshjr/AegistonWEB:main`.
+7. After merge, use the accepted upstream PR/commit as the next recovery point.
 
 ## 2. Recovery order after context loss
 
 Before continuing any work, recover context in this order:
 
 1. Read `PROJECT.md`.
-2. Read `CLAUDE.md` completely and obey it as repository hard constraints.
-3. Read the relevant design/spec document under `docs/plans/**` for the requested area.
-4. Inspect the latest upstream `main` commit and the latest merged PR relevant to the current task.
-5. Inspect the fork branch/worktree status before changing anything.
-6. Only then start the next single scoped task.
+2. Read `STATUS.md` to determine the current phase and allowed next work.
+3. Read `CLAUDE.md` completely and obey it as repository hard constraints.
+4. Read the relevant design/spec document under `docs/plans/**` for the requested area.
+5. Inspect the latest fork `main` commit.
+6. If product work has started, inspect the latest upstream `main` commit and the latest merged PR relevant to the current task.
+7. Inspect the current branch/worktree status before changing anything.
+8. Only then start the next single scoped task.
 
 Never rely on chat memory alone when repository state can be checked directly.
 
@@ -53,7 +72,7 @@ Each completed task gets its own commit.
 - Before opening a PR, inspect the final diff and confirm only intended paths changed.
 - Never rewrite or force-push accepted history unless explicitly required and justified.
 
-The latest accepted commit/PR is the canonical rollback point for the next session.
+During Phase 0, the latest accepted fork `main` commit is the canonical rollback point. During Phase 1+, the latest accepted upstream PR/commit is the canonical product rollback point.
 
 ## 5. Existing repository constraints remain authoritative
 
@@ -65,6 +84,7 @@ In case of conflict:
 2. `CLAUDE.md` hard constraints win for repository implementation rules.
 3. The relevant approved spec under `docs/plans/**` wins for feature/design behavior.
 4. `PROJECT.md` governs workflow, recovery, scope isolation, commits, and external tooling.
+5. `STATUS.md` determines the current phase and what category of work is presently allowed.
 
 Do not silently weaken existing constraints to make a task easier.
 
@@ -75,6 +95,8 @@ Use the smallest validation set that can falsify the change, then expand when ri
 Typical checks may include the repository's existing Python, TypeScript, lint, unit, build, Playwright, content, asset, privacy/redaction, performance, or CI gates. Follow the commands and constraints already documented in the repository instead of inventing parallel tooling.
 
 For a docs-only governance change, verify the diff and repository state; do not modify or rebuild product code just to create activity.
+
+For tooling/submodule changes, verify the exact pinned source, provenance, license notes, `.gitmodules`, and that no production path changed.
 
 ## 7. External tools, MCPs, skills, and agent utilities
 
@@ -88,16 +110,9 @@ Candidate categories include:
 - Accessibility, performance, SEO, security, testing, and code-review helpers.
 - Research/reach tools for gathering public technical evidence.
 
-Examples the project owner has asked to evaluate include:
+The project owner specifically requested evaluation of Matt Pocock skills, Crawl4AI, Agent Reach, and browser-use/Chrome-use style automation. Their approved status, exact pins, license notes, security boundaries, update policy, and removal instructions live in `.agents/README.md`.
 
-- Matt Pocock skills (`mattpocock/skills`)
-- Crawl4AI (`unclecode/crawl4ai`)
-- Agent Reach (`Panniantong/Agent-Reach`)
-- Chrome/browser-use style browser automation capabilities
-
-These names are evaluation candidates, not automatic dependencies.
-
-Before adding any external repository/tool to this repo:
+Before adding any new external repository/tool to this repo:
 
 1. Confirm a real project need that existing connected/built-in capabilities do not already satisfy.
 2. Check license and redistribution implications.
@@ -110,13 +125,15 @@ Before adding any external repository/tool to this repo:
 9. Add it in its own branch and commit.
 10. Validate that adding it does not alter production behavior unexpectedly.
 
-Do not vendor large third-party repositories blindly. Prefer references, submodules/subtrees only when justified, package-manager dependencies where appropriate, or a dedicated tooling directory with explicit provenance and update policy.
+Do not vendor large third-party repositories blindly. Prefer pinned submodules for large external repositories unless another integration form is explicitly justified.
 
 ## 8. Tooling directory convention
 
-If repository-local agent/tooling assets are approved, place them under a clearly separated path such as `.agents/`, `tools/agent/`, or another existing repository convention after checking current structure.
+Repository-local agent/tooling assets live under `.agents/`.
 
-Each integrated tool should have at minimum:
+Approved third-party repositories are pinned under `.agents/vendor/` as Git submodules. `.agents/README.md` is the canonical provenance and policy document for those tools.
+
+Each integrated tool must have at minimum:
 
 - source/provenance,
 - pinned version or commit,
@@ -131,7 +148,7 @@ Never put secrets, tokens, cookies, private keys, or production credentials in t
 
 ## 9. Website-change workflow
 
-For a visible website change:
+For a visible website change in Phase 1+:
 
 1. Identify the exact page/component/content source and governing spec.
 2. Establish current behavior from code and, when useful, the live site.
@@ -146,9 +163,11 @@ Do not use a visual change as an excuse to refactor unrelated code.
 
 ## 10. PR policy
 
-Each PR should be reviewable as one coherent change.
+Phase 0 governance/tooling changes are intentionally fork-local and do not require upstream PRs.
 
-PR description should state:
+Phase 1+ website/product PRs should each be reviewable as one coherent change.
+
+Each product PR description should state:
 
 - what changed,
 - why it changed,
@@ -168,13 +187,15 @@ Do not mix independent tasks into one PR merely because they were done in the sa
 - External tools are means, not product requirements; every integration must justify its maintenance and risk cost.
 - When a better direction is discovered, evaluate it separately before changing the project baseline or product architecture.
 
-## 12. Current recovery checkpoint
+## 12. Durable operating checkpoint
 
-Baseline established for the fork-to-upstream workflow.
+The durable model is:
 
-- Working repository: `jinngimk-lang/AegistonWEB`
-- Upstream: `xdrshjr/AegistonWEB`
-- First governance branch: `chore/project-governance`
-- First governance task: add this `PROJECT.md` only.
+- Working repository: `jinngimk-lang/AegistonWEB`.
+- Upstream: `xdrshjr/AegistonWEB`.
+- Phase 0 governance/tooling foundation stays in the fork.
+- Phase 1+ real website/product changes use focused fork branches, independent commits, validation, and PRs to upstream `main`.
+- `STATUS.md` records the current phase and allowed next work.
+- Git history is the detailed activity log and rollback history.
 
-After this PR is merged, update this section in a separate scoped governance change only when the durable operating model itself changes. Ordinary feature work should not edit this file merely to log activity; Git history and PRs are the activity log.
+Ordinary feature work should not edit `PROJECT.md` just to log activity. Update this file only when the durable operating model itself changes.
