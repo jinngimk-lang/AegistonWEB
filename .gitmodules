@@ -4,3 +4,6 @@
 [submodule ".agents/vendor/crawl4ai"]
 	path = .agents/vendor/crawl4ai
 	url = https://github.com/unclecode/crawl4ai.git
+[submodule ".agents/vendor/agent-reach"]
+	path = .agents/vendor/agent-reach
+	url = https://github.com/Panniantong/Agent-Reach.git
