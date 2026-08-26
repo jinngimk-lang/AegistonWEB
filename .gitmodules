@@ -7,3 +7,6 @@
 [submodule ".agents/vendor/agent-reach"]
 	path = .agents/vendor/agent-reach
 	url = https://github.com/Panniantong/Agent-Reach.git
+[submodule ".agents/vendor/browser-use"]
+	path = .agents/vendor/browser-use
+	url = https://github.com/browser-use/browser-use.git
