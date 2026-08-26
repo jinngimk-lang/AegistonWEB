@@ -50,6 +50,13 @@ Thumbs.db
 .cache/
 backend/scripts/.pptx-cache/
 
+# 源 PPT 本身不入库：它是公司内部的总体产品介绍，含 p.43/p.62/p.86 的竞品对照表，
+# 而 CLAUDE.md §4 明确「竞品对照表不上公开页」（评价性措辞可能触及《反不正当竞争法》
+# 第十一条与《广告法》第十三条）。站点所需的截图已由 extract_pptx_assets 抽取并入库
+# 到 frontend/public/media/product/，构建期不需要这个文件。
+# 本地保留即可，路径见 Makefile 的 assets 目标。
+ref/*.pptx
+
 # 线索库备份：含 ip_hash / contact_hash，属于个人信息保护范围，绝不入库
 backups/
 
