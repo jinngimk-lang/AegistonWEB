@@ -1,3 +1,6 @@
 [submodule ".agents/vendor/mattpocock-skills"]
 	path = .agents/vendor/mattpocock-skills
 	url = https://github.com/mattpocock/skills.git
+[submodule ".agents/vendor/crawl4ai"]
+	path = .agents/vendor/crawl4ai
+	url = https://github.com/unclecode/crawl4ai.git
