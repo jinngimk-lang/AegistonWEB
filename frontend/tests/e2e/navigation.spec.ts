@@ -35,10 +35,13 @@ test.describe('桌面导航', () => {
     await expect(page.locator('.nav-item[data-current="true"]')).toHaveCount(1);
   });
 
-  test('跳过导航链接是第一个可聚焦元素', async ({ page }) => {
+  test('跳过导航链接是第一个可聚焦元素，激活后焦点进入主内容', async ({ page }) => {
     await page.goto('/');
     await page.keyboard.press('Tab');
-    await expect(page.getByRole('link', { name: '跳到主要内容' })).toBeFocused();
+    const skipLink = page.getByRole('link', { name: '跳到主要内容' });
+    await expect(skipLink).toBeFocused();
+    await skipLink.press('Enter');
+    await expect(page.locator('main#main')).toBeFocused();
   });
 
   /**

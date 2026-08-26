@@ -98,7 +98,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           brandEn={settings.nameEn}
           contentHash={contentHash}
         />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
         <SiteFooter navigation={navigation} settings={settings} />
         <ToTop />
       </body>
