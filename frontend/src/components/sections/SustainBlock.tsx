@@ -83,7 +83,10 @@ export function SustainBlock({
                 </svg>
               </div>
               <div>
-                <h5>{point.title}</h5>
+                {/* ref 的视觉 selector 固定为 h5；ARIA 层级按所属 h2 section 暴露为 3。 */}
+                <h5 role="heading" aria-level={3}>
+                  {point.title}
+                </h5>
                 <p>{point.description}</p>
               </div>
             </div>
