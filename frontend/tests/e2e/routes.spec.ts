@@ -29,7 +29,6 @@ test('全部路由可达且返回 200', async ({ request, page }) => {
         '/solutions/legal-services',
         '/solutions/finance',
         '/research',
-        '/research/papers',
         '/insights',
         '/careers',
         '/contact',
@@ -39,12 +38,30 @@ test('全部路由可达且返回 200', async ({ request, page }) => {
         '/legal/credits',
       ];
 
-  expect(paths.length).toBeGreaterThanOrEqual(24);
+  expect(paths.length).toBeGreaterThanOrEqual(23);
+  expect(paths).not.toContain('/research/papers');
 
   for (const path of paths) {
     const response = await page.goto(path);
     expect(response?.status(), `${path} 应返回 200`).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
+  }
+});
+
+test('学术成果板块已从公开网站彻底移除', async ({ page }) => {
+  const removed = await page.goto('/research/papers');
+  expect(removed?.status()).toBe(404);
+
+  const removedInsight = await page.goto('/insights/papers-behind-the-platform');
+  expect(removedInsight?.status()).toBe(404);
+
+  await page.goto('/research');
+  await expect(page.getByText('学术成果', { exact: true })).toHaveCount(0);
+  await expect(page.getByText(/查看学术成果/)).toHaveCount(0);
+
+  for (const path of ['/products/aragonteam', '/products/inkclaw', '/products/legallens']) {
+    await page.goto(path);
+    await expect(page.getByRole('heading', { name: '研究成果是设计依据，不是宣传素材' })).toHaveCount(0);
   }
 });
 
@@ -72,6 +89,8 @@ test('sitemap.xml 与 robots.txt 可用', async ({ request }) => {
   const xml = await sitemap.text();
   expect(xml).toContain('<urlset');
   expect(xml).toContain('/products/aragonteam');
+  expect(xml).not.toContain('/research/papers');
+  expect(xml).not.toContain('/insights/papers-behind-the-platform');
 
   const robots = await request.get('/robots.txt');
   expect(robots.status()).toBe(200);

@@ -27,6 +27,19 @@ def test_navigation_has_no_dead_links(client):
         assert not href.startswith("#"), f"出现锚点死链 {href}"
 
 
+def test_navigation_has_no_academic_results_entry(client):
+    """产品决策：学术成果不再作为官网公开板块或导航入口。"""
+    nav = client.get("/api/v1/site/navigation").json()
+    items = []
+    for group in nav["main"]:
+        items.extend(group["items"])
+    for column in nav["footerColumns"]:
+        items.extend(column["items"])
+
+    assert all(item["label"] != "学术成果" for item in items)
+    assert all(item["href"] != "/research/papers" for item in items)
+
+
 def test_navigation_groups_are_clickable(client):
     """spec P2-6：主菜单项本身可点击，下拉首项为「总览」，避免孤儿页。"""
     nav = client.get("/api/v1/site/navigation").json()
@@ -48,13 +61,17 @@ def test_routes_endpoint_matches_content(client):
         "/products/aragonteam",
         "/solutions/telecom",
         "/research",
-        "/research/papers",
         "/insights",
         "/contact",
         "/legal/privacy",
     ):
         assert expected in paths, expected
+    assert "/research/papers" not in paths
     assert payload["count"] == len(payload["routes"])
+
+
+def test_academic_results_api_is_not_public(client):
+    assert client.get("/api/v1/research/papers").status_code == 404
 
 
 def test_media_manifest(client):

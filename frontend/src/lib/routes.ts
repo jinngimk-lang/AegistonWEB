@@ -25,7 +25,6 @@ export const ROUTES = {
   solutionDetail: (slug: SolutionSlug) => `/solutions/${slug}` as const,
 
   research: '/research',
-  researchPapers: '/research/papers',
 
   insights: '/insights',
   insightDetail: (slug: string) => `/insights/${slug}` as const,
@@ -71,7 +70,6 @@ export const STATIC_ROUTES: readonly string[] = [
   ROUTES.productsDeployment,
   ROUTES.solutions,
   ROUTES.research,
-  ROUTES.researchPapers,
   ROUTES.insights,
   ROUTES.careers,
   ROUTES.contact,
@@ -116,7 +114,6 @@ export const SEGMENT_LABELS: Record<string, string> = {
   'legal-services': '法律服务',
   finance: '金融与强监管',
   research: '技术与研究',
-  papers: '学术成果',
   insights: '洞察与动态',
   careers: '加入我们',
   contact: '联系我们',

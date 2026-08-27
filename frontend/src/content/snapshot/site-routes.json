@@ -1,6 +1,6 @@
 {
-  "_contentHash": "30b9a74455a7f794",
-  "_generatedAt": "2026-08-25T09:36:30.588Z",
+  "_contentHash": "4a5a81dbb733264b",
+  "_generatedAt": "2026-08-27T01:48:34.681Z",
   "routes": [
     {
       "path": "/",
@@ -46,11 +46,6 @@
       "path": "/research",
       "changeFrequency": "monthly",
       "priority": 0.8
-    },
-    {
-      "path": "/research/papers",
-      "changeFrequency": "monthly",
-      "priority": 0.7
     },
     {
       "path": "/insights",
@@ -152,12 +147,6 @@
       "lastModified": "2026-08-01"
     },
     {
-      "path": "/insights/papers-behind-the-platform",
-      "changeFrequency": "monthly",
-      "priority": 0.6,
-      "lastModified": "2026-08-01"
-    },
-    {
       "path": "/insights/model-can-wait-accumulation-cannot",
       "changeFrequency": "monthly",
       "priority": 0.6,
@@ -176,5 +165,5 @@
       "lastModified": "2026-08-01"
     }
   ],
-  "count": 33
+  "count": 31
 }

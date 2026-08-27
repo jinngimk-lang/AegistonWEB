@@ -1,6 +1,6 @@
 {
-  "_contentHash": "30b9a74455a7f794",
-  "_generatedAt": "2026-08-25T09:36:30.588Z",
+  "_contentHash": "4a5a81dbb733264b",
+  "_generatedAt": "2026-08-27T01:48:34.681Z",
   "items": [
     {
       "slug": "why-start-with-rd",
@@ -62,21 +62,6 @@
       ]
     },
     {
-      "slug": "papers-behind-the-platform",
-      "title": "研究进展：论文里的机制，在产品里指得到模块",
-      "category": "research",
-      "categoryLabel": "研究进展",
-      "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
-      "publishedAt": "2026-08-01",
-      "readingMinutes": 3,
-      "heroMedia": "stock-research",
-      "href": "/insights/papers-behind-the-platform",
-      "sourceSlides": [
-        42,
-        85
-      ]
-    },
-    {
       "slug": "model-can-wait-accumulation-cannot",
       "title": "可以等的是模型，不能等的是沉淀",
       "category": "insight",
@@ -120,7 +105,7 @@
       ]
     }
   ],
-  "total": 8,
+  "total": 7,
   "page": 1,
   "pageSize": 24,
   "hasNext": false
