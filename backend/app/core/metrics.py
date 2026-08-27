@@ -38,6 +38,8 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
+from app.core.config import get_settings
+
 if TYPE_CHECKING:  # pragma: no cover
     from app.services.content import ContentRepository
 
@@ -124,6 +126,17 @@ def _route_template(request: Request) -> str:
     path = getattr(route, "path", None)
     if isinstance(path, str) and path:
         root = request.scope.get("root_path") or ""
+        request_path = request.scope.get("path") or ""
+        api_prefix = get_settings().api_prefix.rstrip("/")
+        # FastAPI 在 include_router(prefix=...) 后，scope 里的 route.path 仍可能是
+        # 子路由模板（例如 /products/{slug}），而 request path 已包含 /api/v1。
+        # 只在真实请求确实位于 api_prefix 下时补回前缀，避免影响 /metrics 和 /。
+        if (
+            api_prefix
+            and request_path.startswith(f"{api_prefix}/")
+            and not path.startswith(f"{api_prefix}/")
+        ):
+            path = f"{api_prefix}{path}"
         return f"{root}{path}"
     return "__unmatched__"
 
