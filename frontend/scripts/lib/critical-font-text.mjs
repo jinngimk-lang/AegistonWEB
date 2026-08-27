@@ -26,31 +26,13 @@ const HERO_SNAPSHOT_FILES = [
   'solution-transportation.json',
 ];
 
-const HERO_FIELDS = [
-  'eyebrow',
-  'title',
-  'description',
-  'tierLabel',
-  'nameCn',
-  'nameEn',
-  'code',
-  'tagline',
-  'positioning',
-  'industry',
-  'customer',
-  'lead',
-  'deployment',
-  'delivery',
-];
+const TITLE_FIELDS = ['title', 'nameCn', 'nameEn', 'customer'];
+const BODY_FIELDS = ['description', 'tagline', 'positioning', 'lead', 'industry', 'deployment', 'delivery'];
+const LABEL_FIELDS = ['eyebrow', 'tierLabel', 'code'];
 
-const STATIC_FIRST_SCREEN_TEXT = [
-  // /contact 的 PageHero 文案直接写在页面组件中，不来自内容快照。
-  'CONTACT',
-  '与智瞳安宇一起，构建值得信任的智能未来',
-  '无论您关注的是研发流程的人机协同、通用智能体的安全边界，还是合同链条上的风险穿透，我们都欢迎带着真实问题的对话。',
-  // PageHero 的固定 meta 键和直接入口通用 UI。
-  '定位 交付 界面导览 行业 部署 屏真实截图',
-];
+const CONTACT_TITLE = '与智瞳安宇一起，构建值得信任的智能未来';
+const CONTACT_DESCRIPTION =
+  '无论您关注的是研发流程的人机协同、通用智能体的安全边界，还是合同链条上的风险穿透，我们都欢迎带着真实问题的对话。';
 
 async function readSnapshot(file) {
   return JSON.parse(await readFile(path.join(SNAPSHOT_DIR, file), 'utf8'));
@@ -69,12 +51,13 @@ function pushValue(parts, value) {
 }
 
 /**
- * 收集全站“首屏可见”字符，用来决定哪些 unicode-range 分片进入 fonts-critical.css。
- *
- * 首页、品牌和导航保持原有口径；内页仅加入 Hero 顶层字段；洞察详情只取列表项
- * 的标题/分类/摘要，因为这些字段会直接进入详情页首屏，而 bodyHtml 明确不进入。
+ * 返回按实际字体角色分组的首屏文本：
+ * - baseText：保持原有首页/品牌/导航口径，生成器继续按旧逻辑覆盖所有相关分片；
+ * - heroTitleText：PageHero h1，固定是 Noto Serif SC 700；
+ * - heroBodyText：PageHero 副标题/元信息，使用 Noto Sans SC 300/400；
+ * - heroLabelText：section-label / 中文 eyebrow，600 会按现有字体声明回退到 700。
  */
-export async function collectCriticalFirstScreenText() {
+export async function collectCriticalFontInputs() {
   const [settings, nav, home, insightsDetail] = await Promise.all([
     readSnapshot('site-settings.json'),
     readSnapshot('site-navigation.json'),
@@ -82,7 +65,7 @@ export async function collectCriticalFirstScreenText() {
     readSnapshot('insights-detail.json'),
   ]);
 
-  const parts = [
+  const base = [
     settings.nameCn,
     settings.nameEn,
     settings.tagline,
@@ -98,19 +81,39 @@ export async function collectCriticalFirstScreenText() {
     ...(nav.utilityLeft ?? []).map((item) => item.label),
     ...(nav.utilityRight ?? []).map((item) => item.label),
     '⌘K Ctrl 搜索 站内检索 跳到主要内容 返回顶部',
-    ...STATIC_FIRST_SCREEN_TEXT,
   ];
+
+  const titles = [CONTACT_TITLE];
+  const body = [
+    CONTACT_DESCRIPTION,
+    '定位 交付 界面导览 行业 部署 发布 阅读 屏真实截图',
+  ];
+  const labels = ['CONTACT'];
 
   for (const file of HERO_SNAPSHOT_FILES) {
     const snapshot = await readSnapshot(file);
-    for (const field of HERO_FIELDS) pushValue(parts, snapshot[field]);
+    for (const field of TITLE_FIELDS) pushValue(titles, snapshot[field]);
+    for (const field of BODY_FIELDS) pushValue(body, snapshot[field]);
+    for (const field of LABEL_FIELDS) pushValue(labels, snapshot[field]);
   }
 
+  // 洞察详情是集合快照：只取详情页首屏字段，明确排除 bodyHtml / toc / related。
   for (const item of insightsDetail.items ?? []) {
-    pushValue(parts, item.categoryLabel);
-    pushValue(parts, item.title);
-    pushValue(parts, item.excerpt);
+    pushValue(titles, item.title);
+    pushValue(body, item.excerpt);
+    pushValue(labels, item.categoryLabel);
   }
 
-  return parts.filter(Boolean).join(' ');
+  return {
+    baseText: base.filter(Boolean).join(' '),
+    heroTitleText: titles.filter(Boolean).join(' '),
+    heroBodyText: body.filter(Boolean).join(' '),
+    heroLabelText: labels.filter(Boolean).join(' '),
+  };
+}
+
+/** 测试/诊断用的总字符视图；生成器本身使用上面的角色化结果。 */
+export async function collectCriticalFirstScreenText() {
+  const inputs = await collectCriticalFontInputs();
+  return Object.values(inputs).join(' ');
 }
