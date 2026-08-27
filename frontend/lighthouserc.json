@@ -13,7 +13,8 @@
       "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
-        "throttlingMethod": "simulate"
+        "throttlingMethod": "simulate",
+        "chromeFlags": "--force-prefers-reduced-motion"
       }
     },
     "assert": {
