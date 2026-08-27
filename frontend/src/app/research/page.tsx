@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 import { PillarCard } from '@/components/content/PillarCard';
-import { CtaBand } from '@/components/sections/CtaBand';
 import { MetricBand } from '@/components/sections/MetricBand';
 import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
@@ -77,16 +75,9 @@ export default async function ResearchPage() {
               <p>{data.footnote}</p>
             </Callout>
             <SourceNote slides={data.sourceSlides} />
-            <p style={{ marginTop: 20 }}>
-              <Link href={ROUTES.researchPapers} className="btn-text">
-                查看学术成果（5 篇论文） <span aria-hidden="true">→</span>
-              </Link>
-            </p>
           </Reveal>
         </div>
       </section>
-
-      <CtaBand cta={data.cta} />
     </>
   );
 }

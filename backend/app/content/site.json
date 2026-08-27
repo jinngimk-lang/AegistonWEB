@@ -81,8 +81,7 @@
         "label": "技术与研究",
         "href": "/research",
         "items": [
-          { "label": "核心技术总览", "href": "/research", "note": "11 项" },
-          { "label": "学术成果", "href": "/research/papers", "note": "5 篇" }
+          { "label": "核心技术总览", "href": "/research", "note": "11 项" }
         ]
       },
       {
@@ -129,8 +128,7 @@
           { "label": "行业实践", "href": "/solutions" },
           { "label": "通信服务", "href": "/solutions/telecom" },
           { "label": "交通基建", "href": "/solutions/transportation" },
-          { "label": "核心技术", "href": "/research" },
-          { "label": "学术成果", "href": "/research/papers" }
+          { "label": "核心技术", "href": "/research" }
         ]
       },
       {

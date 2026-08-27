@@ -1,9 +1,9 @@
 {
-  "_contentHash": "30b9a74455a7f794",
-  "_generatedAt": "2026-08-25T09:36:30.588Z",
+  "_contentHash": "4a5a81dbb733264b",
+  "_generatedAt": "2026-08-27T01:48:34.681Z",
   "version": 1,
-  "contentHash": "30b9a74455a7f794",
-  "generatedAt": "2026-08-25T09:36:19+00:00",
+  "contentHash": "4a5a81dbb733264b",
+  "generatedAt": "2026-08-27T01:48:01+00:00",
   "docs": [
     {
       "id": "product:aragonteam",
@@ -363,31 +363,6 @@
       ]
     },
     {
-      "id": "research:papers",
-      "type": "research",
-      "title": "五篇论文：两篇 CCF-A 顶会，三篇前沿研究",
-      "subtitle": "PUBLICATIONS",
-      "href": "/research/papers",
-      "excerpt": "论文里的每一项机制，在产品里都能指到对应的运行时模块——研究成果是这套底座的设计依据，而不是宣传素材。实测数据全部来自公开基准，可复现、可对比、可审计。",
-      "keywords": [
-        "ASE 2026",
-        "ASE 2025",
-        "arXiv 预印本",
-        "arXiv 预印本",
-        "arXiv 预印本",
-        "LaMAR: Latent Multi-Agent Collaboration via KV-Cache Communication for Automated Program Repair",
-        "Hit The Bullseye On The First Shot: Improving LLMs Using Multi-Sample Self-Reward Feedback for Vulnerability Repair",
-        "Trustworthy Reasoning: Evaluating and Enhancing Factual Accuracy in LLM Intermediate Thought Processes",
-        "Navigating the Fog of Thought: Probabilistic Multi-Agent Reasoning via Latent Space Alignment",
-        "How to Make a Large Vision Language Model Speak with a Forked Tongue? Backdoor Implantation without Training via Santoryu Attacks"
-      ],
-      "body": "论文里的每一项机制，在产品里都能指到对应的运行时模块——研究成果是这套底座的设计依据，而不是宣传素材。实测数据全部来自公开基准，可复现、可对比、可审计。 LaMAR：以 KV-Cache 直连取代「文本传话」的多智能体自动程序修复框架 LaMAR: Latent Multi-Agent Collaboration via KV-Cache Communication for Automated Program Repair ASE 2026 让智能体在连续空间中直接共享 KV-Cache 表示，把多智能体通信的 token 复杂度从 O(N²) 降为 O(N)。 多智能体之间用 token 交流，每次都要把内部状态解码成离散符号、再由下一个智能体重新编码——信息有损，且 token 开销随智能体数量呈 O(N²) 增长。 提出隐空间智能体通信 LAC：让智能体在连续空间中直接共享 KV-Cache 表示。论文给出理论证明——该信道的信息容量严格更高，token 复杂度由 O(N²) 降为 O(N)。架构上采用双链设计：缺陷分析链由 4 个隐空间智能体协同诊断缺陷；修复链在跨链上下文传递下迭代精修补丁，复杂缺陷支持多轮迭代。 Qwen3-8B 上 Defects4J 修复成功率 24.5%，DebugBench / QuixBugs 62.1%–87.5%；覆盖 Java / Python / C++ 三类语言、三个模型族，多数设定下优于全部基线。消融显示缺陷分析链与隐空间通信是贡献最大的两个组件。 MUSSEL：面向漏洞修复的「一次命中」多样本自奖励反馈框架 Hit The Bullseye On The First Shot: Improving LLMs Using Multi-Sample Self-Reward Feedback for Vulnerability Repair ASE 2025 借鉴人类学习机制的三阶段训练，把漏洞修复的一次命中率提上去——这直接决定人工复核的工作量。 大模型已能为软件漏洞生成补丁，但精度不足——往往要反复尝试多次才能得到一次正确修复，人工复核成本被一次次消耗掉。 三阶段训练：① 监督微调，用领域数据注入漏洞修复的基础知识；② 自奖励反馈学习，以正确与错误补丁迭代自我强化；③ 专用提示词设计，在推理阶段对齐模型能力。 one-shot 查询下稳定优于当前最优方案；即使 beam size 很小依然高效，GPU 显存占用极低；在多类 CWE 上均验证有效，安全意义显著。 可信推理：把事实性从最终结论前移到每一步推理 Trustworthy Reasoning: Evaluating and Enhancing Factual Accuracy in LLM Intermediate Thought Processes arXiv 预印本 终答正确，不代表每一步都对。在医疗、法律、科研这类高风险场景，一段自信却错误的推理足以把人导向错误决策。 大模型常常给出正确的最终答案，中间推理步骤却含事实错误。 ① 用反事实增强数据训练事实核查分类器，捕捉推理链里的细微不一致；② 以事实性、连贯性、结构正确性三维奖励增强 GRPO 强化学习；③ 用机制可解释性方法观察事实性改进如何反映在模型激活上。 即便是领先模型，推理事实准确率也只有 Claude-3.7 81.93%、GPT-o1 82.57%。本方法把事实鲁棒性最高提升 49.90%，同时在 Math-500 / AIME-2024 / GPQA 上性能不降。 P-LyRA：把隐空间协同从「确定性向量」升级为「带不确定性的概率导航」 Navigating the Fog of Thought: Probabilistic Multi-Agent Reason…",
-      "sourceSlides": [
-        42,
-        85
-      ]
-    },
-    {
       "id": "insight:why-start-with-rd",
       "type": "insight",
       "title": "为什么从研发与项目交付场景切入",
@@ -452,23 +427,6 @@
       "body": "对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是 数据出不出企业网 。 01 政策与合规：准入门槛 「人工智能+」行动顶层设计 —— 《国务院关于深入实施「人工智能+」行动的意见》（2025.08）是首个系统性顶层设计文件，明确将智能体列入国家级普及率指标。 数据安全与个人信息保护 —— 核心数据、重要数据的处理与出域受严格约束，涉密与敏感业务系统不得对接公网服务。 信创国产化导向 —— 政府、国企、央企客户对国产软硬件栈有明确采购导向，整套方案需可国产化替代。 结论 ：目标客户的第一道门槛是 数据是否出域 。 02 技术前提：已经具备 模型侧 ：国产开源大模型能力达到企业可用阈值，本地部署不再等于「能力打折」。 算力侧 ：国产算力卡与推理优化持续推进，使本地部署成本进入可接受区间。 工程侧 ：Agent 编排、沙箱隔离、状态持久化与断点恢复等工程能力成熟，具备产品化条件。 协同侧 ：需求、缺陷、版本、文档与审计等企业协作能力可与 Agent 同域打通。 「私有化」已从技术妥协，变成 可行的产品形态 。 03 由此推导出的三种交付形态 Ⅰ 私有化服务器部署 —— 数据不出企业网，模型、知识与执行全部内网闭环；对接企业现有身份、权限与审计体系。适用：有机房与运维能力的总部级客户。 Ⅱ 便携式一体机 —— 本地模型 + AI 算力 + 协作平台三合一，开箱即用；断网环境下仍可运行完整人机协同流程。适用：项目现场、临时团队、无外网场景。 Ⅲ 私有云服务 —— 私有网络模型 + AI 算力 + 协作平台三合一，开箱即用；私有网络环境下仍可运行完整人机协同流程。适用：公司与团队办公场地。 结论 对目标客户而言，「能不能私有化」 先于 「好不好用」——而这一层只能重做，不能在既有平台上加装。",
       "sourceSlides": [
         9
-      ]
-    },
-    {
-      "id": "insight:papers-behind-the-platform",
-      "type": "insight",
-      "title": "研究进展：论文里的机制，在产品里指得到模块",
-      "subtitle": "研究进展",
-      "href": "/insights/papers-behind-the-platform",
-      "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
-      "keywords": [
-        "研究进展",
-        "2026-08-01"
-      ],
-      "body": "产品里的多智能体编排与缺陷闭环，不是工程经验的堆叠。团队已发表的两篇 CCF-A 类软件工程国际顶会论文与三篇前沿研究，给出了可复现的方法、公开基准上的实测数据与消融结论。 两篇 CCF-A 顶会 LaMAR（ASE 2026） —— 以 KV-Cache 直连取代「文本传话」的多智能体自动程序修复框架。多智能体之间用 token 交流，每次都要把内部状态解码成离散符号、再由下一个智能体重新编码——信息有损，且 token 开销随智能体数量呈 O(N²) 增长。论文提出隐空间智能体通信 LAC，并给出理论证明：该信道的信息容量严格更高，token 复杂度由 O(N²) 降为 O(N)。实测：Qwen3-8B 上 Defects4J 修复成功率 24.5%，DebugBench / QuixBugs 62.1%–87.5%，覆盖 Java / Python / C++ 三类语言、三个模型族。 MUSSEL（ASE 2025） —— 面向漏洞修复的「一次命中」多样本自奖励反馈框架。三阶段训练：领域监督微调 → 自奖励反馈学习 → 专用提示词对齐。one-shot 查询下稳定优于当前最优方案，即使 beam size 很小依然高效，GPU 显存占用极低。 一次命中率直接决定人工复核的工作量——这正是 Agent 产出能否真正进入研发流程的关键门槛。 三篇前沿研究 Trustworthy Reasoning —— 终答正确，不代表每一步都对。即便是领先模型，推理事实准确率也只有 Claude-3.7 81.93%、GPT-o1 82.57%。该方法把事实鲁棒性最高提升 49.90%，同时在 Math-500 / AIME-2024 / GPQA 上性能不降。→ 支撑大模型幻觉检测与抑制。 P-LyRA —— 把隐空间协同从「确定性向量」升级为「带不确定性的概率导航」。角色特定对齐抑制分布漂移，熵引导共识按模型内在置信度聚合推理路径。→ 支撑隐空间思维链多智能体推理架构。 Santoryu —— 免训练后门植入：先证明攻击可行，才谈得上怎么防。基于机制可解释性定位三类关键向量，Phi-3.5-Vision 攻击成功率 71.78%，Llava-1.5-7B 高达 99.36%。攻防同源——同一套能力在产品里翻转为防守方。→ 支撑机制可解释的控制与安全监测。 从论文机制到产品模块 论文能力 对应产品模块 隐空间通信 O(N) 多智能体编排：上下文不再靠文本反复搬运，长链路协同的开销可控 双链「诊断—修复」 BUG 全生命周期：定位 → 修复 → 验证形成闭环，每一步留痕 自奖励一次命中 Agent 产出的一次通过率提升，人工复核与返工同步下降 三语言 × 三模型族 呼应能力槽位治理：模型可替换、能力可分档，不被单一供应商绑定 公开基准 + 消融 交付验收看公开数据，不靠「感觉不错」 结论 论文里的每一项机制，在产品里都能指到对应的运行时模块—— 研究成果是这套底座的设计依据 。",
-      "sourceSlides": [
-        42,
-        85
       ]
     },
     {
@@ -713,7 +671,7 @@
         "公司动态",
         "研究进展"
       ],
-      "body": "为什么从研发与项目交付场景切入 AI 改变的不仅是效率，更是价值从哪里产生 公司动态：三层产品体系成型，构成同一套企业智能底座 私有化与一体机：不仅是可选项，更是准入条件 研究进展：论文里的机制，在产品里指得到模块 可以等的是模型，不能等的是沉淀 企业落地 AI 的四重困境：同一个根因 AI Agent 正在成为企业新的数字生产力",
+      "body": "为什么从研发与项目交付场景切入 AI 改变的不仅是效率，更是价值从哪里产生 公司动态：三层产品体系成型，构成同一套企业智能底座 私有化与一体机：不仅是可选项，更是准入条件 可以等的是模型，不能等的是沉淀 企业落地 AI 的四重困境：同一个根因 AI Agent 正在成为企业新的数字生产力",
       "sourceSlides": [
         1,
         9,

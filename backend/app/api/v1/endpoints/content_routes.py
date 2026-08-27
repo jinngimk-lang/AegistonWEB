@@ -37,7 +37,7 @@ from app.schemas.product import (
     ProductSlug,
     ProductsOverview,
 )
-from app.schemas.research import PapersPage, ResearchOverview
+from app.schemas.research import ResearchOverview
 from app.schemas.search import SearchIndexPayload
 from app.schemas.site import Navigation, SiteSettings
 from app.schemas.solution import SolutionDetail, SolutionSlug, SolutionsOverview
@@ -45,6 +45,11 @@ from app.services.content import get_repository
 from app.services.search import build_search_index
 
 router = APIRouter()
+
+# 论文 JSON 继续保留在内容包中作为内部溯源资料，但已从官网公开信息架构移除。
+_REMOVED_PUBLIC_PATHS = {"/research/papers"}
+_REMOVED_SEARCH_DOC_IDS = {"research:papers"}
+
 
 def _not_modified(
     request: Request, response: Response, key: str, *, static: bool = False
@@ -144,14 +149,6 @@ async def research_pillars(request: Request, response: Response) -> Any:
     return get_repository().research
 
 
-@router.get("/research/papers", response_model=PapersPage, tags=["research"])
-async def research_papers(request: Request, response: Response) -> Any:
-    not_modified = _not_modified(request, response, "research/papers", static=True)
-    if not_modified is not None:
-        return not_modified
-    return get_repository().papers
-
-
 # -------------------------------------------------------------------- about
 @router.get("/about", response_model=AboutPage, tags=["about"])
 async def about(request: Request, response: Response) -> Any:
@@ -231,7 +228,9 @@ async def search_index(request: Request, response: Response) -> Any:
     if cached is None:  # pragma: no cover - lifespan 正常执行时不会走到
         cached = build_search_index(get_repository())
         request_app.state.search_index = cached
-    return cached
+    return cached.model_copy(
+        update={"docs": [doc for doc in cached.docs if doc.id not in _REMOVED_SEARCH_DOC_IDS]}
+    )
 
 
 # -------------------------------------------------------------------- media
@@ -266,7 +265,10 @@ async def site_routes(request: Request, response: Response) -> Any:
     not_modified = _not_modified(request, response, "site/routes", static=True)
     if not_modified is not None:
         return not_modified
-    # 清单本身在 ContentRepository.route_entries()：端点与内容校验共用同一份，
-    # 「索引里出现死链」才能和「站内出现死链」用同一把尺子量（v3 P1-4）。
-    routes = get_repository().route_entries()
+    # 内容仓库仍保留论文原始资料作内部溯源，但公开站点路由明确排除该板块。
+    routes = [
+        route
+        for route in get_repository().route_entries()
+        if route["path"] not in _REMOVED_PUBLIC_PATHS
+    ]
     return {"routes": routes, "count": len(routes)}
