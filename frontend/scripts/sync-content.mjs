@@ -60,7 +60,6 @@ const TARGETS = [
   ['solution-legal-services', '/api/v1/solutions/legal-services'],
   ['solution-finance', '/api/v1/solutions/finance'],
   ['research-pillars', '/api/v1/research/pillars'],
-  ['research-papers', '/api/v1/research/papers'],
   ['about', '/api/v1/about'],
   ['about-team', '/api/v1/about/team'],
   ['about-careers', '/api/v1/about/careers'],

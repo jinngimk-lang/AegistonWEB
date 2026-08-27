@@ -79,16 +79,6 @@
       ]
     },
     {
-      "slug": "papers-behind-the-platform",
-      "title": "研究进展：论文里的机制，在产品里指得到模块",
-      "category": "research",
-      "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
-      "publishedAt": "2026-08-01",
-      "heroMedia": "stock-research",
-      "sourceSlides": [42, 85],
-      "sources": ["《智瞳安宇总体产品介绍 V7》p.42 / p.85"]
-    },
-    {
       "slug": "product-overview-v7",
       "title": "公司动态：三层产品体系成型，构成同一套企业智能底座",
       "category": "news",

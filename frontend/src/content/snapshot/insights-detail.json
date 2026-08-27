@@ -1,6 +1,6 @@
 {
-  "_contentHash": "30b9a74455a7f794",
-  "_generatedAt": "2026-08-25T09:36:30.588Z",
+  "_contentHash": "4a5a81dbb733264b",
+  "_generatedAt": "2026-08-27T01:48:34.681Z",
   "items": [
     {
       "slug": "why-start-with-rd",
@@ -449,121 +449,6 @@
         ]
       },
       "next": {
-        "slug": "papers-behind-the-platform",
-        "title": "研究进展：论文里的机制，在产品里指得到模块",
-        "category": "research",
-        "categoryLabel": "研究进展",
-        "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
-        "publishedAt": "2026-08-01",
-        "readingMinutes": 3,
-        "heroMedia": "stock-research",
-        "href": "/insights/papers-behind-the-platform",
-        "sourceSlides": [
-          42,
-          85
-        ]
-      }
-    },
-    {
-      "slug": "papers-behind-the-platform",
-      "title": "研究进展：论文里的机制，在产品里指得到模块",
-      "category": "research",
-      "categoryLabel": "研究进展",
-      "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
-      "publishedAt": "2026-08-01",
-      "readingMinutes": 3,
-      "heroMedia": "stock-research",
-      "href": "/insights/papers-behind-the-platform",
-      "sourceSlides": [
-        42,
-        85
-      ],
-      "bodyHtml": "<p>产品里的多智能体编排与缺陷闭环，不是工程经验的堆叠。团队已发表的两篇 CCF-A 类软件工程国际顶会论文与三篇前沿研究，给出了可复现的方法、公开基准上的实测数据与消融结论。</p>\n<h2 id=\"sec-1\">两篇 CCF-A 顶会</h2>\n<p><strong>LaMAR（ASE 2026）</strong> —— 以 KV-Cache 直连取代「文本传话」的多智能体自动程序修复框架。多智能体之间用 token 交流，每次都要把内部状态解码成离散符号、再由下一个智能体重新编码——信息有损，且 token 开销随智能体数量呈 O(N²) 增长。论文提出隐空间智能体通信 LAC，并给出理论证明：该信道的信息容量严格更高，token 复杂度由 O(N²) 降为 O(N)。实测：Qwen3-8B 上 Defects4J 修复成功率 24.5%，DebugBench / QuixBugs 62.1%–87.5%，覆盖 Java / Python / C++ 三类语言、三个模型族。</p>\n<p><strong>MUSSEL（ASE 2025）</strong> —— 面向漏洞修复的「一次命中」多样本自奖励反馈框架。三阶段训练：领域监督微调 → 自奖励反馈学习 → 专用提示词对齐。one-shot 查询下稳定优于当前最优方案，即使 beam size 很小依然高效，GPU 显存占用极低。</p>\n<p>一次命中率直接决定人工复核的工作量——这正是 Agent 产出能否真正进入研发流程的关键门槛。</p>\n<h2 id=\"sec-2\">三篇前沿研究</h2>\n<p><strong>Trustworthy Reasoning</strong> —— 终答正确，不代表每一步都对。即便是领先模型，推理事实准确率也只有 Claude-3.7 81.93%、GPT-o1 82.57%。该方法把事实鲁棒性最高提升 49.90%，同时在 Math-500 / AIME-2024 / GPQA 上性能不降。→ 支撑大模型幻觉检测与抑制。</p>\n<p><strong>P-LyRA</strong> —— 把隐空间协同从「确定性向量」升级为「带不确定性的概率导航」。角色特定对齐抑制分布漂移，熵引导共识按模型内在置信度聚合推理路径。→ 支撑隐空间思维链多智能体推理架构。</p>\n<p><strong>Santoryu</strong> —— 免训练后门植入：先证明攻击可行，才谈得上怎么防。基于机制可解释性定位三类关键向量，Phi-3.5-Vision 攻击成功率 71.78%，Llava-1.5-7B 高达 99.36%。攻防同源——同一套能力在产品里翻转为防守方。→ 支撑机制可解释的控制与安全监测。</p>\n<h2 id=\"sec-3\">从论文机制到产品模块</h2>\n<table>\n<thead>\n<tr>\n<th>论文能力</th>\n<th>对应产品模块</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>隐空间通信 O(N)</td>\n<td>多智能体编排：上下文不再靠文本反复搬运，长链路协同的开销可控</td>\n</tr>\n<tr>\n<td>双链「诊断—修复」</td>\n<td>BUG 全生命周期：定位 → 修复 → 验证形成闭环，每一步留痕</td>\n</tr>\n<tr>\n<td>自奖励一次命中</td>\n<td>Agent 产出的一次通过率提升，人工复核与返工同步下降</td>\n</tr>\n<tr>\n<td>三语言 × 三模型族</td>\n<td>呼应能力槽位治理：模型可替换、能力可分档，不被单一供应商绑定</td>\n</tr>\n<tr>\n<td>公开基准 + 消融</td>\n<td>交付验收看公开数据，不靠「感觉不错」</td>\n</tr>\n</tbody>\n</table>\n<h2 id=\"sec-4\">结论</h2>\n<p>论文里的每一项机制，在产品里都能指到对应的运行时模块——<strong>研究成果是这套底座的设计依据</strong>。</p>",
-      "sources": [
-        "《智瞳安宇总体产品介绍 V7》p.42 / p.85"
-      ],
-      "toc": [
-        {
-          "level": 2,
-          "text": "两篇 CCF-A 顶会",
-          "anchor": "sec-1"
-        },
-        {
-          "level": 2,
-          "text": "三篇前沿研究",
-          "anchor": "sec-2"
-        },
-        {
-          "level": 2,
-          "text": "从论文机制到产品模块",
-          "anchor": "sec-3"
-        },
-        {
-          "level": 2,
-          "text": "结论",
-          "anchor": "sec-4"
-        }
-      ],
-      "related": [
-        {
-          "slug": "agent-as-new-productivity",
-          "title": "AI Agent 正在成为企业新的数字生产力",
-          "category": "insight",
-          "categoryLabel": "行业洞察",
-          "excerpt": "Agent 正在从软件的一项功能，变成企业运转的一类生产力——全球市场、渗透拐点与国家时间表同时给出信号。市场规模与政策节奏已经确定；不确定的是企业把 Agent 买回来之后，能不能真的用起来。",
-          "publishedAt": "2026-08-01",
-          "readingMinutes": 2,
-          "heroMedia": "stock-insights",
-          "href": "/insights/agent-as-new-productivity",
-          "sourceSlides": [
-            3
-          ]
-        },
-        {
-          "slug": "four-dilemmas-one-root-cause",
-          "title": "企业落地 AI 的四重困境：同一个根因",
-          "category": "insight",
-          "categoryLabel": "行业洞察",
-          "excerpt": "工具孤岛、治理缺位、流程失配、数据主权，看起来是四个问题，实际是同一个缺口——并不是制度错了，是制度还缺一层。5% 与 95% 的差别，不在模型，在组织。",
-          "publishedAt": "2026-08-01",
-          "readingMinutes": 3,
-          "heroMedia": "stock-products",
-          "href": "/insights/four-dilemmas-one-root-cause",
-          "sourceSlides": [
-            6,
-            7
-          ]
-        },
-        {
-          "slug": "model-can-wait-accumulation-cannot",
-          "title": "可以等的是模型，不能等的是沉淀",
-          "category": "insight",
-          "categoryLabel": "行业洞察",
-          "excerpt": "「等模型更强、工具更成熟再做」看起来是稳妥的判断，但它对两件事的判断是反的：模型能力买得到，而且对所有人同时到达；组织记忆买不到，只能从今天开始累积。",
-          "publishedAt": "2026-08-01",
-          "readingMinutes": 1,
-          "heroMedia": "stock-finance",
-          "href": "/insights/model-can-wait-accumulation-cannot",
-          "sourceSlides": [
-            10
-          ]
-        }
-      ],
-      "prev": {
-        "slug": "private-deployment-is-the-entry-ticket",
-        "title": "私有化与一体机：不仅是可选项，更是准入条件",
-        "category": "insight",
-        "categoryLabel": "行业洞察",
-        "excerpt": "对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是数据出不出企业网。「能不能私有化」先于「好不好用」——而这一层只能重做，不能在既有平台上加装。",
-        "publishedAt": "2026-08-01",
-        "readingMinutes": 2,
-        "heroMedia": "stock-deployment",
-        "href": "/insights/private-deployment-is-the-entry-ticket",
-        "sourceSlides": [
-          9
-        ]
-      },
-      "next": {
         "slug": "model-can-wait-accumulation-cannot",
         "title": "可以等的是模型，不能等的是沉淀",
         "category": "insight",
@@ -674,18 +559,17 @@
         }
       ],
       "prev": {
-        "slug": "papers-behind-the-platform",
-        "title": "研究进展：论文里的机制，在产品里指得到模块",
-        "category": "research",
-        "categoryLabel": "研究进展",
-        "excerpt": "团队两篇 CCF-A 类软件工程国际顶会论文（ASE 2026 / ASE 2025）与三篇前沿研究，分别支撑多智能体编排、缺陷闭环、幻觉抑制、隐空间协同与机制级安全监测。",
+        "slug": "private-deployment-is-the-entry-ticket",
+        "title": "私有化与一体机：不仅是可选项，更是准入条件",
+        "category": "insight",
+        "categoryLabel": "行业洞察",
+        "excerpt": "对政府、国企、央企客户而言，第一道门槛不是功能好不好，而是数据出不出企业网。「能不能私有化」先于「好不好用」——而这一层只能重做，不能在既有平台上加装。",
         "publishedAt": "2026-08-01",
-        "readingMinutes": 3,
-        "heroMedia": "stock-research",
-        "href": "/insights/papers-behind-the-platform",
+        "readingMinutes": 2,
+        "heroMedia": "stock-deployment",
+        "href": "/insights/private-deployment-is-the-entry-ticket",
         "sourceSlides": [
-          42,
-          85
+          9
         ]
       },
       "next": {
