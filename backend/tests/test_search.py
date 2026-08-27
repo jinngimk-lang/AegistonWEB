@@ -57,6 +57,13 @@ def test_search_index_covers_every_product_and_insight(client):
         assert f"insight:{item['slug']}" in by_id
 
 
+def test_search_index_excludes_academic_results(client):
+    """学术成果已从官网公开信息架构移除，搜索也不能留下隐形入口。"""
+    docs = client.get("/api/v1/search/index").json()["docs"]
+    assert all(doc["id"] != "research:papers" for doc in docs)
+    assert all(doc["href"].split("#")[0] != "/research/papers" for doc in docs)
+
+
 def test_search_index_etag(client):
     first = client.get("/api/v1/search/index")
     etag = first.headers["etag"]

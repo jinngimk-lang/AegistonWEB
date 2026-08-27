@@ -4,17 +4,15 @@ import { notFound } from 'next/navigation';
 import { CaseMetrics } from '@/components/content/CaseMetrics';
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { LegalLensArchitecture } from '@/components/content/LegalLensArchitecture';
-import { PaperCard } from '@/components/content/PaperCard';
 import { PillarCard } from '@/components/content/PillarCard';
 import { ScreenGallery } from '@/components/media/ScreenGallery';
 import { CtaBand } from '@/components/sections/CtaBand';
 import { PageHero } from '@/components/sections/PageHero';
-import { SectionNav } from '@/components/sections/SectionNav';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Callout } from '@/components/ui/Callout';
 import { Reveal } from '@/components/ui/Reveal';
 import { SourceNote } from '@/components/ui/SourceNote';
-import { getMediaManifest, getPapers, getProduct, getResearch } from '@/lib/api';
+import { getMediaManifest, getProduct, getResearch } from '@/lib/api';
 import { getMediaLookup } from '@/lib/media';
 import { breadcrumbJsonLd, productJsonLd } from '@/lib/jsonld';
 import { PRODUCT_SLUGS, ROUTES, type ProductSlug } from '@/lib/routes';
@@ -55,19 +53,17 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
 
-  const [product, manifest, media, research, papersPage] = await Promise.all([
+  const [product, manifest, media, research] = await Promise.all([
     getProduct(slug),
     getMediaManifest(),
     getMediaLookup(),
     getResearch(),
-    getPapers(),
   ]);
 
   const assets: Record<string, MediaAsset> = {};
   for (const asset of manifest.assets) assets[asset.id] = asset;
 
   const pillars = research.pillars.filter((p) => product.pillars.includes(p.id));
-  const papers = papersPage.papers.filter((p) => product.papers.includes(p.id));
   const crumbs = crumbsFromPath(ROUTES.productDetail(slug));
 
   return (
@@ -91,9 +87,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
         ]}
       />
       <Breadcrumbs items={crumbs} />
-      <SectionNav
-        items={product.screens.map((screen) => ({ id: screen.id, label: screen.title }))}
-      />
 
       {/* 定位 */}
       <section className="section" aria-labelledby="positioning-title">
@@ -272,25 +265,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <div className="pillar-list">
               {pillars.map((pillar) => (
                 <PillarCard key={pillar.id} pillar={pillar} />
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      {/* 论文 */}
-      {papers.length > 0 ? (
-        <section className="section section-gray" aria-labelledby="papers-title">
-          <div className="container">
-            <Reveal className="solutions-intro">
-              <div className="section-label">RESEARCH</div>
-              <h2 className="section-title" id="papers-title">
-                研究成果是设计依据，不是宣传素材
-              </h2>
-            </Reveal>
-            <div className="paper-grid">
-              {papers.map((paper) => (
-                <PaperCard key={paper.id} paper={paper} />
               ))}
             </div>
           </div>

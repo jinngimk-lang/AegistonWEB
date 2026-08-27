@@ -21,7 +21,6 @@ import productInkclaw from './product-inkclaw.json';
 import productLegallens from './product-legallens.json';
 import products from './products.json';
 import productsDeployment from './products-deployment.json';
-import researchPapers from './research-papers.json';
 import researchPillars from './research-pillars.json';
 import searchIndex from './search-index.json';
 import siteNavigation from './site-navigation.json';
@@ -46,7 +45,6 @@ const REGISTRY = {
   'product-legallens': productLegallens,
   products,
   'products-deployment': productsDeployment,
-  'research-papers': researchPapers,
   'research-pillars': researchPillars,
   'search-index': searchIndex,
   'site-navigation': siteNavigation,

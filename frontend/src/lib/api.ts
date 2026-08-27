@@ -24,7 +24,6 @@ import type {
   MediaManifest,
   Navigation,
   Page,
-  PapersPage,
   ProductDetail,
   ProductsOverview,
   ResearchOverview,
@@ -206,13 +205,6 @@ export const getResearch = () =>
     revalidate: 3600,
     tags: ['research'],
     snapshot: 'research-pillars',
-  });
-
-export const getPapers = () =>
-  apiFetch<PapersPage>('/api/v1/research/papers', {
-    revalidate: 3600,
-    tags: ['research'],
-    snapshot: 'research-papers',
   });
 
 /* -------------------------------------------------------------------- 关于 */
