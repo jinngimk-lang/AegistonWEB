@@ -11,8 +11,8 @@ import { organizationJsonLd, websiteJsonLd } from '@/lib/jsonld';
 import { METADATA_BASE, SITE_NAME, TITLE_TEMPLATE, defaultOgImages } from '@/lib/seo';
 
 import './globals.css';
-// 关键路径上只留首屏实际用到的分片；其余 500+ 条 @font-face 由 <head> 里的
-// media="print" 链接异步挂载（v3 §4.6.1 M5-a）。
+// 关键路径上只留首屏实际用到的分片；其余 500+ 条 @font-face 由
+// DeferredFontStyles 在 window load 后以 optional 策略挂载（v3 §4.6.1 M5-a）。
 import '../styles/fonts-critical.css';
 import FONT_PRELOAD_DATA from '../styles/font-preload.json';
 
@@ -73,9 +73,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             crossOrigin="anonymous"
           />
         ))}
-        {/* 字体声明表的后半段：454 条 @font-face 由 <DeferredFontStyles /> 在挂载后
-            追加，不进渲染阻塞路径（v3 §4.6.1 M5-a）。无 JS 时由下面这段
-            <noscript> 同步加载兜底 —— 退化为改动前的现状，不是坏功能。 */}
+        {/* 字体声明表的后半段：454 条 @font-face 由 <DeferredFontStyles /> 在
+            window load 后加载，并改为 optional，避免首屏带宽竞争和晚到字体 CLS。
+            无 JS 时由下面 <noscript> 同步加载兜底。 */}
         <noscript>
           <link rel="stylesheet" href={DEFERRED_FONT_HREF} />
         </noscript>
