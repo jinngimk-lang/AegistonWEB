@@ -20,15 +20,21 @@ export function PillarCard({ pillar }: { pillar: TechPillar }) {
 
       <div className="pillar-rows">
         <div className="pillar-row">
-          <h5>{pillar.uncertaintyLabel}</h5>
+          <h5 role="heading" aria-level={4}>
+            {pillar.uncertaintyLabel}
+          </h5>
           <p>{pillar.uncertainty}</p>
         </div>
         <div className="pillar-row">
-          <h5>核心机制</h5>
+          <h5 role="heading" aria-level={4}>
+            核心机制
+          </h5>
           <p>{pillar.mechanism}</p>
         </div>
         <div className="pillar-row">
-          <h5>关键设计与工程参数</h5>
+          <h5 role="heading" aria-level={4}>
+            关键设计与工程参数
+          </h5>
           <ul className="pillar-params">
             {pillar.parameters.map((param) => (
               <li key={param}>{param}</li>
@@ -36,7 +42,9 @@ export function PillarCard({ pillar }: { pillar: TechPillar }) {
           </ul>
         </div>
         <div className="pillar-row">
-          <h5>工程价值</h5>
+          <h5 role="heading" aria-level={4}>
+            工程价值
+          </h5>
           <p>{pillar.value}</p>
         </div>
       </div>

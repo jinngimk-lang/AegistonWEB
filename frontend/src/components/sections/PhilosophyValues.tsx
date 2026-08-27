@@ -37,7 +37,10 @@ export function PhilosophyValues({ eyebrow, title, description, values }: Props)
           {values.map((value, index) => (
             <Reveal key={value.num} delay={index as 0 | 1 | 2 | 3} className="value">
               <div className="value-num">{value.num}</div>
-              <h4>{value.title}</h4>
+              {/* 视觉仍用 ref 的 h4 selector；可访问层级是 section h2 的直接子级。 */}
+              <h4 role="heading" aria-level={3}>
+                {value.title}
+              </h4>
               <span className="value-en">{value.titleEn}</span>
               <p>{value.description}</p>
               <div className="quote">{value.quote}</div>

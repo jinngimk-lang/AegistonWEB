@@ -61,7 +61,10 @@ export function InsightsPreview({
                 </div>
                 <div className="news-item-body">
                   <div className="news-item-cat">{item.categoryLabel}</div>
-                  <h4>{item.title}</h4>
+                  {/* 小新闻与左侧主新闻同属 section h2 的直接子项，语义层级保持为 3。 */}
+                  <h4 role="heading" aria-level={3}>
+                    {item.title}
+                  </h4>
                 </div>
               </Link>
             </Reveal>
