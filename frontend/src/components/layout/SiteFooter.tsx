@@ -32,7 +32,8 @@ export function SiteFooter({ navigation, settings }: Props) {
 
           {navigation.footerColumns.map((column) => (
             <nav key={column.label} className="footer-col" aria-label={column.label}>
-              <h5>{column.label}</h5>
+              {/* ref 依赖 h5 选择器做视觉排版；nav 自身已有 aria-label，因此这里不是文档标题。 */}
+              <h5 role="presentation">{column.label}</h5>
               <ul>
                 {column.items.map((item) => (
                   <li key={item.href}>
