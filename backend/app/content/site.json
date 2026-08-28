@@ -41,9 +41,7 @@
       { "label": "战略合作伙伴", "href": "/solutions" },
       { "label": "科研实力", "href": "/about/strength" }
     ],
-    "utilityRight": [
-      { "label": "企业邮箱", "href": "mailto:bd@aegiston.com", "external": true }
-    ],
+    "utilityRight": [],
     "main": [
       {
         "label": "关于我们",
