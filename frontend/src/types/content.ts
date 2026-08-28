@@ -37,7 +37,7 @@ export interface StockCredit {
   height: number;
   blurDataUrl: string;
   alt: string;
-  source: 'unsplash' | 'wikimedia';
+  source: 'unsplash' | 'wikimedia' | 'generated';
   photoId: string;
   author?: string | null;
   authorUrl?: string | null;
