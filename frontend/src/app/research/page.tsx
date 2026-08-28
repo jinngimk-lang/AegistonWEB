@@ -4,9 +4,7 @@ import { PillarCard } from '@/components/content/PillarCard';
 import { MetricBand } from '@/components/sections/MetricBand';
 import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
-import { Callout } from '@/components/ui/Callout';
 import { Reveal } from '@/components/ui/Reveal';
-import { SourceNote } from '@/components/ui/SourceNote';
 import { getResearch } from '@/lib/api';
 import { breadcrumbJsonLd } from '@/lib/jsonld';
 import { getMediaLookup } from '@/lib/media';
@@ -67,17 +65,6 @@ export default async function ResearchPage() {
           </section>
         );
       })}
-
-      <section className="section" aria-label="口径说明">
-        <div className="container">
-          <Reveal>
-            <Callout tone="neutral" title="技术模块口径说明">
-              <p>{data.footnote}</p>
-            </Callout>
-            <SourceNote slides={data.sourceSlides} />
-          </Reveal>
-        </div>
-      </section>
     </>
   );
 }
