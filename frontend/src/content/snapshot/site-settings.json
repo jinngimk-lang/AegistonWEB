@@ -1,6 +1,6 @@
 {
-  "_contentHash": "a8ede23e28f78562",
-  "_generatedAt": "2026-08-28T05:26:12.154Z",
+  "_contentHash": "ab955e399faa150e",
+  "_generatedAt": "2026-08-28T05:41:28.244Z",
   "nameCn": "智瞳安宇",
   "nameEn": "Aegiston",
   "legalName": "西安智瞳安宇科技有限公司",
@@ -19,9 +19,9 @@
     "组织智能"
   ],
   "contact": {
-    "businessEmail": "bd@aegiston.com",
-    "careersEmail": "hr@aegiston.com",
-    "phone": null,
+    "businessEmail": "contact@aegiston.com",
+    "careersEmail": "contact@aegiston.com",
+    "phone": "029-81118823",
     "address": "陕西省西安市",
     "workingHours": "工作日 09:00–18:00（GMT+8）"
   },
@@ -30,8 +30,6 @@
   "foundedNote": "由高校教授团队为推进科技成果转化而创立的高科技企业",
   "pendingConfirmation": [
     "ICP 备案号：待客户提供（为空时页脚不渲染该行，spec R9）",
-    "商务电话：PPT 未提供，暂不展示，避免臆造联系方式",
-    "商务与招聘邮箱：占位域名，上线前需客户确认真实邮箱",
     "公司注册地址：仅到市一级，详址待客户提供",
     "/legal/terms 与 /legal/privacy 正式文本：待法务提供，当前为通用条款草案"
   ]
