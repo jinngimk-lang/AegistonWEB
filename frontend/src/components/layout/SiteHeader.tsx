@@ -276,10 +276,13 @@ function handleSubmenuKeys(event: React.KeyboardEvent<HTMLAnchorElement>) {
 function BrandMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
-      <svg width="34" height="34" viewBox="0 0 52 52" fill="none" stroke="currentColor" strokeWidth="1.6" style={{ color: 'var(--red)' }}>
-        <path d="M26 6 L44 14 L44 30 C44 39 36 45 26 47 C16 45 8 39 8 30 L8 14 Z" />
-        <path d="M17 26 L23 32 L35 20" />
-      </svg>
+      <img
+        src="/brand/header-eye-logo.svg"
+        alt=""
+        width="42"
+        height="30"
+        style={{ width: 42, height: 'auto', display: 'block' }}
+      />
     </span>
   );
 }
