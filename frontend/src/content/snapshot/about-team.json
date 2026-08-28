@@ -1,6 +1,6 @@
 {
-  "_contentHash": "da3bc1d3b2508fa8",
-  "_generatedAt": "2026-08-28T07:43:21.434Z",
+  "_contentHash": "63ea390e1b873059",
+  "_generatedAt": "2026-08-28T07:56:37.204Z",
   "eyebrow": "OUR TEAM",
   "title": "一支来自西安电子科技大学的研发队伍",
   "lead": "技术团队由来自西安电子科技大学的 20 多名博士和硕士研究生组成，在计算机科学与技术、人工智能、网络安全、软件工程等方向发表多篇顶级学术论文。",
@@ -122,8 +122,8 @@
     "description": "我们正在把实验室里的研究成果变成企业真正用得上的产品——如果你对组织智能、智能体安全或法律智能感兴趣，欢迎联系。",
     "primaryLabel": "加入我们",
     "primaryHref": "/careers",
-    "secondaryLabel": "查看学术成果",
-    "secondaryHref": "/research/papers"
+    "secondaryLabel": "查看产品总览",
+    "secondaryHref": "/products"
   },
   "sourceSlides": [
     88,
