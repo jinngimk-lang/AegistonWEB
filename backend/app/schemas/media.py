@@ -35,7 +35,7 @@ class MediaAsset(CamelModel):
 
 
 class StockCredit(CamelModel):
-    """外部配图的署名与许可（spec §6.3 / R11）。"""
+    """外部配图或本地生成视觉素材的来源与许可（spec §6.3 / R11）。"""
 
     id: str
     src: str
@@ -43,7 +43,7 @@ class StockCredit(CamelModel):
     height: int
     blur_data_url: str
     alt: str
-    source: Literal["unsplash", "wikimedia"]
+    source: Literal["unsplash", "wikimedia", "generated"]
     photo_id: str
     author: str | None = None
     author_url: str | None = None
