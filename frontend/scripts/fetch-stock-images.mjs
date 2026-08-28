@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 下载并本地化 Unsplash / Wikimedia 配图（spec §6.3）。
+ * 下载并本地化 Unsplash / Wikimedia 配图，并登记本地生成素材（spec §6.3）。
  *
  *   node scripts/fetch-stock-images.mjs --config stock-images.json --out public/media/stock
  *
@@ -10,6 +10,9 @@
  *
  * 运行期不依赖外部 CDN —— 这是私有化交付的硬要求，也是 CSP 能做到
  * `default-src 'self'` 无任何外部域白名单的前提（spec §11.3）。
+ *
+ * `source=generated` 的素材由项目本地提供：脚本只读取现有 WebP 生成署名元数据，
+ * 即使传入 --force 也不会联网覆盖；若主文件缺失则明确失败。
  */
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -47,6 +50,9 @@ function log(message) {
 }
 
 function sourceUrl(asset, width) {
+  if (asset.source === 'generated') {
+    throw new Error(`${asset.id} 是本地生成素材，不允许通过网络重新下载`);
+  }
   if (asset.url) return asset.url;
   return `https://images.unsplash.com/${asset.photoId}?auto=format&fit=crop&w=${width}&q=82`;
 }
@@ -69,6 +75,12 @@ async function blurDataUrl(buffer) {
   return `data:image/webp;base64,${tiny.toString('base64')}`;
 }
 
+async function creditFromExisting(asset, primaryWidth, primaryFile) {
+  const buffer = await readFile(primaryFile);
+  const meta = await sharp(buffer).metadata();
+  return buildCredit(asset, primaryWidth, meta.width, meta.height, await blurDataUrl(buffer));
+}
+
 async function main() {
   const config = JSON.parse(await readFile(configPath, 'utf8'));
   const widths = config.widths ?? [1920, 1280, 768];
@@ -82,11 +94,19 @@ async function main() {
     const primaryWidth = widths[0];
     const primaryFile = path.join(outDir, `${asset.id}-${primaryWidth}.webp`);
 
+    if (asset.source === 'generated') {
+      if (!existsSync(primaryFile)) {
+        failed += 1;
+        log(`! ${asset.id}: 本地生成素材缺失 —— ${primaryFile}`);
+        continue;
+      }
+      credits.push(await creditFromExisting(asset, primaryWidth, primaryFile));
+      log(`· ${asset.id}: 本地生成素材，保留现有文件`);
+      continue;
+    }
+
     if (existsSync(primaryFile) && !force) {
-      const meta = await sharp(primaryFile).metadata();
-      credits.push(
-        buildCredit(asset, primaryWidth, meta.width, meta.height, await blurDataUrl(await readFile(primaryFile))),
-      );
+      credits.push(await creditFromExisting(asset, primaryWidth, primaryFile));
       log(`· ${asset.id}: 已存在，跳过（--force 可强制重下）`);
       continue;
     }
@@ -112,7 +132,7 @@ async function main() {
   }
 
   if (credits.length === 0) {
-    log('ERROR: 没有任何配图下载成功，终止（内容包会因引用缺失而拒绝启动）');
+    log('ERROR: 没有任何配图可用，终止（内容包会因引用缺失而拒绝启动）');
     process.exitCode = 1;
     return;
   }
@@ -124,7 +144,7 @@ async function main() {
       {
         _note: '由 frontend/scripts/fetch-stock-images.mjs 生成，勿手改',
         _license:
-          'Unsplash License 不强制署名；Wikimedia Hero 为 CC0 1.0（ref/1.html 的 Visual sources 注释已注明），署名为自愿标注。',
+          'Unsplash License 不强制署名；Wikimedia 素材按各自许可登记；本地生成素材不依赖外部图片授权源。',
         assets: credits,
       },
       null,
@@ -135,7 +155,7 @@ async function main() {
 
   log(`完成：${credits.length}/${config.assets.length} 张，署名清单 → ${creditsPath}`);
   if (failed > 0) {
-    log(`WARN: ${failed} 张失败，请检查网络或代理后重跑`);
+    log(`WARN: ${failed} 张失败，请检查本地素材、网络或代理后重跑`);
     process.exitCode = 1;
   }
 }
