@@ -1,6 +1,6 @@
 {
-  "_contentHash": "ab955e399faa150e",
-  "_generatedAt": "2026-08-28T05:41:28.244Z",
+  "_contentHash": "da3bc1d3b2508fa8",
+  "_generatedAt": "2026-08-28T07:43:21.434Z",
   "assets": [
     {
       "id": "ara-personal-board",
@@ -1302,16 +1302,16 @@
       "id": "stock-hero",
       "src": "/media/stock/stock-hero-1920.webp",
       "width": 1920,
-      "height": 1771,
-      "blurDataUrl": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADQAQCdASoIAAgAA4BaJZQCdAEO4c664AD+kWwnqH/C75bpE5WdT4ekLzGZxxZBMgAAAA==",
-      "alt": "西安 CBD 天际线远景",
-      "source": "wikimedia",
-      "photoId": "Skyline_of_Xi'an_CBD.jpg",
+      "height": 958,
+      "blurDataUrl": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAAAwAgCdASoIAAgAA4BaJYgCdGuAAofHsGwiWADgJr/SCpzrM4Lwfihu6rdkWdqSwKztEmVtFeUgAA==",
+      "alt": "西安高新区城市天际线意象（AI 生成）",
+      "source": "generated",
+      "photoId": "aegiston-generated-hero-2026-08",
       "author": null,
       "authorUrl": null,
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "originUrl": "https://commons.wikimedia.org/wiki/File:Skyline_of_Xi%27an_CBD.jpg"
+      "license": "Aegiston generated visual asset",
+      "licenseUrl": null,
+      "originUrl": null
     },
     {
       "id": "stock-about",
@@ -1453,7 +1453,7 @@
       "src": "/media/stock/stock-insights-1920.webp",
       "width": 1920,
       "height": 1272,
-      "blurDataUrl": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoIAAgAA4BaJYwCdAEWUQfVrqgAAP7rkTfIe1CCUsBsxnFb/eIdtVMxXb017i/51iQFU4AA",
+      "blurDataUrl": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoIAAgAA4BaJYwCdAD0Rsj64AD+65E3yHsEAAJ0cniuWDN4bc2OqtmazBlK5U358AgAAA==",
       "alt": "摊开的笔记本、钢笔与文稿的桌面俯视",
       "source": "unsplash",
       "photoId": "photo-1504868584819-f8e8b4b6d7e3",
