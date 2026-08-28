@@ -1,6 +1,6 @@
 {
-  "_contentHash": "f4f58302d83e0a22",
-  "_generatedAt": "2026-08-28T05:08:38.734Z",
+  "_contentHash": "a8ede23e28f78562",
+  "_generatedAt": "2026-08-28T05:26:12.154Z",
   "utilityLeft": [
     {
       "label": "公司简介",
@@ -21,14 +21,7 @@
       "note": null
     }
   ],
-  "utilityRight": [
-    {
-      "label": "企业邮箱",
-      "href": "mailto:bd@aegiston.com",
-      "external": true,
-      "note": null
-    }
-  ],
+  "utilityRight": [],
   "main": [
     {
       "label": "关于我们",
