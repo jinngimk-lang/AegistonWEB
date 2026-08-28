@@ -13,7 +13,7 @@ import { pageMetadata } from '@/lib/seo';
 export const revalidate = 3600;
 
 const DESCRIPTION =
-  '本站使用的全部外部配图的来源与授权信息。所有图片在构建期已下载并转码入库，运行期不依赖任何外部 CDN。';
+  '本站使用的外部配图与本地生成视觉素材的来源、授权与使用说明。所有运行期图片均已本地化，不依赖任何外部 CDN。';
 
 export const metadata: Metadata = pageMetadata({
   title: '图片来源',
@@ -29,6 +29,8 @@ export default async function CreditsPage() {
   const photos = manifest.assets.filter((a) => a.kind === 'photo');
   const videos = manifest.assets.filter((a) => a.kind === 'video');
   const redacted = manifest.assets.filter((a) => a.redacted);
+  const generatedStock = manifest.stock.filter((credit) => credit.id === 'stock-hero').length;
+  const externalStock = manifest.stock.length - generatedStock;
 
   return (
     <>
@@ -47,20 +49,20 @@ export default async function CreditsPage() {
       <section className="section" aria-labelledby="stock-title">
         <div className="container">
           <Reveal>
-            <div className="section-label">EXTERNAL IMAGERY</div>
+            <div className="section-label">IMAGERY SOURCES</div>
             <h2 className="section-title" id="stock-title" style={{ marginBottom: 24 }}>
-              外部配图
+              配图与生成素材
             </h2>
             <p className="section-desc" style={{ marginBottom: 32 }}>
-              共 {manifest.stock.length} 张。Unsplash License 不强制署名；Wikimedia
-              的西安 CBD 天际线为 CC0 1.0，署名为自愿标注。
+              共 {manifest.stock.length} 张，其中外部配图 {externalStock} 张、本地生成视觉素材{' '}
+              {generatedStock} 张。Unsplash License 不强制署名；本地生成素材不依赖外部图片授权源。
             </p>
           </Reveal>
 
           <Reveal delay={1}>
             <div className="scroll-x">
               <table className="credit-table">
-                <caption className="visually-hidden">外部配图的来源与授权</caption>
+                <caption className="visually-hidden">配图与生成视觉素材的来源与授权</caption>
                 <thead>
                   <tr>
                     <th scope="col">资源 ID</th>
@@ -75,7 +77,13 @@ export default async function CreditsPage() {
                     <tr key={credit.id}>
                       <td>{credit.id}</td>
                       <td>{credit.alt}</td>
-                      <td>{credit.source === 'unsplash' ? 'Unsplash' : 'Wikimedia Commons'}</td>
+                      <td>
+                        {credit.id === 'stock-hero'
+                          ? 'AI 生成视觉素材'
+                          : credit.source === 'unsplash'
+                            ? 'Unsplash'
+                            : 'Wikimedia Commons'}
+                      </td>
                       <td>
                         {credit.licenseUrl ? (
                           <a href={credit.licenseUrl} rel="noopener noreferrer" target="_blank">
