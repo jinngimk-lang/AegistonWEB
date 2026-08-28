@@ -1,6 +1,6 @@
 {
-  "_note": "外链配图清单（spec §6.3）。构建期由 scripts/fetch-stock-images.mjs 下载并转 WebP，运行期不依赖任何外部 CDN —— 这是私有化交付的硬要求，也是 CSP 能做到 default-src 'self' 无外部白名单的前提。",
-  "_coverage": "沿用 ref/1.html 的 4 张 Unsplash + 新增 7 张 + 1 张 Wikimedia Hero 背景，合计 12 个图片源。",
+  "_note": "配图清单（spec §6.3）。外部配图在构建期由 scripts/fetch-stock-images.mjs 下载并转 WebP；source=generated 的本地生成素材只登记元数据、不会联网覆盖。运行期不依赖任何外部 CDN —— 这是私有化交付的硬要求，也是 CSP 能做到 default-src 'self' 无外部白名单的前提。",
+  "_coverage": "11 张外部配图 + 1 张本地生成 Hero 背景，共 12 个图片源。",
   "widths": [
     1920,
     1280,
@@ -10,14 +10,12 @@
   "assets": [
     {
       "id": "stock-hero",
-      "source": "wikimedia",
-      "photoId": "Skyline_of_Xi'an_CBD.jpg",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Skyline_of_Xi%27an_CBD.jpg",
-      "originUrl": "https://commons.wikimedia.org/wiki/File:Skyline_of_Xi%27an_CBD.jpg",
-      "license": "CC0 1.0",
-      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "alt": "西安 CBD 天际线远景",
-      "usedBy": "首页 Hero 背景（沿用 ref/1.html）"
+      "source": "generated",
+      "photoId": "aegiston-generated-hero-2026-08",
+      "license": "Aegiston generated visual asset",
+      "alt": "西安高新区城市天际线意象（AI 生成）",
+      "usedBy": "首页 Hero 背景",
+      "_note": "本地生成素材；fetch-stock-images.mjs 会保留仓库中的现有 WebP，即使 --force 也不会联网覆盖。"
     },
     {
       "id": "stock-about",
