@@ -112,8 +112,8 @@
     "description": "我们正在把实验室里的研究成果变成企业真正用得上的产品——如果你对组织智能、智能体安全或法律智能感兴趣，欢迎联系。",
     "primaryLabel": "加入我们",
     "primaryHref": "/careers",
-    "secondaryLabel": "查看学术成果",
-    "secondaryHref": "/research/papers"
+    "secondaryLabel": "查看产品总览",
+    "secondaryHref": "/products"
   },
   "sourceSlides": [88, 89, 90, 91]
 }
