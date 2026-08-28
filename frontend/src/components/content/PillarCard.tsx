@@ -1,5 +1,4 @@
 import { Reveal } from '@/components/ui/Reveal';
-import { formatSlides } from '@/lib/format';
 import type { TechPillar } from '@/types/content';
 
 /**
@@ -61,10 +60,6 @@ export function PillarCard({ pillar }: { pillar: TechPillar }) {
             </div>
           ))}
         </div>
-      ) : null}
-
-      {pillar.sourceSlides.length > 0 ? (
-        <p className="source-note">内容来源：{formatSlides(pillar.sourceSlides)}</p>
       ) : null}
     </Reveal>
   );

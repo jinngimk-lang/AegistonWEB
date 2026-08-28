@@ -66,9 +66,6 @@ export function ScreenGallery({ sections, assets, vlabelPrefix }: Props) {
                   ))}
                 </ul>
               ) : null}
-              {section.sourceSlide ? (
-                <p className="screen-source">内容来源：PPT p.{section.sourceSlide}</p>
-              ) : null}
             </Reveal>
 
             <Reveal className="screen-visual" delay={1}>

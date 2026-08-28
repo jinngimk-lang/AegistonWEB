@@ -118,8 +118,6 @@ export default async function TeamPage() {
                 </ul>
               </div>
             </div>
-
-            <p className="source-note">内容来源：PPT p.89 / p.90</p>
           </Reveal>
         </div>
       </section>

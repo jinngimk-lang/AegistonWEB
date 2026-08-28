@@ -145,12 +145,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: Props) {
           />
         </div>
 
-        <p className={styles.caption}>
-          {current.caption ?? current.alt}
-          {current.sourceSlide ? (
-            <span className={styles.source}>内容来源：PPT p.{current.sourceSlide}</span>
-          ) : null}
-        </p>
+        <p className={styles.caption}>{current.caption ?? current.alt}</p>
       </div>
     </dialog>
   );

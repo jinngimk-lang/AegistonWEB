@@ -8,7 +8,6 @@
  *   在广告法语境下是承诺，而 PPT 里没有可溯源的路线图口径（决策 A-7）。
  * - `none` 渲染为「—」并附视觉隐藏的「未覆盖」，**不用 ✗ 或任何否定性图形**：
  *   同一家公司的产品分层是定位差异，不是优劣评价。
- * - 每行 `sourceSlides` 必填**并在页面上实际渲染**。
  *
  * **可访问性**：语义化 `<table>` + 视觉隐藏 `<caption>`，行头 `th[scope=row]`、
  * 列头 `th[scope=col]`。不用 div 网格 —— 屏幕阅读器的表格导航（按行列朗读）
@@ -70,10 +69,6 @@ export function CapabilityMatrix({ matrix, productNames }: Props) {
                 <th scope="row">
                   <span className="matrix-capability">{row.capability}</span>
                   {row.note ? <span className="matrix-note">{row.note}</span> : null}
-                  {/* 溯源必须**渲染在页面上**，不能只存在于 JSON 里 */}
-                  <span className="matrix-slides">
-                    PPT {row.sourceSlides.map((slide) => `p.${slide}`).join(' · ')}
-                  </span>
                 </th>
                 {productNames.map((product) => {
                   const cell = row.cells.find((c) => c.productSlug === product.slug);
@@ -100,7 +95,6 @@ export function CapabilityMatrix({ matrix, productNames }: Props) {
           </tbody>
         </table>
       </div>
-      <p className="matrix-hint">{matrix.sourceNote}</p>
     </div>
   );
 }

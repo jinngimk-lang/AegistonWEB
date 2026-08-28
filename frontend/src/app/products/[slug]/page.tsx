@@ -153,7 +153,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     {metric.unit ? <span className="unit">{metric.unit}</span> : null}
                   </div>
                   <div className="metric-label">{metric.label}</div>
-                  {metric.source ? <p className="metric-note">{metric.source}</p> : null}
                 </Reveal>
               ))}
             </div>
@@ -240,7 +239,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 <span className="em">{product.screens.length} 屏真实产品截图</span>
               </h2>
               <p className="section-desc">
-                以下全部为产品的真实界面截图，点击任意截图可放大查看；每屏都标注了内容来源页码。
+                以下全部为产品的真实界面截图，点击任意截图可放大查看。
               </p>
             </Reveal>
             <ScreenGallery
