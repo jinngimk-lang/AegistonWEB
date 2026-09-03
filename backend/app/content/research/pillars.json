@@ -185,7 +185,7 @@
   "highlights": [
     { "value": "7", "unit": "个", "label": "核心技术模块", "source": "PPT p.40 / p.41 / p.60 / p.61 / p.82 / p.83 / p.84" },
     { "value": "30+", "unit": "项", "label": "关键机制", "source": "各技术模块的「核心机制」逐条计数" },
-    { "value": "5", "unit": "篇", "label": "顶会与前沿论文", "source": "PPT p.42 / p.85" }
+    { "value": "10余", "unit": "篇", "label": "网络安全国际顶会，软件工程国际顶会", "source": "PPT p.42 / p.85" }
   ],
   "footnote": "本页的技术模块口径以 PPT 的「核心技术」章节为准：p.40 / p.41（AragonTeam）、p.60 / p.61（InkClaw）、p.82 / p.83 / p.84（LegalLens）。p.42 与 p.85 是论文章节，独立呈现在「学术成果」页。",
   "cta": {
