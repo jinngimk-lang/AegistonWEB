@@ -30,7 +30,7 @@ const QUICK_LINKS = [
   {
     href: ROUTES.aboutStrength,
     title: '科研实力与知识产权',
-    desc: '教育部创新团队与工程研究中心依托，专利 100 多项，2 篇 CCF-A 类顶会论文。',
+    desc: '教育部创新团队与工程研究中心依托，专利 100 多项，10 余篇网络安全与软件工程国际顶会论文。',
   },
 ];
 
@@ -114,7 +114,7 @@ export default async function AboutPage() {
           <Reveal delay={1}>
             <div style={{ marginTop: 40 }}>
               <Callout tone="neutral">
-                页面中的「网络空间安全学科全国第 1」为高校学科评估结果，归属西安电子科技大学，非本公司排名。
+                页面中的「网络空间安全学科全国顶尖」为高校学科评估结果，归属西安电子科技大学，非本公司排名。
               </Callout>
             </div>
           </Reveal>
