@@ -19,7 +19,7 @@ const navigation: Navigation = {
     },
     {
       label: '陕公网安备61019002004229号',
-      href: 'https://beian.mps.gov.cn/#/query/webSearch',
+      href: 'https://beian.mps.gov.cn/#/query/webSearch?code=61019002004229',
       external: true,
     },
   ],
@@ -59,12 +59,18 @@ describe('SiteFooter filing records', () => {
       '陕公网安备61019002004229号',
     ]);
     expect(links[0]?.getAttribute('href')).toBe('https://beian.miit.gov.cn/');
-    expect(links[1]?.getAttribute('href')).toBe('https://beian.mps.gov.cn/#/query/webSearch');
+    expect(links[1]?.getAttribute('href')).toBe(
+      'https://beian.mps.gov.cn/#/query/webSearch?code=61019002004229',
+    );
+    expect(links[1]?.getAttribute('target')).toBe('_blank');
+    expect(links[1]?.getAttribute('rel')).toBe('noreferrer');
 
     const badge = links[1]?.querySelector('img');
     expect(badge).not.toBeNull();
     expect(badge?.getAttribute('src')).toContain('beian-police.png');
     expect(badge?.getAttribute('alt')).toBe('');
+    expect(badge?.getAttribute('width')).toBe('18');
+    expect(badge?.getAttribute('height')).toBe('20');
   });
 
   it('备案链接不会混入左侧站内法务链接', () => {
