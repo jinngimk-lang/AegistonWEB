@@ -76,7 +76,7 @@ export function SiteFooter({ navigation, settings }: Props) {
                     key={item.href}
                     href={item.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                     style={
                       isPublicSecurityFiling
                         ? { display: 'inline-flex', alignItems: 'center', gap: 6 }
@@ -88,7 +88,7 @@ export function SiteFooter({ navigation, settings }: Props) {
                         src="/media/beian-police.png"
                         alt=""
                         width={18}
-                        height={18}
+                        height={20}
                         aria-hidden="true"
                       />
                     ) : null}
