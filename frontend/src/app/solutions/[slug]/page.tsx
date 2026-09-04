@@ -180,20 +180,6 @@ export default async function SolutionDetailPage({ params }: PageProps) {
             </Callout>
           </Reveal>
 
-          {data.pendingConfirmation.length > 0 ? (
-            <Reveal delay={1}>
-              <div style={{ marginTop: 24 }}>
-                <Callout tone="neutral" title="数据口径与授权说明">
-                  <ul style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    {data.pendingConfirmation.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </Callout>
-              </div>
-            </Reveal>
-          ) : null}
-
           <Reveal delay={2}>
             <SourceNote slides={data.sourceSlides} />
             {data.relatedProduct ? (
