@@ -60,6 +60,11 @@ describe('SiteFooter filing records', () => {
     ]);
     expect(links[0]?.getAttribute('href')).toBe('https://beian.miit.gov.cn/');
     expect(links[1]?.getAttribute('href')).toBe('https://beian.mps.gov.cn/#/query/webSearch');
+
+    const badge = links[1]?.querySelector('img');
+    expect(badge).not.toBeNull();
+    expect(badge?.getAttribute('src')).toContain('beian-police.png');
+    expect(badge?.getAttribute('alt')).toBe('');
   });
 
   it('备案链接不会混入左侧站内法务链接', () => {
