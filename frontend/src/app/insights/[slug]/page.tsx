@@ -93,7 +93,7 @@ export default async function InsightDetailPage({ params }: PageProps) {
               {/* 正文由后端 markdown-it 渲染后经 bleach 白名单净化，无第三方脚本注入面 */}
               <div className="prose" dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
 
-              {post.sources.length > 0 ? (
+              {slug !== 'product-overview-v7' && post.sources.length > 0 ? (
                 <div className="article-sources">
                   <strong>资料来源</strong>
                   <ul>
