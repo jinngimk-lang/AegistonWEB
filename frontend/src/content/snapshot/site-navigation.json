@@ -158,12 +158,6 @@
           "href": "/insights?category=news",
           "external": false,
           "note": null
-        },
-        {
-          "label": "研究进展",
-          "href": "/insights?category=research",
-          "external": false,
-          "note": null
         }
       ]
     },
