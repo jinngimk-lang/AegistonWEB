@@ -26,6 +26,9 @@ export const revalidate = 300;
 
 export default async function HomePage() {
   const [home, media] = await Promise.all([getHome(), getMediaLookup()]);
+  const metrics = home.metrics.map((metric) =>
+    metric.value === '10余' && metric.unit === '篇' ? { ...metric, value: '10+' } : metric,
+  );
 
   return (
     <>
@@ -73,7 +76,7 @@ export default async function HomePage() {
         values={home.values}
       />
 
-      <MetricBand metrics={home.metrics} />
+      <MetricBand metrics={metrics} />
 
       {/* 洞察与动态 */}
       <section className="section section-gray" id="insights" aria-labelledby="news-title">
