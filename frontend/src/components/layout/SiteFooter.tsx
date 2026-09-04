@@ -16,6 +16,9 @@ interface Props {
 }
 
 export function SiteFooter({ navigation, settings }: Props) {
+  const footerLegal = navigation.footerLegal.filter((item) => !item.external);
+  const footerFilings = navigation.footerLegal.filter((item) => item.external);
+
   return (
     <footer className="footer">
       <div className="container">
@@ -51,24 +54,27 @@ export function SiteFooter({ navigation, settings }: Props) {
 
         <div className="footer-bottom">
           <nav className="footer-bottom-links" aria-label="法务与站点信息">
-            {navigation.footerLegal.map((item) => (
+            {footerLegal.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>
             ))}
           </nav>
+
+          {footerFilings.length > 0 ? (
+            <nav className="footer-filing footer-bottom-links" aria-label="网站备案信息">
+              {footerFilings.map((item) => (
+                <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer">
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          ) : null}
+
           <div>
             <span>
               © {settings.copyrightYear} {settings.legalName}
             </span>
-            {settings.icp ? (
-              <>
-                <span className="divider" aria-hidden="true">
-                  |
-                </span>
-                <span className="icp">{settings.icp}</span>
-              </>
-            ) : null}
           </div>
         </div>
       </div>
