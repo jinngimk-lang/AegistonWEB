@@ -22,6 +22,9 @@ export default async function ResearchPage() {
   const [data, media] = await Promise.all([getResearch(), getMediaLookup()]);
   const crumbs = crumbsFromPath(ROUTES.research);
   const groups = ['aragonteam', 'inkclaw', 'legallens'] as const;
+  const highlights = data.highlights.map((metric) =>
+    metric.value === '10余' && metric.unit === '篇' ? { ...metric, value: '10+' } : metric,
+  );
 
   return (
     <>
@@ -37,7 +40,7 @@ export default async function ResearchPage() {
       />
       <Breadcrumbs items={crumbs} />
 
-      <MetricBand metrics={data.highlights} labelledBy={undefined} />
+      <MetricBand metrics={highlights} labelledBy={undefined} />
 
       {groups.map((product, groupIndex) => {
         const pillars = data.pillars.filter((p) => p.product === product);
