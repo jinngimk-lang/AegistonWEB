@@ -10,7 +10,19 @@ const navigation: Navigation = {
   main: [],
   cta: { label: '联系我们', href: '/contact' },
   footerColumns: [],
-  footerLegal: [{ label: '使用条款', href: '/legal/terms' }],
+  footerLegal: [
+    { label: '使用条款', href: '/legal/terms' },
+    {
+      label: '陕ICP备2026023369号-1',
+      href: 'https://beian.miit.gov.cn/',
+      external: true,
+    },
+    {
+      label: '陕公网安备61019002004229号',
+      href: 'https://beian.mps.gov.cn/#/query/webSearch',
+      external: true,
+    },
+  ],
 };
 
 const settings: SiteSettings = {
@@ -25,7 +37,6 @@ const settings: SiteSettings = {
     careersEmail: 'contact@aegiston.com',
   },
   icp: '陕ICP备2026023369号-1',
-  publicSecurityRecord: '陕公网安备61019002004229号',
   copyrightYear: 2026,
   pendingConfirmation: [],
 };
@@ -49,5 +60,11 @@ describe('SiteFooter filing records', () => {
     ]);
     expect(links[0]?.getAttribute('href')).toBe('https://beian.miit.gov.cn/');
     expect(links[1]?.getAttribute('href')).toBe('https://beian.mps.gov.cn/#/query/webSearch');
+  });
+
+  it('备案链接不会混入左侧站内法务链接', () => {
+    const dom = parse(renderToStaticMarkup(<SiteFooter navigation={navigation} settings={settings} />));
+    const legal = dom.querySelector('.footer-bottom-links');
+    expect(legal?.textContent).toBe('使用条款');
   });
 });
