@@ -73,7 +73,7 @@ export default async function InsightsPage({ searchParams }: PageProps) {
               >
                 全部（{page.total}）
               </Link>
-              {INSIGHT_CATEGORIES.map((item) => (
+              {INSIGHT_CATEGORIES.filter((item) => item !== 'research').map((item) => (
                 <Link
                   key={item}
                   href={`${ROUTES.insights}?category=${item}`}
