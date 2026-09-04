@@ -5,6 +5,7 @@
  * `external: true` 的备案链接独立放在底栏中部，避免与版权信息挤在一起。
  */
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { ROUTES } from '@/lib/routes';
@@ -67,11 +68,34 @@ export function SiteFooter({ navigation, settings }: Props) {
               aria-label="网站备案信息"
               style={{ flexWrap: 'wrap', justifyContent: 'center', minWidth: 0 }}
             >
-              {footerFilings.map((item) => (
-                <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer">
-                  {item.label}
-                </a>
-              ))}
+              {footerFilings.map((item) => {
+                const isPublicSecurityFiling = item.href.startsWith('https://beian.mps.gov.cn/');
+
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={
+                      isPublicSecurityFiling
+                        ? { display: 'inline-flex', alignItems: 'center', gap: 6 }
+                        : undefined
+                    }
+                  >
+                    {isPublicSecurityFiling ? (
+                      <Image
+                        src="/media/beian-police.png"
+                        alt=""
+                        width={18}
+                        height={18}
+                        aria-hidden="true"
+                      />
+                    ) : null}
+                    {item.label}
+                  </a>
+                );
+              })}
             </nav>
           ) : null}
 
