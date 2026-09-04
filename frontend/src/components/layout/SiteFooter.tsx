@@ -62,7 +62,11 @@ export function SiteFooter({ navigation, settings }: Props) {
           </nav>
 
           {footerFilings.length > 0 ? (
-            <nav className="footer-filing footer-bottom-links" aria-label="网站备案信息">
+            <nav
+              className="footer-filing footer-bottom-links"
+              aria-label="网站备案信息"
+              style={{ flexWrap: 'wrap', justifyContent: 'center', minWidth: 0 }}
+            >
               {footerFilings.map((item) => (
                 <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer">
                   {item.label}
