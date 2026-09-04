@@ -25,11 +25,10 @@
     "address": "陕西省西安市",
     "workingHours": "工作日 09:00–18:00（GMT+8）"
   },
-  "icp": null,
+  "icp": "陕ICP备2026023369号-1",
   "copyrightYear": 2026,
   "foundedNote": "由高校教授团队为推进科技成果转化而创立的高科技企业",
   "pendingConfirmation": [
-    "ICP 备案号：待客户提供（为空时页脚不渲染该行，spec R9）",
     "公司注册地址：仅到市一级，详址待客户提供",
     "/legal/terms 与 /legal/privacy 正式文本：待法务提供，当前为通用条款草案"
   ]
