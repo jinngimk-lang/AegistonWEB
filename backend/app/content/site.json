@@ -85,8 +85,7 @@
         "items": [
           { "label": "全部", "href": "/insights", "note": "总览" },
           { "label": "行业洞察", "href": "/insights?category=insight" },
-          { "label": "公司动态", "href": "/insights?category=news" },
-          { "label": "研究进展", "href": "/insights?category=research" }
+          { "label": "公司动态", "href": "/insights?category=news" }
         ]
       },
       {
