@@ -8,7 +8,6 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Callout } from '@/components/ui/Callout';
 import { Reveal } from '@/components/ui/Reveal';
-import { SourceNote } from '@/components/ui/SourceNote';
 import { getSolution } from '@/lib/api';
 import { breadcrumbJsonLd } from '@/lib/jsonld';
 import { getMediaLookup } from '@/lib/media';
@@ -195,7 +194,6 @@ export default async function SolutionDetailPage({ params }: PageProps) {
           ) : null}
 
           <Reveal delay={2}>
-            <SourceNote slides={data.sourceSlides} />
             {data.relatedProduct ? (
               <p style={{ marginTop: 20 }}>
                 <Link href={`/products/${data.relatedProduct}`} className="btn-text">
