@@ -1,8 +1,8 @@
 /**
  * 页脚（ref `.footer`）。
  *
- * spec R9：`icp` 为空时**不渲染该行**——上线前由客户填入，
- * 不在页面上留一个 `陕 ICP 备 2026XXXXXX 号` 这样的占位符。
+ * 备案信息复用 `footerLegal` 的 LinkItem：站内法务链接保持在左侧，
+ * `external: true` 的备案链接独立放在底栏中部，避免与版权信息挤在一起。
  */
 
 import Link from 'next/link';
