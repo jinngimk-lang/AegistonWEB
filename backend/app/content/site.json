@@ -142,7 +142,7 @@
       { "label": "图片来源", "href": "/legal/credits" },
       { "label": "网站地图", "href": "/sitemap" },
       { "label": "陕ICP备2026023369号-1", "href": "https://beian.miit.gov.cn/", "external": true },
-      { "label": "陕公网安备61019002004229号", "href": "https://beian.mps.gov.cn/#/query/webSearch", "external": true }
+      { "label": "陕公网安备61019002004229号", "href": "https://beian.mps.gov.cn/#/query/webSearch?code=61019002004229", "external": true }
     ]
   }
 }
