@@ -10,7 +10,7 @@ import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Reveal } from '@/components/ui/Reveal';
 import { SourceNote } from '@/components/ui/SourceNote';
 import { getProducts } from '@/lib/api';
-import { getMediaLookup } from '@/lib/media';
+import { getMediaLookup, INKCLAW_SHOWCASE_MEDIA } from '@/lib/media';
 import { breadcrumbJsonLd } from '@/lib/jsonld';
 import { ROUTES } from '@/lib/routes';
 import { pageMetadata } from '@/lib/seo';
@@ -99,7 +99,7 @@ export default async function ProductsPage() {
 
               <Reveal className="solution-visual" delay={1}>
                 <MediaFill
-                  asset={media.get(product.heroMedia)}
+                  asset={product.slug === 'inkclaw' ? INKCLAW_SHOWCASE_MEDIA : media.get(product.heroMedia)}
                   fit={product.slug === 'aragonteam' ? 'contain' : 'cover'}
                 />
                 <span className="vlabel">

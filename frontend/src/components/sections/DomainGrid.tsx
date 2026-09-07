@@ -10,14 +10,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Reveal } from '@/components/ui/Reveal';
-import { stockSrc, type MediaLookup } from '@/lib/media';
+import { INKCLAW_SHOWCASE_MEDIA, stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
   return (
     <div className="domains">
       {domains.map((domain, index) => {
-        const asset = media.get(domain.media);
+        const asset = domain.id === 'general-agent' ? INKCLAW_SHOWCASE_MEDIA : media.get(domain.media);
         return (
           <Reveal key={domain.id} delay={(index % 4) as 0 | 1 | 2 | 3} className="domain">
             <div className={`domain-photo ${domain.photoClass}`} aria-hidden="true">

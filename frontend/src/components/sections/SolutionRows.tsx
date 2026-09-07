@@ -12,14 +12,14 @@ import Image from 'next/image';
 
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
-import { stockSrc, type MediaLookup } from '@/lib/media';
+import { INKCLAW_SHOWCASE_MEDIA, stockSrc, type MediaLookup } from '@/lib/media';
 import type { SolutionRow } from '@/types/content';
 
 export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: MediaLookup }) {
   return (
     <>
       {rows.map((row) => {
-        const asset = media.get(row.media);
+        const asset = row.id === 'inkclaw' ? INKCLAW_SHOWCASE_MEDIA : media.get(row.media);
         const visual = (
           <Reveal className="solution-visual" delay={1}>
             {asset ? (
