@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { CtaBand } from '@/components/sections/CtaBand';
@@ -99,18 +98,7 @@ export default async function ProductsPage() {
               </Reveal>
 
               <Reveal className="solution-visual" delay={1}>
-                {product.slug === 'inkclaw' ? (
-                  <Image
-                    src="/media/product/inkclaw-showcase.webp"
-                    alt=""
-                    role="presentation"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 50vw"
-                    style={{ objectFit: 'contain' }}
-                  />
-                ) : (
-                  <MediaFill asset={media.get(product.heroMedia)} />
-                )}
+                <MediaFill asset={media.get(product.heroMedia)} />
                 <span className="vlabel">
                   {product.nameEn.toUpperCase()} / {product.tierLabel}
                 </span>

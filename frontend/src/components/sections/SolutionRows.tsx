@@ -15,33 +15,23 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { SolutionRow } from '@/types/content';
 
-const INKCLAW_SHOWCASE_SRC = '/media/product/inkclaw-showcase.webp';
-
 export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: MediaLookup }) {
   return (
     <>
       {rows.map((row) => {
-        const isInkClawShowcase = row.id === 'inkclaw';
-        const asset = isInkClawShowcase ? null : media.get(row.media);
-        const src = isInkClawShowcase
-          ? INKCLAW_SHOWCASE_SRC
-          : asset
-            ? 'source' in asset
-              ? stockSrc(asset, 1280)
-              : asset.src
-            : null;
+        const asset = media.get(row.media);
         const visual = (
           <Reveal className="solution-visual" delay={1}>
-            {src ? (
+            {asset ? (
               <Image
-                src={src}
+                src={'source' in asset ? stockSrc(asset, 1280) : asset.src}
                 alt=""
                 role="presentation"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
-                placeholder={isInkClawShowcase ? 'empty' : 'blur'}
-                blurDataURL={asset?.blurDataUrl}
-                style={{ objectFit: isInkClawShowcase ? 'contain' : 'cover' }}
+                placeholder="blur"
+                blurDataURL={asset.blurDataUrl}
+                style={{ objectFit: 'cover' }}
               />
             ) : null}
             <span className="vlabel">{row.vlabel}</span>
