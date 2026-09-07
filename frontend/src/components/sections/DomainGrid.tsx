@@ -13,6 +13,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
+const ARAGONTEAM_DOMAIN_CARD_SRC = '/media/product/aragonteam-domain-card.webp';
 const INKCLAW_DOMAIN_CARD_SRC = '/media/product/inkclaw-domain-card.webp';
 const LEGALLENS_DOMAIN_CARD_SRC = '/media/product/legallens-domain-card.webp';
 
@@ -21,11 +22,13 @@ export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: M
     <div className="domains">
       {domains.map((domain, index) => {
         const customSrc =
-          domain.id === 'general-agent'
-            ? INKCLAW_DOMAIN_CARD_SRC
-            : domain.id === 'legal-intelligence'
-              ? LEGALLENS_DOMAIN_CARD_SRC
-              : null;
+          domain.id === 'organizational-intelligence'
+            ? ARAGONTEAM_DOMAIN_CARD_SRC
+            : domain.id === 'general-agent'
+              ? INKCLAW_DOMAIN_CARD_SRC
+              : domain.id === 'legal-intelligence'
+                ? LEGALLENS_DOMAIN_CARD_SRC
+                : null;
         const asset = customSrc ? null : media.get(domain.media);
         const src = customSrc
           ? customSrc
