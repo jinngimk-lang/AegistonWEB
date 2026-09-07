@@ -13,15 +13,27 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
+const ARAGONTEAM_SHOWCASE = '/media/product/ara-showcase-full.svg';
+
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
   return (
     <div className="domains">
       {domains.map((domain, index) => {
         const asset = media.get(domain.media);
+        const isAragonTeam = domain.id === 'organizational-intelligence';
         return (
           <Reveal key={domain.id} delay={(index % 4) as 0 | 1 | 2 | 3} className="domain">
             <div className={`domain-photo ${domain.photoClass}`} aria-hidden="true">
-              {asset ? (
+              {isAragonTeam ? (
+                <Image
+                  src={ARAGONTEAM_SHOWCASE}
+                  alt=""
+                  fill
+                  unoptimized
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  style={{ objectFit: 'contain' }}
+                />
+              ) : asset ? (
                 <Image
                   src={'source' in asset ? stockSrc(asset, 768) : asset.src}
                   alt=""
