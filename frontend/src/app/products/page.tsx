@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { CtaBand } from '@/components/sections/CtaBand';
@@ -14,6 +15,8 @@ import { getMediaLookup } from '@/lib/media';
 import { breadcrumbJsonLd } from '@/lib/jsonld';
 import { ROUTES } from '@/lib/routes';
 import { pageMetadata } from '@/lib/seo';
+
+const ARAGONTEAM_SHOWCASE = '/media/product/ara-showcase-full.svg';
 
 export const revalidate = 600;
 
@@ -98,7 +101,19 @@ export default async function ProductsPage() {
               </Reveal>
 
               <Reveal className="solution-visual" delay={1}>
-                <MediaFill asset={media.get(product.heroMedia)} />
+                {product.slug === 'aragonteam' ? (
+                  <Image
+                    src={ARAGONTEAM_SHOWCASE}
+                    alt=""
+                    role="presentation"
+                    fill
+                    unoptimized
+                    sizes="(max-width: 900px) 100vw, 50vw"
+                    style={{ objectFit: 'contain' }}
+                  />
+                ) : (
+                  <MediaFill asset={media.get(product.heroMedia)} />
+                )}
                 <span className="vlabel">
                   {product.nameEn.toUpperCase()} / {product.tierLabel}
                 </span>
