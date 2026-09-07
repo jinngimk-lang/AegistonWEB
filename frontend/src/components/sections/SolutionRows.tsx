@@ -15,14 +15,27 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { SolutionRow } from '@/types/content';
 
+const ARAGONTEAM_SHOWCASE = '/media/product/ara-showcase-full.svg';
+
 export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: MediaLookup }) {
   return (
     <>
       {rows.map((row) => {
         const asset = media.get(row.media);
+        const isAragonTeam = row.id === 'aragonteam';
         const visual = (
           <Reveal className="solution-visual" delay={1}>
-            {asset ? (
+            {isAragonTeam ? (
+              <Image
+                src={ARAGONTEAM_SHOWCASE}
+                alt=""
+                role="presentation"
+                fill
+                unoptimized
+                sizes="(max-width: 900px) 100vw, 50vw"
+                style={{ objectFit: 'contain' }}
+              />
+            ) : asset ? (
               <Image
                 src={'source' in asset ? stockSrc(asset, 1280) : asset.src}
                 alt=""
