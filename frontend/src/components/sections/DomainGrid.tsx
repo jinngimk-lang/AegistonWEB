@@ -14,15 +14,21 @@ import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
 const INKCLAW_DOMAIN_CARD_SRC = '/media/product/inkclaw-domain-card.webp';
+const LEGALLENS_DOMAIN_CARD_SRC = '/media/product/legallens-domain-card.webp';
 
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
   return (
     <div className="domains">
       {domains.map((domain, index) => {
-        const isInkClawCard = domain.id === 'general-agent';
-        const asset = isInkClawCard ? null : media.get(domain.media);
-        const src = isInkClawCard
-          ? INKCLAW_DOMAIN_CARD_SRC
+        const customSrc =
+          domain.id === 'general-agent'
+            ? INKCLAW_DOMAIN_CARD_SRC
+            : domain.id === 'legal-intelligence'
+              ? LEGALLENS_DOMAIN_CARD_SRC
+              : null;
+        const asset = customSrc ? null : media.get(domain.media);
+        const src = customSrc
+          ? customSrc
           : asset
             ? 'source' in asset
               ? stockSrc(asset, 768)
@@ -37,7 +43,7 @@ export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: M
                   alt=""
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  placeholder={isInkClawCard ? 'empty' : 'blur'}
+                  placeholder={customSrc ? 'empty' : 'blur'}
                   blurDataURL={asset?.blurDataUrl}
                   style={{ objectFit: 'cover' }}
                 />
