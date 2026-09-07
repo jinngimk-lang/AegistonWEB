@@ -100,7 +100,7 @@ export default async function ProductsPage() {
               <Reveal className="solution-visual" delay={1}>
                 <MediaFill
                   asset={product.slug === 'inkclaw' ? INKCLAW_SHOWCASE_MEDIA : media.get(product.heroMedia)}
-                  fit={product.slug === 'aragonteam' ? 'contain' : 'cover'}
+                  fit={product.slug === 'aragonteam' || product.slug === 'inkclaw' ? 'contain' : 'cover'}
                 />
                 <span className="vlabel">
                   {product.nameEn.toUpperCase()} / {product.tierLabel}
