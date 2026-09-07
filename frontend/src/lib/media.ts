@@ -14,11 +14,11 @@ export const INKCLAW_SHOWCASE_MEDIA: MediaAsset = {
   id: 'inkclaw-showcase',
   src: '/media/product/inkclaw-showcase.webp',
   kind: 'screenshot',
-  width: 800,
-  height: 600,
+  width: 1448,
+  height: 1086,
   blurDataUrl:
-    'data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoQAAwAA8BgJZgCdADHT4cf7fwAAP7wSlOXw6808vuK6omZ+yNvvxFH23ZoZ3LZexy4Ycf6vnOBCytPFAndcA1WTrIogbPmy3JqhbvHrs+ZyF9LU3mcQAAA',
-  alt: 'InkClaw 品牌展示图：写作、思考与交付场景的安全通用型智能体工作台',
+    'data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAQCdASoQAAwAAwBSJZgCdADHTplydYgA/vVLHCjRoOBN5Nkh3PSv4StolLMIdXGQzmZP7peT9Z63ndtBvA/6Tb5S7mTQAUetMVORbwpl6g2koxGk+8mGIxfAW19WPjIAAA=',
+  alt: 'InkClaw 品牌展示图：写得更好、想得更清、交付更快的安全通用型智能体工作台',
 };
 
 /**
