@@ -8,6 +8,7 @@ interface Props {
   width?: 1920 | 1280 | 768;
   priority?: boolean;
   alt?: string;
+  fit?: 'cover' | 'contain';
 }
 
 /**
@@ -15,7 +16,14 @@ interface Props {
  * （`.solution-visual` / `.sustain-visual` / `.card-media` 等全局类已定义）。
  * `alt=""` + `role="presentation"`：语义由相邻文本承担（spec §10.3）。
  */
-export function MediaFill({ asset, sizes = '(max-width: 900px) 100vw, 50vw', width = 1280, priority, alt = '' }: Props) {
+export function MediaFill({
+  asset,
+  sizes = '(max-width: 900px) 100vw, 50vw',
+  width = 1280,
+  priority,
+  alt = '',
+  fit = 'cover',
+}: Props) {
   if (!asset) return null;
   return (
     <Image
@@ -27,7 +35,7 @@ export function MediaFill({ asset, sizes = '(max-width: 900px) 100vw, 50vw', wid
       priority={priority}
       placeholder="blur"
       blurDataURL={asset.blurDataUrl}
-      style={{ objectFit: 'cover' }}
+      style={{ objectFit: fit }}
     />
   );
 }

@@ -31,7 +31,7 @@ export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: Medi
                 sizes="(max-width: 900px) 100vw, 50vw"
                 placeholder="blur"
                 blurDataURL={asset.blurDataUrl}
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: row.id === 'aragonteam' ? 'contain' : 'cover' }}
               />
             ) : null}
             <span className="vlabel">{row.vlabel}</span>
