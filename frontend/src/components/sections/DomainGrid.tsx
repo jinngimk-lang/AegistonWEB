@@ -13,23 +13,33 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
+const INKCLAW_SHOWCASE_SRC = '/media/product/inkclaw-showcase.webp';
+
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
   return (
     <div className="domains">
       {domains.map((domain, index) => {
-        const asset = media.get(domain.media);
+        const isInkClawShowcase = domain.id === 'general-agent';
+        const asset = isInkClawShowcase ? null : media.get(domain.media);
+        const src = isInkClawShowcase
+          ? INKCLAW_SHOWCASE_SRC
+          : asset
+            ? 'source' in asset
+              ? stockSrc(asset, 768)
+              : asset.src
+            : null;
         return (
           <Reveal key={domain.id} delay={(index % 4) as 0 | 1 | 2 | 3} className="domain">
             <div className={`domain-photo ${domain.photoClass}`} aria-hidden="true">
-              {asset ? (
+              {src ? (
                 <Image
-                  src={'source' in asset ? stockSrc(asset, 768) : asset.src}
+                  src={src}
                   alt=""
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  placeholder="blur"
-                  blurDataURL={asset.blurDataUrl}
-                  style={{ objectFit: 'cover' }}
+                  placeholder={isInkClawShowcase ? 'empty' : 'blur'}
+                  blurDataURL={asset?.blurDataUrl}
+                  style={{ objectFit: isInkClawShowcase ? 'contain' : 'cover' }}
                 />
               ) : null}
             </div>
