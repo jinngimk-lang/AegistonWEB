@@ -29,7 +29,7 @@ export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: M
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   placeholder="blur"
                   blurDataURL={asset.blurDataUrl}
-                  style={{ objectFit: domain.id === 'organizational-intelligence' ? 'contain' : 'cover' }}
+                  style={{ objectFit: 'cover' }}
                 />
               ) : null}
             </div>
