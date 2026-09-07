@@ -98,7 +98,10 @@ export default async function ProductsPage() {
               </Reveal>
 
               <Reveal className="solution-visual" delay={1}>
-                <MediaFill asset={media.get(product.heroMedia)} />
+                <MediaFill
+                  asset={media.get(product.heroMedia)}
+                  fit={product.slug === 'aragonteam' ? 'contain' : 'cover'}
+                />
                 <span className="vlabel">
                   {product.nameEn.toUpperCase()} / {product.tierLabel}
                 </span>
