@@ -14,7 +14,7 @@ import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
 const ARAGONTEAM_DOMAIN_CARD_SRC = '/media/product/aragonteam-domain-card.webp';
-const INKCLAW_DOMAIN_CARD_SRC = '/media/product/inkclaw-domain-card.webp';
+const INKCLAW_DOMAIN_CARD_SRC = '/media/product/inkclaw-domain-card-v2.webp';
 const LEGALLENS_DOMAIN_CARD_SRC = '/media/product/legallens-domain-card.webp';
 
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
