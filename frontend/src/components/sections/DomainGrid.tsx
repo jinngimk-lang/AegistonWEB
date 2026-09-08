@@ -16,6 +16,7 @@ import type { DomainCard } from '@/types/content';
 const ARAGONTEAM_HOME_CARD_SRC = '/media/product/aragonteam-home-card.webp';
 const INKCLAW_HOME_CARD_SRC = '/media/product/inkclaw-home-card.webp';
 const LEGALLENS_HOME_CARD_SRC = '/media/product/legallens-home-card.webp';
+const PRIVATE_DEPLOYMENT_HOME_CARD_SRC = '/media/product/private-deployment-home-card.webp';
 
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
   return (
@@ -29,7 +30,9 @@ export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: M
               ? INKCLAW_HOME_CARD_SRC
               : domain.id === 'legal-intelligence'
                 ? LEGALLENS_HOME_CARD_SRC
-                : null;
+                : domain.id === 'private-deployment'
+                  ? PRIVATE_DEPLOYMENT_HOME_CARD_SRC
+                  : null;
         return (
           <Reveal key={domain.id} delay={(index % 4) as 0 | 1 | 2 | 3} className="domain">
             <div className={`domain-photo ${domain.photoClass}`} aria-hidden="true">
