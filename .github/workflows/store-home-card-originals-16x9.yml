@@ -1,0 +1,50 @@
+name: Store 16x9 homepage card originals
+
+on:
+  push:
+    branches:
+      - media/home-card-originals-16x9-final
+
+permissions:
+  contents: write
+
+jobs:
+  store-assets:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download exact uploaded PNG originals
+        shell: bash
+        run: |
+          set -euo pipefail
+          dest='frontend/public/media/home-card-originals'
+          mkdir -p "$dest"
+
+          curl -fL --retry 3 'https://d2ol7oe51mr4n9.cloudfront.net/user_3IRacwrw6b8di26SJ8N3xLu82dx/365f7c8d-09ac-4c71-b0b8-a1146a603d6b.png' -o "$dest/aragonteam-16x9.png"
+          curl -fL --retry 3 'https://d2ol7oe51mr4n9.cloudfront.net/user_3IRacwrw6b8di26SJ8N3xLu82dx/06f29ca8-3ea7-4657-a2ba-0a7a5f7de072.png' -o "$dest/inkclaw-16x9.png"
+          curl -fL --retry 3 'https://d2ol7oe51mr4n9.cloudfront.net/user_3IRacwrw6b8di26SJ8N3xLu82dx/157b6627-6783-4a0c-9810-410600205ae8.png' -o "$dest/private-deployment-16x9.png"
+          curl -fL --retry 3 'https://d2ol7oe51mr4n9.cloudfront.net/user_3IRacwrw6b8di26SJ8N3xLu82dx/38fb8999-91e0-4dbc-916b-91ff2ad0506b.png' -o "$dest/legallens-16x9.png"
+
+          printf '%s  %s\n' \
+            '627ab6b118b300dac356c14a5196b3f8794328810813d84254e3dfd87227e2bf' "$dest/aragonteam-16x9.png" \
+            '59ae29f8bbc206375d939b00063ea86cc02e38d0db6c769c46ece6e11b4b6daa' "$dest/inkclaw-16x9.png" \
+            '5cd34a764a2152e5da2e0fc5be7e9dbb57b8ce9f00094a6800e506bea4fa8257' "$dest/private-deployment-16x9.png" \
+            'eeef2802efa360abddc56ea2ce661e3df0b73a2ce759e03243cbdad05bc51686' "$dest/legallens-16x9.png" \
+            | sha256sum -c -
+
+          file "$dest"/*.png
+          rm -rf .tmp/homecards .tmp/homecards85
+
+      - name: Commit exact originals
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'media: store exact 16:9 homepage card originals'
+          git push origin HEAD:media/home-card-originals-16x9-final
