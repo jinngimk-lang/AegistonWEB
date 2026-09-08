@@ -13,10 +13,10 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
-const ARAGONTEAM_HOME_CARD_SRC = '/media/product/aragonteam-home-card.webp';
-const INKCLAW_HOME_CARD_SRC = '/media/product/inkclaw-home-card.webp';
-const LEGALLENS_HOME_CARD_SRC = '/media/product/legallens-home-card.webp';
-const PRIVATE_DEPLOYMENT_HOME_CARD_SRC = '/media/product/private-deployment-home-card.webp';
+const ARAGONTEAM_HOME_CARD_SRC = '/media/home-card-originals/aragonteam-16x9.png';
+const INKCLAW_HOME_CARD_SRC = '/media/home-card-originals/inkclaw-16x9.png';
+const LEGALLENS_HOME_CARD_SRC = '/media/home-card-originals/legallens-16x9.png';
+const PRIVATE_DEPLOYMENT_HOME_CARD_SRC = '/media/home-card-originals/private-deployment-16x9.png';
 
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
   return (
