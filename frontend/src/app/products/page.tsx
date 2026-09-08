@@ -99,9 +99,13 @@ export default async function ProductsPage() {
               </Reveal>
 
               <Reveal className="solution-visual" delay={1}>
-                {product.slug === 'aragonteam' ? (
+                {product.slug === 'aragonteam' || product.slug === 'inkclaw' ? (
                   <Image
-                    src="/media/product-originals/aragonteam-original.png"
+                    src={
+                      product.slug === 'aragonteam'
+                        ? '/media/product-originals/aragonteam-original.png'
+                        : '/media/product-originals/inkclaw-original.png'
+                    }
                     alt=""
                     role="presentation"
                     fill
