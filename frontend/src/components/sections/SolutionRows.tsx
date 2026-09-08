@@ -15,7 +15,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { SolutionRow } from '@/types/content';
 
-const ARAGONTEAM_HOME_CARD_SRC = '/media/product/aragonteam-home-card.webp';
+const ARAGONTEAM_HOME_CARD_SRC = '/media/product/aragonteam-solution-original.webp';
 
 export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: MediaLookup }) {
   return (
