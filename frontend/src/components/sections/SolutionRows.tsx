@@ -34,7 +34,7 @@ export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: Medi
                 sizes="(max-width: 900px) 100vw, 50vw"
                 placeholder={customSrc ? 'empty' : 'blur'}
                 blurDataURL={customSrc ? undefined : asset.blurDataUrl}
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: customSrc ? 'contain' : 'cover' }}
               />
             ) : null}
             <span className="vlabel">{row.vlabel}</span>
