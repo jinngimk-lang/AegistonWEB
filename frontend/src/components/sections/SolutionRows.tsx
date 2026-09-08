@@ -25,7 +25,9 @@ export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: Medi
             ? '/media/product-originals/aragonteam-original.png'
             : row.id === 'inkclaw'
               ? '/media/product-originals/inkclaw-original.png'
-              : null;
+              : row.id === 'legallens'
+                ? '/media/product-originals/legallens-original.png'
+                : null;
         const visual = (
           <Reveal className="solution-visual" delay={1}>
             {asset ? (
