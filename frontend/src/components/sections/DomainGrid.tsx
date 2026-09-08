@@ -13,6 +13,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
+const ARAGONTEAM_HOME_CARD_SRC = '/media/product/aragonteam-home-card.webp';
 const INKCLAW_HOME_CARD_SRC = '/media/product/inkclaw-home-card.webp';
 
 export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
@@ -20,18 +21,23 @@ export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: M
     <div className="domains">
       {domains.map((domain, index) => {
         const asset = media.get(domain.media);
-        const isInkClawHomeCard = domain.id === 'general-agent';
+        const customHomeCardSrc =
+          domain.id === 'organizational-intelligence'
+            ? ARAGONTEAM_HOME_CARD_SRC
+            : domain.id === 'general-agent'
+              ? INKCLAW_HOME_CARD_SRC
+              : null;
         return (
           <Reveal key={domain.id} delay={(index % 4) as 0 | 1 | 2 | 3} className="domain">
             <div className={`domain-photo ${domain.photoClass}`} aria-hidden="true">
               {asset ? (
                 <Image
-                  src={isInkClawHomeCard ? INKCLAW_HOME_CARD_SRC : 'source' in asset ? stockSrc(asset, 768) : asset.src}
+                  src={customHomeCardSrc ?? ('source' in asset ? stockSrc(asset, 768) : asset.src)}
                   alt=""
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  placeholder={isInkClawHomeCard ? 'empty' : 'blur'}
-                  blurDataURL={isInkClawHomeCard ? undefined : asset.blurDataUrl}
+                  placeholder={customHomeCardSrc ? 'empty' : 'blur'}
+                  blurDataURL={customHomeCardSrc ? undefined : asset.blurDataUrl}
                   style={{ objectFit: 'cover' }}
                 />
               ) : null}
