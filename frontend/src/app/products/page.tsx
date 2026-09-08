@@ -99,12 +99,14 @@ export default async function ProductsPage() {
               </Reveal>
 
               <Reveal className="solution-visual" delay={1}>
-                {product.slug === 'aragonteam' || product.slug === 'inkclaw' ? (
+                {product.slug === 'aragonteam' || product.slug === 'inkclaw' || product.slug === 'legallens' ? (
                   <Image
                     src={
                       product.slug === 'aragonteam'
                         ? '/media/product-originals/aragonteam-original.png'
-                        : '/media/product-originals/inkclaw-original.png'
+                        : product.slug === 'inkclaw'
+                          ? '/media/product-originals/inkclaw-original.png'
+                          : '/media/product-originals/legallens-original.png'
                     }
                     alt=""
                     role="presentation"
