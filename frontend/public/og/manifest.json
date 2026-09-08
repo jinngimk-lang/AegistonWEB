@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-08-25T09:48:07.972Z",
+  "generatedAt": "2026-09-08T07:09:06.667Z",
   "images": {
     "default": {
       "file": "default.png",
-      "bytes": 120941,
-      "sha256": "0f88c643b0fb5e19f26787db143168779ea96e7e1487ad5739c01650606c19fd",
+      "bytes": 152336,
+      "sha256": "253f02bcb49f562ecc4203f5c34e4bedd9c8b4d9805fa5d374399ca023dca8e3",
       "sourceMediaId": "stock-hero",
-      "sourceSha256": "6979a4c6c05ce396efa4675996e4ff762883a06dd67005bff0be3956295ce73b"
+      "sourceSha256": "5abd475512d8b90740abbfc1a1d0a1a7b18bae93646d2626b907e7495e331bbf"
     },
     "home": {
       "file": "home.png",
-      "bytes": 120941,
-      "sha256": "0f88c643b0fb5e19f26787db143168779ea96e7e1487ad5739c01650606c19fd",
+      "bytes": 152336,
+      "sha256": "253f02bcb49f562ecc4203f5c34e4bedd9c8b4d9805fa5d374399ca023dca8e3",
       "sourceMediaId": "stock-hero",
-      "sourceSha256": "6979a4c6c05ce396efa4675996e4ff762883a06dd67005bff0be3956295ce73b"
+      "sourceSha256": "5abd475512d8b90740abbfc1a1d0a1a7b18bae93646d2626b907e7495e331bbf"
     },
     "about": {
       "file": "about.png",
