@@ -15,23 +15,26 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { SolutionRow } from '@/types/content';
 
+const ARAGONTEAM_HOME_CARD_SRC = '/media/product/aragonteam-solution-original.webp';
+
 export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: MediaLookup }) {
   return (
     <>
       {rows.map((row) => {
         const asset = media.get(row.media);
+        const customSrc = row.id === 'aragonteam' ? ARAGONTEAM_HOME_CARD_SRC : null;
         const visual = (
           <Reveal className="solution-visual" delay={1}>
             {asset ? (
               <Image
-                src={'source' in asset ? stockSrc(asset, 1280) : asset.src}
+                src={customSrc ?? ('source' in asset ? stockSrc(asset, 1280) : asset.src)}
                 alt=""
                 role="presentation"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
-                placeholder="blur"
-                blurDataURL={asset.blurDataUrl}
-                style={{ objectFit: 'cover' }}
+                placeholder={customSrc ? 'empty' : 'blur'}
+                blurDataURL={customSrc ? undefined : asset.blurDataUrl}
+                style={{ objectFit: customSrc ? 'contain' : 'cover' }}
               />
             ) : null}
             <span className="vlabel">{row.vlabel}</span>
