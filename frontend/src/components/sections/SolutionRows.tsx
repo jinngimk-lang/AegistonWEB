@@ -20,24 +20,26 @@ export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: Medi
     <>
       {rows.map((row) => {
         const asset = media.get(row.media);
-        const isAragonTeam = row.id === 'aragonteam';
+        const originalSrc =
+          row.id === 'aragonteam'
+            ? '/media/product-originals/aragonteam-original.png'
+            : row.id === 'inkclaw'
+              ? '/media/product-originals/inkclaw-original.png'
+              : null;
         const visual = (
           <Reveal className="solution-visual" delay={1}>
             {asset ? (
               <Image
                 src={
-                  isAragonTeam
-                    ? '/media/product-originals/aragonteam-original.png'
-                    : 'source' in asset
-                      ? stockSrc(asset, 1280)
-                      : asset.src
+                  originalSrc ??
+                  ('source' in asset ? stockSrc(asset, 1280) : asset.src)
                 }
                 alt=""
                 role="presentation"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
-                placeholder={isAragonTeam ? 'empty' : 'blur'}
-                blurDataURL={isAragonTeam ? undefined : asset.blurDataUrl}
+                placeholder={originalSrc ? 'empty' : 'blur'}
+                blurDataURL={originalSrc ? undefined : asset.blurDataUrl}
                 style={{ objectFit: 'cover' }}
               />
             ) : null}
