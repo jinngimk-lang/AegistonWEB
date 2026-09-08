@@ -52,7 +52,7 @@ export function SustainBlock({
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
             placeholder="empty"
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: 'cover', objectPosition: 'center center' }}
           />
         ) : null}
       </Reveal>
