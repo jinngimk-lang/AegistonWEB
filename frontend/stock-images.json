@@ -1,6 +1,6 @@
 {
   "_note": "配图清单（spec §6.3）。外部配图在构建期由 scripts/fetch-stock-images.mjs 下载并转 WebP；source=generated 的本地生成素材只登记元数据、不会联网覆盖。运行期不依赖任何外部 CDN —— 这是私有化交付的硬要求，也是 CSP 能做到 default-src 'self' 无外部白名单的前提。",
-  "_coverage": "11 张外部配图 + 1 张本地生成 Hero 背景，共 12 个图片源。",
+  "_coverage": "11 张外部配图 + 2 张本地生成素材，共 13 个图片源。",
   "widths": [
     1920,
     1280,
@@ -16,6 +16,15 @@
       "alt": "西安高新区城市天际线意象（AI 生成）",
       "usedBy": "首页 Hero 背景",
       "_note": "本地生成素材；fetch-stock-images.mjs 会保留仓库中的现有 WebP，即使 --force 也不会联网覆盖。"
+    },
+    {
+      "id": "stock-inkclaw-domain-card",
+      "source": "generated",
+      "photoId": "aegiston-generated-inkclaw-domain-card-2026-09",
+      "license": "Aegiston generated visual asset",
+      "alt": "InkClaw 安全通用智能体工作台品牌展示图",
+      "usedBy": "首页「通用智能体」业务领域卡片",
+      "_note": "本地生成素材；专用于首页业务领域卡片，由统一媒体查表读取，不在前端组件中硬编码路径。"
     },
     {
       "id": "stock-about",
