@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { CtaBand } from '@/components/sections/CtaBand';
@@ -98,7 +99,19 @@ export default async function ProductsPage() {
               </Reveal>
 
               <Reveal className="solution-visual" delay={1}>
-                <MediaFill asset={media.get(product.heroMedia)} />
+                {product.slug === 'aragonteam' ? (
+                  <Image
+                    src="/media/product-originals/aragonteam-original.png"
+                    alt=""
+                    role="presentation"
+                    fill
+                    sizes="(max-width: 900px) 100vw, 50vw"
+                    placeholder="empty"
+                    style={{ objectFit: 'cover' }}
+                  />
+                ) : (
+                  <MediaFill asset={media.get(product.heroMedia)} />
+                )}
                 <span className="vlabel">
                   {product.nameEn.toUpperCase()} / {product.tierLabel}
                 </span>
