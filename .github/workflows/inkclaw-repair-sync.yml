@@ -1,0 +1,61 @@
+name: InkClaw repair snapshot sync
+
+on:
+  push:
+    branches: [fix/inkclaw-media-pipeline]
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/inkclaw-media-pipeline
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install backend dependencies
+        run: python -m pip install -e "./backend[assets]"
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci --include=dev
+      - name: Regenerate stock credits from committed local assets
+        run: npm --prefix frontend run assets:stock
+      - name: Validate content and media before snapshot generation
+        run: |
+          python -m backend.scripts.validate_content --content-dir backend/app/content --strict
+          python -m backend.scripts.validate_assets
+          npm --prefix frontend run media:check
+      - name: Start API
+        run: |
+          cd backend
+          AEGISTON_DATABASE_URL="sqlite+aiosqlite:///./snapshot-sync.db" python -m uvicorn app.main:app --port 8000 > /tmp/aegiston-api.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8000/api/v1/health/ready; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/aegiston-api.log
+          exit 1
+      - name: Regenerate all offline snapshots
+        run: npm --prefix frontend run content:snapshot
+      - name: Verify regenerated snapshots
+        run: npm --prefix frontend run content:snapshot:check
+      - name: Commit generated content artifacts
+        run: |
+          git config user.name "aegiston-repair-bot"
+          git config user.email "aegiston-repair-bot@users.noreply.github.com"
+          git add backend/app/content/stock_credits.json frontend/src/content/snapshot frontend/public/search-index.json
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "chore: sync InkClaw media snapshots"
+          git push origin HEAD:fix/inkclaw-media-pipeline
