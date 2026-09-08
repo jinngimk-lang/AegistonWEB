@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
-import { stockSrc, type ResolvedMedia } from '@/lib/media';
+import type { ResolvedMedia } from '@/lib/media';
 import type { SustainBlockData } from '@/types/content';
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -46,14 +46,13 @@ export function SustainBlock({
       <Reveal className="sustain-visual">
         {media ? (
           <Image
-            src={'source' in media ? stockSrc(media, 1280) : media.src}
+            src="/media/product-originals/private-deployment-original.png"
             alt=""
             role="presentation"
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
-            placeholder="blur"
-            blurDataURL={media.blurDataUrl}
-            style={{ objectFit: 'cover' }}
+            placeholder="empty"
+            style={{ objectFit: 'contain' }}
           />
         ) : null}
       </Reveal>
