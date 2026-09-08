@@ -1,0 +1,56 @@
+name: InkClaw repair verification
+
+on:
+  push:
+    branches: [fix/inkclaw-media-pipeline]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/inkclaw-media-pipeline
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install backend dependencies
+        run: python -m pip install -e "./backend[dev,assets]"
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci --include=dev
+      - name: Backend content and test gates
+        run: |
+          python -m backend.scripts.validate_content --content-dir backend/app/content --strict
+          python -m backend.scripts.validate_assets
+          cd backend && python -m pytest tests -q --cov=app --cov-report=term-missing
+      - name: Frontend static and unit gates
+        run: |
+          npm --prefix frontend run lint
+          npm --prefix frontend run typecheck
+          npm --prefix frontend run stylelint
+          npm --prefix frontend run test
+      - name: Start API
+        run: |
+          cd backend
+          AEGISTON_DATABASE_URL="sqlite+aiosqlite:///./verify.db" python -m uvicorn app.main:app --port 8000 > /tmp/aegiston-api.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8000/api/v1/health/ready; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/aegiston-api.log
+          exit 1
+      - name: Snapshot drift gate
+        run: npm --prefix frontend run content:snapshot:check
+      - name: Production build and budget
+        env:
+          API_BASE_URL: http://127.0.0.1:8000
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+        run: |
+          npm --prefix frontend run build
+          npm --prefix frontend run budget
