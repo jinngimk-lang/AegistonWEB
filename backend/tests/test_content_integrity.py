@@ -44,8 +44,12 @@ def test_home_metrics_require_note(repo):
 
 
 def test_national_first_metric_has_attribution(repo):
-    """「全国第 1」必须带归属说明，不得被理解为公司自身排名。"""
-    target = [m for m in repo.home.metrics if "全国第" in m.value]
+    """学科评估排名指标必须带归属说明，不得被理解为公司自身排名。
+
+    口径几经收敛（「全国第 1」→「全国顶尖」），因此锚定 label 里的「学科」，
+    而不是锚定会变的 value 文案 —— 否则文案一改，这条合规断言就静默落空。
+    """
+    target = [m for m in repo.home.metrics if "学科" in m.label]
     assert len(target) == 1
     metric = target[0]
     assert "西安电子科技大学" in metric.note
