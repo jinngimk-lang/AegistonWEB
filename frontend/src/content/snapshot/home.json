@@ -1,6 +1,6 @@
 {
-  "_contentHash": "1c074beeaeaf1527",
-  "_generatedAt": "2026-09-03T05:48:29.226Z",
+  "_contentHash": "e5e69309aeb9af74",
+  "_generatedAt": "2026-09-08T02:22:23.161Z",
   "hero": {
     "eyebrow": "智瞳安宇 · AEGISTON",
     "titleLead": "以智能之眼",
@@ -47,7 +47,7 @@
       "titleEn": "General Agent",
       "description": "文件边界、命令策略与资源限额三重收口，让通用执行能力第一次可以放心交给业务用。",
       "href": "/products/inkclaw",
-      "media": "ink-dag",
+      "media": "stock-inkclaw-domain-card",
       "photoClass": "domain-photo-b"
     },
     {
