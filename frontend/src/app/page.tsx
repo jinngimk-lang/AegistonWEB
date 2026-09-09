@@ -26,9 +26,23 @@ export const revalidate = 300;
 
 export default async function HomePage() {
   const [home, media] = await Promise.all([getHome(), getMediaLookup()]);
-  const metrics = home.metrics.map((metric) =>
-    metric.value === '10余' && metric.unit === '篇' ? { ...metric, value: '10+' } : metric,
-  );
+  const metrics = home.metrics.map((metric) => {
+    if (metric.value === '全国顶尖') {
+      return {
+        ...metric,
+        label: '公司依托西安电子科技大学雄厚的科研实力',
+        note: '网络空间安全学科连续四年排名全国第一，人工智能排名全国前三',
+      };
+    }
+    if (metric.label === '国际顶会论文' && metric.unit === '篇') {
+      return {
+        ...metric,
+        value: '30',
+        note: '人工智能/网络安全/软件工程/国际顶会',
+      };
+    }
+    return metric;
+  });
   const solutionRows = home.solutions.map((row) => {
     if (row.id === 'aragonteam') {
       return {
