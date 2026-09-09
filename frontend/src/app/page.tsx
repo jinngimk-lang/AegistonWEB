@@ -46,6 +46,14 @@ export default async function HomePage() {
         title: 'AegisClaw',
       };
     }
+    if (row.id === 'legallens') {
+      return {
+        ...row,
+        code: '行业级',
+        category: '合同智能审核系统',
+        title: 'AegisLens 合约智审',
+      };
+    }
     return row;
   });
 
