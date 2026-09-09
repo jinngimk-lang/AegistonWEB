@@ -25,6 +25,7 @@ export const revalidate = 300;
 
 export default async function HomePage() {
   const [home, media] = await Promise.all([getHome(), getMediaLookup()]);
+  const homepageDomains = home.domains.filter((domain) => domain.id !== 'private-deployment');
   const metrics = home.metrics.map((metric) => {
     if (metric.value === '全国顶尖') {
       return {
@@ -78,7 +79,7 @@ export default async function HomePage() {
     <>
       <Hero hero={home.hero} media={media.get(home.hero.media)} />
 
-      {/* 业务领域 */}
+      {/* 业务领域：私有化交付数据保留，但暂不在首页展示。 */}
       <section className="section" aria-labelledby="domains-title">
         <div className="container">
           <SectionHead
@@ -90,7 +91,7 @@ export default async function HomePage() {
           <span id="domains-title" className="visually-hidden">
             {home.domainsTitleEm}
           </span>
-          <DomainGrid domains={home.domains} media={media} />
+          <DomainGrid domains={homepageDomains} media={media} columns={3} />
         </div>
       </section>
 
