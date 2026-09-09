@@ -14,10 +14,10 @@ describe('AegisClaw detail display labels', () => {
     expect(detailPage).toContain("inkclaw: 'AegisClaw'");
     expect(detailPage).toContain("if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');");
     expect(detailPage).toContain('JSON.stringify(product).replaceAll(product.nameEn, displayName)');
-    expect(detailPage).toMatch(/slug === 'inkclaw'[\s\S]*?\? product\.tierLabel/);
-    expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayName)');
+    expect(detailPage).toContain('eyebrow={product.tierLabel}');
+    expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayLabel)');
     expect(detailPage).toContain('title={`${displayName} ${product.nameCn}`}');
-    expect(detailPage).toContain('vlabelPrefix={displayName.toUpperCase()}');
+    expect(detailPage).toContain('vlabelPrefix={displayLabel.toUpperCase()}');
     expect(detailPage).toContain('productJsonLd(displayProduct)');
     expect(detailPage).toContain('ROUTES.productDetail(slug)');
   });
