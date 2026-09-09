@@ -1,10 +1,10 @@
 /**
  * 首页 Hero（ref `.hero`）。
  *
- * 与 ref 的差异只有一处实现手段：ref 用 `background:url(...)` 把天际线挂在
- * `.hero` 上，本工程把位图交给 `next/image`（`.hero-bg`），以获得 AVIF/WebP、
- * 响应式 srcset 与 blur 占位。渐变遮罩 `::before`、3px 白色渐变线 `::after`、
- * `min-height:640px`、`clamp(36px,4.6vw,54px)` 等度量全部原样（spec §5.2）。
+ * 除 spec §5.3 已登记的「移除重复品牌 eyebrow」外，ref 用 `background:url(...)`
+ * 把天际线挂在 `.hero` 上，本工程把位图交给 `next/image`（`.hero-bg`），以获得
+ * AVIF/WebP、响应式 srcset 与 blur 占位。渐变遮罩 `::before`、3px 白色渐变线
+ * `::after`、`min-height:640px`、`clamp(36px,4.6vw,54px)` 等度量保持原样。
  *
  * 首屏图片：`priority` + `fetchPriority="high"`（spec §4.2 路径 A 第 7 步）。
  */
@@ -43,10 +43,6 @@ export function Hero({ hero, media }: Props) {
       <div className="container">
         <div className="hero-content">
           <div className="hero-text">
-            <div className="hero-eyebrow">
-              <span className="dot" aria-hidden="true" />
-              <span>{hero.eyebrow}</span>
-            </div>
             <h1 id="hero-title">
               {hero.titleLead}
               <br />

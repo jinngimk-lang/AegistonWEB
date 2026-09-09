@@ -5,7 +5,6 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { ToTop } from '@/components/layout/ToTop';
-import { UtilityBar } from '@/components/layout/UtilityBar';
 import { getNavigation, getSearchIndex, getSiteSettings } from '@/lib/api';
 import { organizationJsonLd, websiteJsonLd } from '@/lib/jsonld';
 import { METADATA_BASE, SITE_NAME, TITLE_TEMPLATE, defaultOgImages } from '@/lib/seo';
@@ -91,7 +90,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
         <DeferredFontStyles />
         <SkipLink />
-        <UtilityBar left={navigation.utilityLeft} right={navigation.utilityRight} />
         <SiteHeader
           navigation={navigation}
           brandCn={settings.nameCn}

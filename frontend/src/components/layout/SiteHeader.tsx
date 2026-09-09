@@ -12,9 +12,10 @@
  * 当前路由高亮：`aria-current="page"`，视觉为 `color:var(--red)` + 底部 2px。
  *
  * 移动（<1024px）：ref 直接 `display:none` 隐藏主导航，移动端完全无法导航 ——
- * 这是 spec §5.3 登记在案的唯一结构性偏离，改为汉堡按钮 + 全屏抽屉。
+ * 这是 spec §5.3 已登记的结构性偏离之一，改为汉堡按钮 + 全屏抽屉。
  *
- * ⚠️ 本组件的类名全部来自全局层 `src/styles/sections.css`，不经 CSS Modules。
+ * ref 既有类名继续来自全局层 `src/styles/sections.css`，不经 CSS Modules；
+ * 本轮新增的语言状态只做一次性布局，因此按 CLAUDE.md §3 使用内联 style。
  */
 
 import Link from 'next/link';
@@ -205,15 +206,45 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
         </div>
 
         <div className="nav-actions">
-          {/* ref/1.html:436 本来就是 <button class="nav-search">；v2 因为当时没有
-              检索页可指才把它做成了 <Link href="/sitemap">。这里是**还原**，
-              不是新增偏离（v3 §9 / P1-3）。 */}
-          <SearchTrigger
-            quickLinks={quickLinks}
-            contentHash={contentHash}
-            open={searchOpen}
-            onOpenChange={setSearchOpen}
-          />
+          <div
+            className="nav-language-stack"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2,
+            }}
+          >
+            {/* ref/1.html:436 本来就是 <button class="nav-search">；v2 因为当时没有
+                检索页可指才把它做成了 <Link href="/sitemap">。这里是**还原**，
+                不是新增偏离（v3 §9 / P1-3）。 */}
+            <SearchTrigger
+              quickLinks={quickLinks}
+              contentHash={contentHash}
+              open={searchOpen}
+              onOpenChange={setSearchOpen}
+            />
+            <span
+              className="nav-language"
+              aria-label="语言"
+              style={{
+                fontFamily: 'var(--sans-en)',
+                fontSize: 11,
+                lineHeight: 1.2,
+                whiteSpace: 'nowrap',
+                color: 'var(--ink-2)',
+              }}
+            >
+              <span aria-current="true" style={{ color: 'var(--navy)', fontWeight: 600 }}>
+                中文
+              </span>
+              {' / '}
+              <span aria-disabled="true" title="英文站建设中">
+                EN
+              </span>
+            </span>
+          </div>
           <Link
             href={navigation.cta.href}
             className={cn('nav-contact')}
