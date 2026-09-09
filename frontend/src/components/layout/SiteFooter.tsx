@@ -19,6 +19,12 @@ interface Props {
 const FOOTER_DESCRIPTION =
   '西安智瞳安宇科技有限公司定位于「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品构成企业智能底座，为客户提供AI人机协同超级团队平台、安全通用智能体与行业垂直智能体的完整能力。';
 
+const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
+  '/products/aragonteam': 'AegisTeam',
+  '/products/inkclaw': 'AegisClaw',
+  '/products/legallens': 'AegisLens 合约智审',
+};
+
 export function SiteFooter({ navigation, settings }: Props) {
   const footerLegal = navigation.footerLegal.filter((item) => !item.external);
   const footerFilings = navigation.footerLegal.filter((item) => item.external);
@@ -47,7 +53,9 @@ export function SiteFooter({ navigation, settings }: Props) {
                     {item.external ? (
                       <a href={item.href}>{item.label}</a>
                     ) : (
-                      <Link href={item.href}>{item.label}</Link>
+                      <Link href={item.href}>
+                        {PRODUCT_DISPLAY_LABELS[item.href] ?? item.label}
+                      </Link>
                     )}
                   </li>
                 ))}
