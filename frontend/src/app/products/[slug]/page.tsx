@@ -23,6 +23,7 @@ export const revalidate = 600;
 
 const PRODUCT_DISPLAY_NAMES: Partial<Record<ProductSlug, string>> = {
   aragonteam: 'AegisTeam',
+  inkclaw: 'AegisClaw',
 };
 
 function productDisplayName(slug: ProductSlug, fallback: string): string {
@@ -30,7 +31,9 @@ function productDisplayName(slug: ProductSlug, fallback: string): string {
 }
 
 function productDisplayText(slug: ProductSlug, value: string): string {
-  return slug === 'aragonteam' ? value.replaceAll('AragonTeam', 'AegisTeam') : value;
+  if (slug === 'aragonteam') return value.replaceAll('AragonTeam', 'AegisTeam');
+  if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');
+  return value;
 }
 
 /**
@@ -86,7 +89,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const pillars = research.pillars
     .filter((p) => product.pillars.includes(p.id))
     .map((pillar) =>
-      slug === 'aragonteam'
+      slug === 'aragonteam' || slug === 'inkclaw'
         ? { ...pillar, productLabel: productDisplayText(slug, pillar.productLabel) }
         : pillar,
     );
@@ -102,7 +105,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       />
 
       <PageHero
-        eyebrow={slug === 'aragonteam' ? product.tierLabel : `${product.tierLabel} · ${product.code}`}
+        eyebrow={slug === 'aragonteam' ? product.tierLabel : slug === 'inkclaw' ? product.tierLabel : `${product.tierLabel} · ${product.code}`}
         title={`${displayName} ${product.nameCn}`}
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
