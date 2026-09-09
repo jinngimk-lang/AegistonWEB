@@ -58,17 +58,8 @@ export default async function DeploymentPage() {
         </div>
       </section>
 
-      <section className="section section-gray" aria-labelledby="readiness-title">
+      <section className="section section-gray">
         <div className="container">
-          <Reveal className="solutions-intro">
-            <div className="section-label">READINESS</div>
-            <h2 className="section-title" id="readiness-title">
-              技术前提
-              <br />
-              <span className="em">已经具备</span>
-            </h2>
-            <p className="section-desc">「私有化」已从技术妥协，变成可行的产品形态。</p>
-          </Reveal>
           <FeatureGrid items={data.readiness} cols={4} />
         </div>
       </section>
