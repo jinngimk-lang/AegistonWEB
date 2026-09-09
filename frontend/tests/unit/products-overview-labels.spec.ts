@@ -14,9 +14,9 @@ describe('products overview Aegis display labels', () => {
     expect(productsPage).toContain("aragonteam: 'AegisTeam'");
     expect(productsPage).toContain("inkclaw: 'AegisClaw'");
     expect(productsPage).toContain("legallens: 'AegisLens'");
-    expect(productsPage).toContain('<h2>{displayName}</h2>');
-    expect(productsPage).toContain('{displayName.toUpperCase()} / {product.tierLabel}');
-    expect(productsPage).toContain('name: PRODUCT_DISPLAY_NAMES[product.slug] ?? product.nameEn');
+    expect(productsPage).toContain('<h2>{productDisplayName(product.slug, product.nameEn)}</h2>');
+    expect(productsPage).toContain('productDisplayName(product.slug, product.nameEn).toUpperCase()');
+    expect(productsPage).toContain('name: productDisplayName(product.slug, product.nameEn)');
     expect(productsPage).toContain('href={product.href}');
   });
 });
