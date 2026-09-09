@@ -2,7 +2,7 @@
  * 首页 —— 与 `ref/1.html` 的区块一一对应（spec §3.2）。
  *
  * DOM 顺序即 ref 顺序：
- * hero → domains → solutions → philosophy → metrics → news → sustain → cta
+ * hero → domains → solutions → philosophy → metrics → news → cta
  *
  * `.hero` 的字号/间距/遮罩层、`.domains` 的 1px 分隔栅格、`.solution` 的
  * `1fr 1fr / gap:72px` 交错布局、`.metrics` 的分隔竖线、`.news-grid` 的
@@ -16,7 +16,6 @@ import { InsightsPreview } from '@/components/sections/InsightsPreview';
 import { MetricBand } from '@/components/sections/MetricBand';
 import { PhilosophyValues } from '@/components/sections/PhilosophyValues';
 import { SolutionRows } from '@/components/sections/SolutionRows';
-import { SustainBlock } from '@/components/sections/SustainBlock';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionHead } from '@/components/ui/SectionHead';
 import { getHome } from '@/lib/api';
@@ -135,14 +134,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 私有化与一体机 */}
-      <section className="section" id="deployment" aria-label="私有化与一体机">
-        <div className="container">
-          <SustainBlock data={home.sustain} media={media.get(home.sustain.media)} />
-        </div>
-      </section>
-
-      <CtaBand cta={home.cta} />
+      {/* 私有化与一体机暂不在首页展示；SustainBlock 与 home.sustain 数据保留，后续可直接恢复。 */}
+      <CtaBand cta={home.cta} surface="white" />
     </>
   );
 }
