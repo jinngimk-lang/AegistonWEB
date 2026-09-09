@@ -12,10 +12,10 @@ const detailPage = readFileSync(path.join(SRC_DIR, 'app/products/[slug]/page.tsx
 describe('AegisTeam detail display labels', () => {
   it('uses AegisTeam throughout the aragonteam detail view without changing its route slug', () => {
     expect(detailPage).toContain("aragonteam: 'AegisTeam'");
-    expect(detailPage).toMatch(/slug === 'aragonteam'[\s\S]*?\? product\.tierLabel/);
-    expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayName)');
+    expect(detailPage).toContain('eyebrow={product.tierLabel}');
+    expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayLabel)');
     expect(detailPage).toContain('title={`${displayName} ${product.nameCn}`}');
-    expect(detailPage).toContain('vlabelPrefix={displayName.toUpperCase()}');
+    expect(detailPage).toContain('vlabelPrefix={displayLabel.toUpperCase()}');
     expect(detailPage).toContain("value.replaceAll('AragonTeam', 'AegisTeam')");
     expect(detailPage).toContain('productJsonLd(displayProduct)');
     expect(detailPage).toContain('ROUTES.productDetail(slug)');
