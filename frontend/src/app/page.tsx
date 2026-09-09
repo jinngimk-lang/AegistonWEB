@@ -29,6 +29,16 @@ export default async function HomePage() {
   const metrics = home.metrics.map((metric) =>
     metric.value === '10余' && metric.unit === '篇' ? { ...metric, value: '10+' } : metric,
   );
+  const solutionRows = home.solutions.map((row) =>
+    row.id === 'aragonteam'
+      ? {
+          ...row,
+          code: '组织级',
+          category: '企业 AI 原生人机协同工作站',
+          title: 'AegisTeam',
+        }
+      : row,
+  );
 
   return (
     <>
@@ -63,7 +73,7 @@ export default async function HomePage() {
             </h2>
             <p className="section-desc">{home.solutionsDesc}</p>
           </Reveal>
-          <SolutionRows rows={home.solutions} media={media} />
+          <SolutionRows rows={solutionRows} media={media} />
         </div>
       </section>
 
