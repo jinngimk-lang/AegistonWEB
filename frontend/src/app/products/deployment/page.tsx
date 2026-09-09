@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import type { CSSProperties } from 'react';
 
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { MediaFill } from '@/components/media/MediaFill';
@@ -22,6 +23,12 @@ const DELIVERY_MEDIA = [
   '/media/deployment/appliance-4x3.png',
   '/media/deployment/private-cloud-4x3.png',
 ] as const;
+
+const DEPLOYMENT_HERO_MEDIA_STYLE = {
+  objectPosition: 'left center',
+  transform: 'scale(1.2)',
+  transformOrigin: 'left center',
+} satisfies CSSProperties;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDeployment();
@@ -47,6 +54,7 @@ export default async function DeploymentPage() {
         title={data.title}
         subtitle={data.lead}
         media={media.get(data.heroMedia)}
+        mediaStyle={DEPLOYMENT_HERO_MEDIA_STYLE}
       />
       <Breadcrumbs items={crumbs} />
 
