@@ -1,9 +1,10 @@
 /**
- * 业务领域四宫格（ref `.domains` / `.domain` / `.domain-photo`）。
+ * 业务领域卡片栅格（ref `.domains` / `.domain` / `.domain-photo`）。
  * 1px 分隔栅格、顶部 3px 红条 `scaleX(0)→1`、`.domain-photo` 的
  * `height:168px; margin:0 -28px 26px` 全部原样（spec §5.2）。
  *
  * 图片换成 PPT 里的**真实产品截图**（G4），只有「私有化交付」一格用 Unsplash。
+ * 首页可传 `columns={3}`，仅改变首页展示列数；完整数据仍由调用方保留。
  */
 
 import Image from 'next/image';
@@ -18,9 +19,15 @@ const INKCLAW_HOME_CARD_SRC = '/media/home-card-originals/inkclaw-16x9.png';
 const LEGALLENS_HOME_CARD_SRC = '/media/home-card-originals/legallens-16x9.png';
 const PRIVATE_DEPLOYMENT_HOME_CARD_SRC = '/media/home-card-originals/private-deployment-16x9.png';
 
-export function DomainGrid({ domains, media }: { domains: DomainCard[]; media: MediaLookup }) {
+interface Props {
+  domains: DomainCard[];
+  media: MediaLookup;
+  columns?: 3 | 4;
+}
+
+export function DomainGrid({ domains, media, columns = 4 }: Props) {
   return (
-    <div className="domains">
+    <div className="domains" data-columns={columns}>
       {domains.map((domain, index) => {
         const asset = media.get(domain.media);
         const customHomeCardSrc =
