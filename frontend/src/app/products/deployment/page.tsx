@@ -16,6 +16,27 @@ import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 
+const DELIVERY_MEDIA = [
+  {
+    id: 'deployment-private-server-4x3',
+    url: '/media/deployment/private-server-4x3.png',
+    alt: '私有化服务器部署',
+    kind: 'screenshot' as const,
+  },
+  {
+    id: 'deployment-appliance-4x3',
+    url: '/media/deployment/appliance-4x3.png',
+    alt: '便携式一体机',
+    kind: 'screenshot' as const,
+  },
+  {
+    id: 'deployment-private-cloud-4x3',
+    url: '/media/deployment/private-cloud-4x3.png',
+    alt: '私有云服务',
+    kind: 'screenshot' as const,
+  },
+];
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDeployment();
   return pageMetadata({
@@ -58,12 +79,6 @@ export default async function DeploymentPage() {
         </div>
       </section>
 
-      <section className="section section-gray">
-        <div className="container">
-          <FeatureGrid items={data.readiness} cols={4} />
-        </div>
-      </section>
-
       <section className="section" aria-labelledby="forms-title">
         <div className="container">
           <Reveal className="solutions-intro">
@@ -92,7 +107,7 @@ export default async function DeploymentPage() {
                 </dl>
               </Reveal>
               <Reveal className="solution-visual" delay={1}>
-                <MediaFill asset={media.get(form.media)} />
+                <MediaFill asset={DELIVERY_MEDIA[index] ?? media.get(form.media)} />
                 <span className="vlabel">
                   DELIVERY {form.index} / {index === 0 ? 'ON-PREMISE' : index === 1 ? 'APPLIANCE' : 'PRIVATE CLOUD'}
                 </span>
