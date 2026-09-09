@@ -38,6 +38,37 @@ interface Props {
 }
 
 /**
+ * 只调整 Header 的展示层导航：把「关于我们」移到一级导航末尾，
+ * 并把原一级「加入我们」收进「关于我们」下拉菜单末尾。
+ * 数据源、页脚、站点地图与 `/careers` 页面本身均保持不变。
+ */
+function navigationForHeader(navigation: Navigation): Navigation {
+  const about = navigation.main.find((group) => group.label === '关于我们');
+  const careers = navigation.main.find((group) => group.label === '加入我们');
+
+  if (!about || !careers || !careers.href) return navigation;
+
+  const careersItem: LinkItem = {
+    label: careers.label,
+    href: careers.href,
+  };
+
+  const aboutWithCareers = {
+    ...about,
+    items: [...about.items.filter((item) => item.href !== careersItem.href), careersItem],
+  };
+
+  const otherGroups = navigation.main.filter(
+    (group) => group !== about && group !== careers,
+  );
+
+  return {
+    ...navigation,
+    main: [...otherGroups, aboutWithCareers],
+  };
+}
+
+/**
  * ⌘K 面板空查询态的「快捷入口」。
  *
  * **数据取自导航快照，不硬编码、不臆造**（v3 spec §4.2.4）：三个产品 +
@@ -59,7 +90,8 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
   const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const idPrefix = useId();
-  const quickLinks = useMemo(() => quickLinksFrom(navigation), [navigation]);
+  const displayNavigation = useMemo(() => navigationForHeader(navigation), [navigation]);
+  const quickLinks = useMemo(() => quickLinksFrom(displayNavigation), [displayNavigation]);
 
   const clearTimer = useCallback(() => {
     if (closeTimer.current) {
@@ -97,7 +129,7 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
   };
 
   const groupIsCurrent = (index: number) => {
-    const group = navigation.main[index];
+    const group = displayNavigation.main[index];
     if (!group) return false;
     return isCurrent(group.href) || group.items.some((item) => isCurrent(item.href));
   };
@@ -114,7 +146,7 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
         </Link>
 
         <div className="nav-menu">
-          {navigation.main.map((group, index) => {
+          {displayNavigation.main.map((group, index) => {
             const submenuId = `${idPrefix}-submenu-${index}`;
             const hasItems = group.items.length > 0;
             const expanded = openIndex === index;
@@ -246,11 +278,11 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
             </span>
           </div>
           <Link
-            href={navigation.cta.href}
+            href={displayNavigation.cta.href}
             className={cn('nav-contact')}
-            aria-current={isCurrent(navigation.cta.href) ? 'page' : undefined}
+            aria-current={isCurrent(displayNavigation.cta.href) ? 'page' : undefined}
           >
-            {navigation.cta.label}
+            {displayNavigation.cta.label}
           </Link>
           <button
             type="button"
@@ -267,7 +299,7 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
 
       <MobileNav
         id={`${idPrefix}-mobile-nav`}
-        navigation={navigation}
+        navigation={displayNavigation}
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         isCurrent={isCurrent}
