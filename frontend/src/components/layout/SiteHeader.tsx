@@ -29,6 +29,12 @@ import type { LinkItem, Navigation } from '@/types/content';
 
 const CLOSE_DELAY_MS = 160;
 
+const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
+  '/products/aragonteam': 'AegisTeam',
+  '/products/inkclaw': 'AegisClaw',
+  '/products/legallens': 'AegisLens 合约智审',
+};
+
 interface Props {
   navigation: Navigation;
   brandCn: string;
@@ -41,6 +47,7 @@ interface Props {
  * 只调整 Header 的展示层导航：把「关于我们」移到一级导航末尾，
  * 并把原一级「加入我们」收进「关于我们」下拉菜单末尾。
  * 首页额外隐藏「技术与研究」，其页面与非首页导航仍保持可达。
+ * 三个产品入口只替换显示名，href 与内容数据保持不变。
  * 数据源、页脚、站点地图与 `/careers` 页面本身均保持不变。
  */
 function navigationForHeader(navigation: Navigation, hideResearch: boolean): Navigation {
@@ -62,7 +69,17 @@ function navigationForHeader(navigation: Navigation, hideResearch: boolean): Nav
   const otherGroups = navigation.main.filter(
     (group) => group !== about && group !== careers,
   );
-  const headerMain = [...otherGroups, aboutWithCareers];
+  const headerMain = [...otherGroups, aboutWithCareers].map((group) =>
+    group.label === '产品与方案'
+      ? {
+          ...group,
+          items: group.items.map((item) => ({
+            ...item,
+            label: PRODUCT_DISPLAY_LABELS[item.href] ?? item.label,
+          })),
+        }
+      : group,
+  );
 
   return {
     ...navigation,
