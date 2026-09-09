@@ -31,7 +31,7 @@ export default async function HomePage() {
       return {
         ...metric,
         label: '公司依托西安电子科技大学雄厚的科研实力',
-        note: '网络空间安全学科连续四年排名全国第一人工智能排名全国前三',
+        note: '网络空间安全学科连续四年排名全国第一 人工智能排名全国前三',
       };
     }
     if (metric.label === '国际顶会论文' && metric.unit === '篇') {
