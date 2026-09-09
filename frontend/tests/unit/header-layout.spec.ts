@@ -41,6 +41,15 @@ describe('header language placement and home hero cleanup', () => {
     expect(header).toContain('title="英文站建设中"');
   });
 
+  it('moves about to the final primary-nav slot and nests careers under it', () => {
+    expect(header).toContain("group.label === '关于我们'");
+    expect(header).toContain("group.label === '加入我们'");
+    expect(header).toContain('items: [...about.items.filter');
+    expect(header).toContain('main: [...otherGroups, aboutWithCareers]');
+    expect(header).toContain('{displayNavigation.main.map');
+    expect(header).toContain('navigation={displayNavigation}');
+  });
+
   it('removes the redundant home hero eyebrow and preserves the hero title wiring', () => {
     expect(hero).not.toContain('className="hero-eyebrow"');
     expect(hero).not.toContain('{hero.eyebrow}');
