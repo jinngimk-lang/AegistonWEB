@@ -12,6 +12,10 @@ const deploymentPage = readFileSync(
   path.join(FRONTEND_DIR, 'src/app/products/deployment/page.tsx'),
   'utf8',
 );
+const pageHero = readFileSync(
+  path.join(FRONTEND_DIR, 'src/components/sections/PageHero.tsx'),
+  'utf8',
+);
 
 const deliveryImages = [
   '/media/deployment/private-server-4x3.png',
@@ -40,5 +44,14 @@ describe('deployment delivery layout', () => {
     expect(deploymentPage).toContain('const deliveryMedia = DELIVERY_MEDIA[index];');
     expect(deploymentPage).toContain('src={deliveryMedia}');
     expect(deploymentPage).not.toContain("url: '/media/deployment/");
+  });
+
+  it('crops the deployment hero so the source image right edge stays outside the viewport', () => {
+    expect(pageHero).toContain('mediaStyle?: CSSProperties;');
+    expect(pageHero).toContain('style={mediaStyle}');
+    expect(deploymentPage).toContain('mediaStyle={DEPLOYMENT_HERO_MEDIA_STYLE}');
+    expect(deploymentPage).toContain("objectPosition: 'left center'");
+    expect(deploymentPage).toContain("transform: 'scale(1.2)'");
+    expect(deploymentPage).toContain("transformOrigin: 'left center'");
   });
 });
