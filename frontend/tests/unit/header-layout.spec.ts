@@ -48,16 +48,16 @@ describe('header language placement and home hero cleanup', () => {
     expect(header).toContain("group.label === '关于我们'");
     expect(header).toContain("group.label === '加入我们'");
     expect(header).toContain('items: [...about.items.filter');
-    expect(header).toContain('main: hideResearch');
+    expect(header).toContain('main: headerMain.filter');
     expect(header).toContain('{displayNavigation.main.map');
     expect(header).toContain('navigation={displayNavigation}');
   });
 
-  it('hides research from the homepage header only', () => {
-    expect(header).toContain("pathname === '/'");
+  it('hides research from the header on every page', () => {
     expect(header).toContain("group.label !== '技术与研究'");
-    expect(header).toContain("navigationForHeader(navigation, pathname === '/')");
-    expect(header).toContain(': headerMain');
+    expect(header).toContain('navigationForHeader(navigation)');
+    expect(header).not.toContain("navigationForHeader(navigation, pathname === '/')");
+    expect(header).not.toContain('hideResearch');
   });
 
   it('uses Aegis product display names in the header and footer without changing link wiring', () => {
