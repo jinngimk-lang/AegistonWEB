@@ -17,7 +17,7 @@ import { getMediaLookup } from '@/lib/media';
 import { breadcrumbJsonLd, productJsonLd } from '@/lib/jsonld';
 import { PRODUCT_SLUGS, ROUTES, type ProductSlug } from '@/lib/routes';
 import { pageMetadata } from '@/lib/seo';
-import type { MediaAsset } from '@/types/content';
+import type { MediaAsset, ProductDetail } from '@/types/content';
 
 export const revalidate = 600;
 
@@ -34,6 +34,14 @@ function productDisplayText(slug: ProductSlug, value: string): string {
   if (slug === 'aragonteam') return value.replaceAll('AragonTeam', 'AegisTeam');
   if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');
   return value;
+}
+
+function productForDisplay(slug: ProductSlug, product: ProductDetail): ProductDetail {
+  const displayName = productDisplayName(slug, product.nameEn);
+  if (displayName === product.nameEn) return product;
+  return JSON.parse(
+    JSON.stringify(product).replaceAll(product.nameEn, displayName),
+  ) as ProductDetail;
 }
 
 /**
@@ -56,8 +64,9 @@ function isProductSlug(value: string): value is ProductSlug {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   if (!isProductSlug(slug)) return {};
-  const product = await getProduct(slug);
-  const displayName = productDisplayName(slug, product.nameEn);
+  const sourceProduct = await getProduct(slug);
+  const product = productForDisplay(slug, sourceProduct);
+  const displayName = product.nameEn;
   return pageMetadata({
     title: `${displayName} · ${product.nameCn}`,
     description: product.positioning,
@@ -69,14 +78,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
 
-  const [product, manifest, media, research] = await Promise.all([
+  const [sourceProduct, manifest, media, research] = await Promise.all([
     getProduct(slug),
     getMediaManifest(),
     getMediaLookup(),
     getResearch(),
   ]);
-  const displayName = productDisplayName(slug, product.nameEn);
-  const displayProduct = displayName === product.nameEn ? product : { ...product, nameEn: displayName };
+  const product = productForDisplay(slug, sourceProduct);
+  const displayName = product.nameEn;
+  const displayProduct = product;
 
   const assets: Record<string, MediaAsset> = {};
   for (const asset of manifest.assets) {
@@ -105,7 +115,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
       />
 
       <PageHero
-        eyebrow={slug === 'aragonteam' ? product.tierLabel : slug === 'inkclaw' ? product.tierLabel : `${product.tierLabel} · ${product.code}`}
+        eyebrow={
+          slug === 'aragonteam'
+            ? product.tierLabel
+            : slug === 'inkclaw'
+              ? product.tierLabel
+              : `${product.tierLabel} · ${product.code}`
+        }
         title={`${displayName} ${product.nameCn}`}
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
