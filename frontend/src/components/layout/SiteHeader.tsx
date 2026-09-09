@@ -40,9 +40,10 @@ interface Props {
 /**
  * 只调整 Header 的展示层导航：把「关于我们」移到一级导航末尾，
  * 并把原一级「加入我们」收进「关于我们」下拉菜单末尾。
+ * 首页额外隐藏「技术与研究」，其页面与非首页导航仍保持可达。
  * 数据源、页脚、站点地图与 `/careers` 页面本身均保持不变。
  */
-function navigationForHeader(navigation: Navigation): Navigation {
+function navigationForHeader(navigation: Navigation, hideResearch: boolean): Navigation {
   const about = navigation.main.find((group) => group.label === '关于我们');
   const careers = navigation.main.find((group) => group.label === '加入我们');
 
@@ -61,10 +62,13 @@ function navigationForHeader(navigation: Navigation): Navigation {
   const otherGroups = navigation.main.filter(
     (group) => group !== about && group !== careers,
   );
+  const headerMain = [...otherGroups, aboutWithCareers];
 
   return {
     ...navigation,
-    main: [...otherGroups, aboutWithCareers],
+    main: hideResearch
+      ? headerMain.filter((group) => group.label !== '技术与研究')
+      : headerMain,
   };
 }
 
@@ -90,7 +94,10 @@ export function SiteHeader({ navigation, brandCn, brandEn, contentHash }: Props)
   const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const idPrefix = useId();
-  const displayNavigation = useMemo(() => navigationForHeader(navigation), [navigation]);
+  const displayNavigation = useMemo(
+    () => navigationForHeader(navigation, pathname === '/'),
+    [navigation, pathname],
+  );
   const quickLinks = useMemo(() => quickLinksFrom(displayNavigation), [displayNavigation]);
 
   const clearTimer = useCallback(() => {

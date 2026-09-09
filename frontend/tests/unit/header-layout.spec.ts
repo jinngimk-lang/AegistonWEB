@@ -47,9 +47,16 @@ describe('header language placement and home hero cleanup', () => {
     expect(header).toContain("group.label === '关于我们'");
     expect(header).toContain("group.label === '加入我们'");
     expect(header).toContain('items: [...about.items.filter');
-    expect(header).toContain('main: [...otherGroups, aboutWithCareers]');
+    expect(header).toContain('main: hideResearch');
     expect(header).toContain('{displayNavigation.main.map');
     expect(header).toContain('navigation={displayNavigation}');
+  });
+
+  it('hides research from the homepage header only', () => {
+    expect(header).toContain("pathname === '/'");
+    expect(header).toContain("group.label !== '技术与研究'");
+    expect(header).toContain('navigationForHeader(navigation, pathname === \'/\')');
+    expect(header).toContain(': headerMain');
   });
 
   it('removes the redundant home hero eyebrow and preserves the hero title wiring', () => {
