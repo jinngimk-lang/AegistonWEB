@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { MediaFill } from '@/components/media/MediaFill';
@@ -17,25 +18,10 @@ import { pageMetadata } from '@/lib/seo';
 export const revalidate = 3600;
 
 const DELIVERY_MEDIA = [
-  {
-    id: 'deployment-private-server-4x3',
-    url: '/media/deployment/private-server-4x3.png',
-    alt: '私有化服务器部署',
-    kind: 'screenshot' as const,
-  },
-  {
-    id: 'deployment-appliance-4x3',
-    url: '/media/deployment/appliance-4x3.png',
-    alt: '便携式一体机',
-    kind: 'screenshot' as const,
-  },
-  {
-    id: 'deployment-private-cloud-4x3',
-    url: '/media/deployment/private-cloud-4x3.png',
-    alt: '私有云服务',
-    kind: 'screenshot' as const,
-  },
-];
+  '/media/deployment/private-server-4x3.png',
+  '/media/deployment/appliance-4x3.png',
+  '/media/deployment/private-cloud-4x3.png',
+] as const;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDeployment();
@@ -88,32 +74,47 @@ export default async function DeploymentPage() {
             </h2>
           </Reveal>
 
-          {data.forms.map((form, index) => (
-            <div className="solution" key={form.index}>
-              <Reveal className="solution-body">
-                <div className="tag-line">
-                  <span className="solution-code">形态 {form.index}</span>
-                  <span className="solution-category">{form.fit}</span>
-                </div>
-                <h3>{form.name}</h3>
-                <ul className="pillar-params" style={{ marginTop: 20, marginBottom: 28 }}>
-                  {form.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-                <dl className="deflist">
-                  <dt>适用</dt>
-                  <dd>{form.fit}</dd>
-                </dl>
-              </Reveal>
-              <Reveal className="solution-visual" delay={1}>
-                <MediaFill asset={DELIVERY_MEDIA[index] ?? media.get(form.media)} />
-                <span className="vlabel">
-                  DELIVERY {form.index} / {index === 0 ? 'ON-PREMISE' : index === 1 ? 'APPLIANCE' : 'PRIVATE CLOUD'}
-                </span>
-              </Reveal>
-            </div>
-          ))}
+          {data.forms.map((form, index) => {
+            const deliveryMedia = DELIVERY_MEDIA[index];
+
+            return (
+              <div className="solution" key={form.index}>
+                <Reveal className="solution-body">
+                  <div className="tag-line">
+                    <span className="solution-code">形态 {form.index}</span>
+                    <span className="solution-category">{form.fit}</span>
+                  </div>
+                  <h3>{form.name}</h3>
+                  <ul className="pillar-params" style={{ marginTop: 20, marginBottom: 28 }}>
+                    {form.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                  <dl className="deflist">
+                    <dt>适用</dt>
+                    <dd>{form.fit}</dd>
+                  </dl>
+                </Reveal>
+                <Reveal className="solution-visual" delay={1}>
+                  {deliveryMedia ? (
+                    <Image
+                      src={deliveryMedia}
+                      alt=""
+                      role="presentation"
+                      fill
+                      sizes="(max-width: 900px) 100vw, 50vw"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <MediaFill asset={media.get(form.media)} />
+                  )}
+                  <span className="vlabel">
+                    DELIVERY {form.index} / {index === 0 ? 'ON-PREMISE' : index === 1 ? 'APPLIANCE' : 'PRIVATE CLOUD'}
+                  </span>
+                </Reveal>
+              </div>
+            );
+          })}
         </div>
       </section>
 
