@@ -33,8 +33,12 @@ describe('deployment delivery layout', () => {
       expect(deploymentPage).toContain(image);
       expect(existsSync(path.join(FRONTEND_DIR, 'public', image))).toBe(true);
     }
-    expect(deploymentPage).toContain(
-      '<MediaFill asset={DELIVERY_MEDIA[index] ?? media.get(form.media)} />',
-    );
+  });
+
+  it('passes page-specific artwork through next/image instead of incomplete media objects', () => {
+    expect(deploymentPage).toContain("import Image from 'next/image';");
+    expect(deploymentPage).toContain('const deliveryMedia = DELIVERY_MEDIA[index];');
+    expect(deploymentPage).toContain('src={deliveryMedia}');
+    expect(deploymentPage).not.toContain("url: '/media/deployment/");
   });
 });
