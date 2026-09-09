@@ -15,6 +15,7 @@ function read(relativePath: string): string {
 const layout = read('app/layout.tsx');
 const homePage = read('app/page.tsx');
 const header = read('components/layout/SiteHeader.tsx');
+const footer = read('components/layout/SiteFooter.tsx');
 const hero = read('components/sections/Hero.tsx');
 const ctaBand = read('components/sections/CtaBand.tsx');
 const domainGrid = read('components/sections/DomainGrid.tsx');
@@ -55,8 +56,17 @@ describe('header language placement and home hero cleanup', () => {
   it('hides research from the homepage header only', () => {
     expect(header).toContain("pathname === '/'");
     expect(header).toContain("group.label !== '技术与研究'");
-    expect(header).toContain('navigationForHeader(navigation, pathname === \'/\')');
+    expect(header).toContain("navigationForHeader(navigation, pathname === '/')");
     expect(header).toContain(': headerMain');
+  });
+
+  it('uses Aegis product display names in the header and footer without changing link wiring', () => {
+    for (const label of ['AegisTeam', 'AegisClaw', 'AegisLens 合约智审']) {
+      expect(header).toContain(label);
+      expect(footer).toContain(label);
+    }
+    expect(header).toContain('href={item.href}');
+    expect(footer).toContain('href={item.href}');
   });
 
   it('removes the redundant home hero eyebrow and preserves the hero title wiring', () => {
