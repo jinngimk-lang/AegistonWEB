@@ -17,6 +17,8 @@ const homePage = read('app/page.tsx');
 const header = read('components/layout/SiteHeader.tsx');
 const hero = read('components/sections/Hero.tsx');
 const ctaBand = read('components/sections/CtaBand.tsx');
+const domainGrid = read('components/sections/DomainGrid.tsx');
+const sectionsExt = read('styles/sections-ext.css');
 
 describe('header language placement and home hero cleanup', () => {
   it('does not render the legacy utility bar globally', () => {
@@ -61,8 +63,18 @@ describe('header language placement and home hero cleanup', () => {
   it('keeps private deployment reusable but hides it from the homepage and uses a white CTA surface', () => {
     expect(homePage).not.toContain("components/sections/SustainBlock");
     expect(homePage).not.toContain('<SustainBlock');
-    expect(homePage).toContain('<CtaBand cta={home.cta} surface="white" />');
+    expect(homePage).toContain('<CtaBand cta={homepageCta} surface="white" />');
     expect(ctaBand).toContain("surface?: 'default' | 'white'");
     expect(ctaBand).toContain("background: 'var(--white)'");
+  });
+
+  it('hides the private-deployment domain card only on the homepage and centers the remaining three', () => {
+    expect(homePage).toContain("domain.id !== 'private-deployment'");
+    expect(homePage).toContain('<DomainGrid domains={homepageDomains} media={media} columns={3} />');
+    expect(domainGrid).toContain('columns?: 3 | 4');
+    expect(domainGrid).toContain('data-columns={columns}');
+    expect(sectionsExt).toContain(".domains:where([data-columns='3'])");
+    expect(sectionsExt).toContain('max-width: 900px');
+    expect(sectionsExt).toContain('margin: 0 auto');
   });
 });
