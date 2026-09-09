@@ -69,6 +69,10 @@ export default async function HomePage() {
     }
     return row;
   });
+  const homepageCta = {
+    ...home.cta,
+    title: '与智瞳安宇一起 构建可信智能未来',
+  };
 
   return (
     <>
@@ -135,7 +139,7 @@ export default async function HomePage() {
       </section>
 
       {/* 私有化与一体机暂不在首页展示；SustainBlock 与 home.sustain 数据保留，后续可直接恢复。 */}
-      <CtaBand cta={home.cta} surface="white" />
+      <CtaBand cta={homepageCta} surface="white" />
     </>
   );
 }
