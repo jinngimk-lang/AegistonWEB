@@ -13,6 +13,7 @@ describe('AegisClaw detail display labels', () => {
   it('uses AegisClaw throughout the inkclaw detail view without changing its route slug', () => {
     expect(detailPage).toContain("inkclaw: 'AegisClaw'");
     expect(detailPage).toContain("if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');");
+    expect(detailPage).toContain('JSON.stringify(product).replaceAll(product.nameEn, displayName)');
     expect(detailPage).toContain("slug === 'inkclaw' ? product.tierLabel");
     expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayName)');
     expect(detailPage).toContain('title={`${displayName} ${product.nameCn}`}');
