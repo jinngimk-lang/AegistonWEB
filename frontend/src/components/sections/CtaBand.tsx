@@ -9,9 +9,18 @@
 import { ButtonLink } from '@/components/ui/Button';
 import type { CtaBlock } from '@/types/content';
 
-export function CtaBand({ cta }: { cta: CtaBlock }) {
+type CtaBandProps = {
+  cta: CtaBlock;
+  surface?: 'default' | 'white';
+};
+
+export function CtaBand({ cta, surface = 'default' }: CtaBandProps) {
   return (
-    <section className="cta-band" aria-labelledby="cta-title">
+    <section
+      className="cta-band"
+      aria-labelledby="cta-title"
+      style={surface === 'white' ? { background: 'var(--white)' } : undefined}
+    >
       <div className="cta-inner">
         <h2 id="cta-title">{cta.title}</h2>
         {cta.description ? <p>{cta.description}</p> : null}
