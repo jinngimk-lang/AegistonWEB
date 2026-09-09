@@ -13,8 +13,10 @@ function read(relativePath: string): string {
 }
 
 const layout = read('app/layout.tsx');
+const homePage = read('app/page.tsx');
 const header = read('components/layout/SiteHeader.tsx');
 const hero = read('components/sections/Hero.tsx');
+const ctaBand = read('components/sections/CtaBand.tsx');
 
 describe('header language placement and home hero cleanup', () => {
   it('does not render the legacy utility bar globally', () => {
@@ -45,5 +47,13 @@ describe('header language placement and home hero cleanup', () => {
     expect(hero).toContain('<h1 id="hero-title">');
     expect(hero).toContain('{hero.titleLead}');
     expect(hero).toContain('{hero.subtitle}');
+  });
+
+  it('keeps private deployment reusable but hides it from the homepage and uses a white CTA surface', () => {
+    expect(homePage).not.toContain("components/sections/SustainBlock");
+    expect(homePage).not.toContain('<SustainBlock');
+    expect(homePage).toContain('<CtaBand cta={home.cta} surface="white" />');
+    expect(ctaBand).toContain("surface?: 'default' | 'white'");
+    expect(ctaBand).toContain("background: 'var(--white)'");
   });
 });
