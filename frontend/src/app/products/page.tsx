@@ -18,6 +18,12 @@ import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 600;
 
+const PRODUCT_DISPLAY_NAMES: Record<string, string> = {
+  aragonteam: 'AegisTeam',
+  inkclaw: 'AegisClaw',
+  legallens: 'AegisLens',
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getProducts();
   return pageMetadata({
@@ -47,83 +53,87 @@ export default async function ProductsPage() {
 
       <section className="section" aria-label="三层产品">
         <div className="container">
-          {data.products.map((product, index) => (
-            <div className="solution" key={product.slug} id={product.slug}>
-              <Reveal className="solution-body">
-                <div className="tag-line">
-                  <span className="solution-code">
-                    {product.tierLabel} · 0{index + 1}
-                  </span>
-                  <span className="solution-category">{product.audience}</span>
-                </div>
-                <h2>{product.nameEn}</h2>
-                <span className="solution-en">{product.nameCn}</span>
-                <p className="solution-desc">{product.positioning}</p>
-                <div className="solution-points">
-                  {product.capabilities.slice(0, 4).map((capability) => (
-                    <div className="solution-point" key={capability}>
-                      <svg
-                        className="check"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        aria-hidden="true"
-                      >
-                        <path d="M3 9 L7 13 L15 5" />
-                      </svg>
-                      <span>{capability}</span>
-                    </div>
-                  ))}
-                </div>
-                <dl className="deflist" style={{ marginBottom: 28 }}>
-                  <dt>关键差异</dt>
-                  <dd>{product.differentiator}</dd>
-                  <dt>客户价值</dt>
-                  <dd>{product.customerValue}</dd>
-                  <dt>交付形态</dt>
-                  <dd>{product.delivery}</dd>
-                </dl>
-                <div className="solution-actions">
-                  <Link href={product.href} className="btn btn-primary btn-compact">
-                    查看产品详情
-                    <span className="arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </Link>
-                  <Link href={`${ROUTES.contact}?intent=demo&product=${product.slug}`} className="btn-text">
-                    预约演示 <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-                <SourceNote slides={product.sourceSlides} />
-              </Reveal>
+          {data.products.map((product, index) => {
+            const displayName = PRODUCT_DISPLAY_NAMES[product.slug] ?? product.nameEn;
 
-              <Reveal className="solution-visual" delay={1}>
-                {product.slug === 'aragonteam' || product.slug === 'inkclaw' || product.slug === 'legallens' ? (
-                  <Image
-                    src={
-                      product.slug === 'aragonteam'
-                        ? '/media/product-originals/aragonteam-original.png'
-                        : product.slug === 'inkclaw'
-                          ? '/media/product-originals/inkclaw-original.png'
-                          : '/media/product-originals/legallens-original.png'
-                    }
-                    alt=""
-                    role="presentation"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 50vw"
-                    placeholder="empty"
-                    style={{ objectFit: 'cover' }}
-                  />
-                ) : (
-                  <MediaFill asset={media.get(product.heroMedia)} />
-                )}
-                <span className="vlabel">
-                  {product.nameEn.toUpperCase()} / {product.tierLabel}
-                </span>
-              </Reveal>
-            </div>
-          ))}
+            return (
+              <div className="solution" key={product.slug} id={product.slug}>
+                <Reveal className="solution-body">
+                  <div className="tag-line">
+                    <span className="solution-code">
+                      {product.tierLabel} · 0{index + 1}
+                    </span>
+                    <span className="solution-category">{product.audience}</span>
+                  </div>
+                  <h2>{displayName}</h2>
+                  <span className="solution-en">{product.nameCn}</span>
+                  <p className="solution-desc">{product.positioning}</p>
+                  <div className="solution-points">
+                    {product.capabilities.slice(0, 4).map((capability) => (
+                      <div className="solution-point" key={capability}>
+                        <svg
+                          className="check"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          aria-hidden="true"
+                        >
+                          <path d="M3 9 L7 13 L15 5" />
+                        </svg>
+                        <span>{capability}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <dl className="deflist" style={{ marginBottom: 28 }}>
+                    <dt>关键差异</dt>
+                    <dd>{product.differentiator}</dd>
+                    <dt>客户价值</dt>
+                    <dd>{product.customerValue}</dd>
+                    <dt>交付形态</dt>
+                    <dd>{product.delivery}</dd>
+                  </dl>
+                  <div className="solution-actions">
+                    <Link href={product.href} className="btn btn-primary btn-compact">
+                      查看产品详情
+                      <span className="arrow" aria-hidden="true">
+                        →
+                      </span>
+                    </Link>
+                    <Link href={`${ROUTES.contact}?intent=demo&product=${product.slug}`} className="btn-text">
+                      预约演示 <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                  <SourceNote slides={product.sourceSlides} />
+                </Reveal>
+
+                <Reveal className="solution-visual" delay={1}>
+                  {product.slug === 'aragonteam' || product.slug === 'inkclaw' || product.slug === 'legallens' ? (
+                    <Image
+                      src={
+                        product.slug === 'aragonteam'
+                          ? '/media/product-originals/aragonteam-original.png'
+                          : product.slug === 'inkclaw'
+                            ? '/media/product-originals/inkclaw-original.png'
+                            : '/media/product-originals/legallens-original.png'
+                      }
+                      alt=""
+                      role="presentation"
+                      fill
+                      sizes="(max-width: 900px) 100vw, 50vw"
+                      placeholder="empty"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <MediaFill asset={media.get(product.heroMedia)} />
+                  )}
+                  <span className="vlabel">
+                    {displayName.toUpperCase()} / {product.tierLabel}
+                  </span>
+                </Reveal>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -145,7 +155,7 @@ export default async function ProductsPage() {
               matrix={data.capabilityMatrix}
               productNames={data.products.map((product) => ({
                 slug: product.slug,
-                name: product.nameEn,
+                name: PRODUCT_DISPLAY_NAMES[product.slug] ?? product.nameEn,
                 tierLabel: product.tierLabel,
               }))}
             />
