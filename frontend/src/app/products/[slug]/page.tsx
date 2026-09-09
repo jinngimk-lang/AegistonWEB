@@ -24,6 +24,7 @@ export const revalidate = 600;
 const PRODUCT_DISPLAY_NAMES: Partial<Record<ProductSlug, string>> = {
   aragonteam: 'AegisTeam',
   inkclaw: 'AegisClaw',
+  legallens: 'AegisLens',
 };
 
 function productDisplayName(slug: ProductSlug, fallback: string): string {
@@ -33,6 +34,11 @@ function productDisplayName(slug: ProductSlug, fallback: string): string {
 function productDisplayText(slug: ProductSlug, value: string): string {
   if (slug === 'aragonteam') return value.replaceAll('AragonTeam', 'AegisTeam');
   if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');
+  if (slug === 'legallens') {
+    return value
+      .replaceAll('LegalLens 合约智审', 'AegisLens 合约智审')
+      .replaceAll('LegalLens', 'AegisLens 合约智审');
+  }
   return value;
 }
 
@@ -86,6 +92,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   ]);
   const product = productForDisplay(slug, sourceProduct);
   const displayName = product.nameEn;
+  const displayLabel = slug === 'legallens' ? `${displayName} ${product.nameCn}` : displayName;
   const displayProduct = product;
 
   const assets: Record<string, MediaAsset> = {};
@@ -98,12 +105,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   const pillars = research.pillars
     .filter((p) => product.pillars.includes(p.id))
-    .map((pillar) =>
-      slug === 'aragonteam' || slug === 'inkclaw'
-        ? { ...pillar, productLabel: productDisplayText(slug, pillar.productLabel) }
-        : pillar,
-    );
-  const crumbs = crumbsFromPath(ROUTES.productDetail(slug), displayName);
+    .map((pillar) => ({
+      ...pillar,
+      productLabel: productDisplayText(slug, pillar.productLabel),
+    }));
+  const crumbs = crumbsFromPath(ROUTES.productDetail(slug), displayLabel);
 
   return (
     <>
@@ -115,13 +121,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       />
 
       <PageHero
-        eyebrow={
-          slug === 'aragonteam'
-            ? product.tierLabel
-            : slug === 'inkclaw'
-              ? product.tierLabel
-              : `${product.tierLabel} · ${product.code}`
-        }
+        eyebrow={product.tierLabel}
         title={`${displayName} ${product.nameCn}`}
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
@@ -290,7 +290,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <ScreenGallery
               sections={product.screens}
               assets={assets}
-              vlabelPrefix={displayName.toUpperCase()}
+              vlabelPrefix={displayLabel.toUpperCase()}
             />
           </div>
         </section>
