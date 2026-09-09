@@ -21,6 +21,18 @@ import type { MediaAsset } from '@/types/content';
 
 export const revalidate = 600;
 
+const PRODUCT_DISPLAY_NAMES: Partial<Record<ProductSlug, string>> = {
+  aragonteam: 'AegisTeam',
+};
+
+function productDisplayName(slug: ProductSlug, fallback: string): string {
+  return PRODUCT_DISPLAY_NAMES[slug] ?? fallback;
+}
+
+function productDisplayText(slug: ProductSlug, value: string): string {
+  return slug === 'aragonteam' ? value.replaceAll('AragonTeam', 'AegisTeam') : value;
+}
+
 /**
  * ⚠️ 只展开三个产品 slug。`/products/deployment` 是**静态路由**，在
  * `src/app/products/deployment/page.tsx`，绝不能混进这里当第四个 slug
@@ -42,8 +54,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   if (!isProductSlug(slug)) return {};
   const product = await getProduct(slug);
+  const displayName = productDisplayName(slug, product.nameEn);
   return pageMetadata({
-    title: `${product.nameEn} · ${product.nameCn}`,
+    title: `${displayName} · ${product.nameCn}`,
     description: product.positioning,
     path: ROUTES.productDetail(slug),
   });
@@ -59,25 +72,38 @@ export default async function ProductDetailPage({ params }: PageProps) {
     getMediaLookup(),
     getResearch(),
   ]);
+  const displayName = productDisplayName(slug, product.nameEn);
+  const displayProduct = displayName === product.nameEn ? product : { ...product, nameEn: displayName };
 
   const assets: Record<string, MediaAsset> = {};
-  for (const asset of manifest.assets) assets[asset.id] = asset;
+  for (const asset of manifest.assets) {
+    const alt = productDisplayText(slug, asset.alt);
+    const caption = asset.caption ? productDisplayText(slug, asset.caption) : asset.caption;
+    assets[asset.id] =
+      alt === asset.alt && caption === asset.caption ? asset : { ...asset, alt, caption };
+  }
 
-  const pillars = research.pillars.filter((p) => product.pillars.includes(p.id));
-  const crumbs = crumbsFromPath(ROUTES.productDetail(slug));
+  const pillars = research.pillars
+    .filter((p) => product.pillars.includes(p.id))
+    .map((pillar) =>
+      slug === 'aragonteam'
+        ? { ...pillar, productLabel: productDisplayText(slug, pillar.productLabel) }
+        : pillar,
+    );
+  const crumbs = crumbsFromPath(ROUTES.productDetail(slug), displayName);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([productJsonLd(product), breadcrumbJsonLd(crumbs)]),
+          __html: JSON.stringify([productJsonLd(displayProduct), breadcrumbJsonLd(crumbs)]),
         }}
       />
 
       <PageHero
-        eyebrow={`${product.tierLabel} · ${product.code}`}
-        title={`${product.nameEn} ${product.nameCn}`}
+        eyebrow={slug === 'aragonteam' ? product.tierLabel : `${product.tierLabel} · ${product.code}`}
+        title={`${displayName} ${product.nameCn}`}
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
         meta={[
@@ -245,7 +271,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <ScreenGallery
               sections={product.screens}
               assets={assets}
-              vlabelPrefix={product.nameEn.toUpperCase()}
+              vlabelPrefix={displayName.toUpperCase()}
             />
           </div>
         </section>
