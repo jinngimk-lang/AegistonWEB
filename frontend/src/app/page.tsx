@@ -39,13 +39,11 @@ export default async function HomePage() {
         <div className="container">
           <SectionHead
             label={home.domainsEyebrow}
-            titleLead={home.domainsTitleLead}
-            titleEm={home.domainsTitleEm}
+            titleLead={home.domainsTitleEm}
             description={home.domainsDesc}
             more={{ label: home.domainsMore.label, href: home.domainsMore.href }}
           />
           <span id="domains-title" className="visually-hidden">
-            {home.domainsTitleLead}
             {home.domainsTitleEm}
           </span>
           <DomainGrid domains={home.domains} media={media} />
