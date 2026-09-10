@@ -19,6 +19,7 @@ export const revalidate = 600;
 const SOLUTIONS_HERO_TITLE = '合作伙伴与企业落地';
 const SOLUTIONS_HERO_DESCRIPTION =
   '我们围绕企业智能化落地，逐步形成可复制的实施路径：以平台、智能体与行业能力为底座，灵活适配不同业务场景与部署环境。项目经验持续沉淀为知识、流程与行业能力，让每一次落地都成为下一次拓展与升级的基础。';
+const SOLUTIONS_PARTNER_NAME = '某通信服务行业大型央企';
 
 export async function generateMetadata(): Promise<Metadata> {
   await getSolutions();
@@ -62,7 +63,7 @@ export default async function SolutionsPage() {
                   marginBottom: 12,
                 }}
               >
-                {data.partnerName}
+                {SOLUTIONS_PARTNER_NAME}
               </p>
               <p className="section-desc" style={{ marginTop: 0, maxWidth: 'none' }}>
                 {data.partnerDesc}
@@ -77,9 +78,7 @@ export default async function SolutionsPage() {
           <Reveal className="solutions-intro">
             <div className="section-label">CASES</div>
             <h2 className="section-title" id="cases-title">
-              四个行业的
-              <br />
-              <span className="em">落地客户</span>
+              典型客户案例
             </h2>
           </Reveal>
 
