@@ -21,4 +21,11 @@ describe('solutions overview hero copy', () => {
     expect(solutionsPage).toContain('title={SOLUTIONS_HERO_TITLE}');
     expect(solutionsPage).toContain('subtitle={SOLUTIONS_HERO_DESCRIPTION}');
   });
+
+  it('uses anonymized partner and future-proof customer case labels', () => {
+    expect(solutionsPage).toContain("const SOLUTIONS_PARTNER_NAME = '某通信服务行业大型央企';");
+    expect(solutionsPage).toContain('{SOLUTIONS_PARTNER_NAME}');
+    expect(solutionsPage).toContain('典型客户案例');
+    expect(solutionsPage).not.toContain('<span className="em">落地客户</span>');
+  });
 });
