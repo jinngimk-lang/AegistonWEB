@@ -54,4 +54,9 @@ describe('deployment delivery layout', () => {
     expect(deploymentPage).toContain("transform: 'scale(1.2)'");
     expect(deploymentPage).toContain("transformOrigin: 'left center'");
   });
+
+  it('renames the third delivery form and adds public/private cloud deployment copy', () => {
+    expect(deploymentPage).toContain("index === 2 ? '云部署服务' : form.name");
+    expect(deploymentPage).toContain('支持公有云与私有云部署，按需适配企业网络与合规边界。');
+  });
 });
