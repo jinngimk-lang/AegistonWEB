@@ -17,6 +17,13 @@ export const dynamic = 'force-dynamic';
 const DESCRIPTION =
   '无论您关注的是研发流程的人机协同、通用智能体的安全边界，还是合同链条上的风险穿透，我们都欢迎带着真实问题的对话。';
 
+const CONTACT_BLOCK_HEADING_STYLE = {
+  fontSize: 15,
+  fontWeight: 700,
+  color: 'var(--navy)',
+  marginBottom: 12,
+} as const;
+
 export const metadata: Metadata = pageMetadata({
   title: '联系我们',
   description: DESCRIPTION,
@@ -57,7 +64,7 @@ export default async function ContactPage() {
 
             <Reveal delay={1} className="contact-aside">
               <div className="contact-block">
-                <h3>商务咨询</h3>
+                <h3 style={CONTACT_BLOCK_HEADING_STYLE}>商务咨询</h3>
                 <p>
                   <a href={`mailto:${contact.businessEmail}`}>{contact.businessEmail}</a>
                 </p>
@@ -70,7 +77,7 @@ export default async function ContactPage() {
               </div>
 
               <div className="contact-block">
-                <h3>加入我们</h3>
+                <h3 style={CONTACT_BLOCK_HEADING_STYLE}>加入我们</h3>
                 <p>
                   简历请发送至{' '}
                   <a href={`mailto:${contact.careersEmail}`}>{contact.careersEmail}</a>，
@@ -79,13 +86,13 @@ export default async function ContactPage() {
               </div>
 
               <div className="contact-block">
-                <h3>公司信息</h3>
+                <h3 style={CONTACT_BLOCK_HEADING_STYLE}>公司信息</h3>
                 <p>{settings.legalName}</p>
                 {contact.address ? <p>{contact.address}</p> : null}
               </div>
 
               <div className="contact-block">
-                <h3>关于您的信息</h3>
+                <h3 style={CONTACT_BLOCK_HEADING_STYLE}>关于您的信息</h3>
                 <p>
                   我们只将您提交的信息用于本次商务联系；服务端不存储明文 IP，手机号与邮箱在日志与管理界面中一律脱敏。详见
                   {' '}
@@ -95,7 +102,7 @@ export default async function ContactPage() {
 
               {settings.pendingConfirmation.length > 0 ? (
                 <div className="contact-block">
-                  <h3>信息更新说明</h3>
+                  <h3 style={CONTACT_BLOCK_HEADING_STYLE}>信息更新说明</h3>
                   <p>
                     本站部分联系方式与备案信息正在与客户确认中，最终以客户提供的正式信息为准。
                   </p>
