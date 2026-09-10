@@ -35,6 +35,8 @@ const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/legallens': 'AegisLens 合约智审',
 };
 
+const HIDDEN_ABOUT_HEADER_HREFS = new Set(['/about/positioning', '/about/strength']);
+
 interface Props {
   navigation: Navigation;
   brandCn: string;
@@ -46,6 +48,7 @@ interface Props {
 /**
  * 只调整 Header 的展示层导航：把「关于我们」移到一级导航末尾，
  * 并把原一级「加入我们」收进「关于我们」下拉菜单末尾。
+ * 「公司定位与三层底座」「科研实力与知识产权」只从 Header 隐藏，页面与路由保留。
  * 「技术与研究」在所有页面的 Header 中隐藏，但页面、路由与内容本身保留可达。
  * 三个产品入口只替换显示名，href 与内容数据保持不变。
  * 数据源、页脚、站点地图与 `/careers` 页面本身均保持不变。
@@ -57,7 +60,16 @@ function navigationForHeader(navigation: Navigation): Navigation {
   if (!about || !careers || !careers.href) {
     return {
       ...navigation,
-      main: navigation.main.filter((group) => group.label !== '技术与研究'),
+      main: navigation.main
+        .filter((group) => group.label !== '技术与研究')
+        .map((group) =>
+          group.label === '关于我们'
+            ? {
+                ...group,
+                items: group.items.filter((item) => !HIDDEN_ABOUT_HEADER_HREFS.has(item.href)),
+              }
+            : group,
+        ),
     };
   }
 
@@ -68,7 +80,7 @@ function navigationForHeader(navigation: Navigation): Navigation {
 
   const aboutWithCareers = {
     ...about,
-    items: [...about.items.filter((item) => item.href !== careersItem.href), careersItem],
+    items: [...about.items.filter((item) => item.href !== careersItem.href && !HIDDEN_ABOUT_HEADER_HREFS.has(item.href)), careersItem],
   };
 
   const otherGroups = navigation.main.filter(
