@@ -30,6 +30,8 @@ const DEPLOYMENT_HERO_MEDIA_STYLE = {
   transformOrigin: 'left center',
 } satisfies CSSProperties;
 
+const CLOUD_DEPLOYMENT_POINT = '支持公有云与私有云部署，按需适配企业网络与合规边界。';
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDeployment();
   return pageMetadata({
@@ -84,6 +86,8 @@ export default async function DeploymentPage() {
 
           {data.forms.map((form, index) => {
             const deliveryMedia = DELIVERY_MEDIA[index];
+            const displayName = index === 2 ? '云部署服务' : form.name;
+            const displayPoints = index === 2 ? [...form.points, CLOUD_DEPLOYMENT_POINT] : form.points;
 
             return (
               <div className="solution" key={form.index}>
@@ -92,9 +96,9 @@ export default async function DeploymentPage() {
                     <span className="solution-code">形态 {form.index}</span>
                     <span className="solution-category">{form.fit}</span>
                   </div>
-                  <h3>{form.name}</h3>
+                  <h3>{displayName}</h3>
                   <ul className="pillar-params" style={{ marginTop: 20, marginBottom: 28 }}>
-                    {form.points.map((point) => (
+                    {displayPoints.map((point) => (
                       <li key={point}>{point}</li>
                     ))}
                   </ul>
