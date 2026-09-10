@@ -112,6 +112,40 @@ export default async function SolutionDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
+      {slug === 'legal-services' ? (
+        <section className="section" aria-label="法律服务架构" style={{ paddingBottom: 0 }}>
+          <div className="container">
+            <Reveal>
+              <Image
+                src="/media/solutions/legal-architecture.png"
+                alt="法律服务行业解决方案架构"
+                width={1600}
+                height={900}
+                sizes="(max-width: 900px) 100vw, 1200px"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      {slug === 'finance' ? (
+        <section className="section" aria-label="金融与强监管架构" style={{ paddingBottom: 0 }}>
+          <div className="container">
+            <Reveal>
+              <Image
+                src="/media/solutions/finance-architecture.png"
+                alt="金融与强监管行业解决方案架构"
+                width={1600}
+                height={900}
+                sizes="(max-width: 900px) 100vw, 1200px"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
       <section className="section" aria-labelledby="detail-title">
         <div className="container">
           <Reveal>
