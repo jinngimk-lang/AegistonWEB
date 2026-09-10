@@ -3,7 +3,8 @@ import { expect, test } from '@playwright/test';
 import { laidOut } from './helpers/layout';
 
 /**
- * G4：使用 PPT 中的**真实软件截图**（≥ 45 张入站）+ §10.2 灯箱交互。
+ * G4：使用 PPT 中的真实软件截图（≥ 45 张入站）+ §10.2 灯箱交互。
+ * sourceSlide 元数据保留在内容层，不作为访客页面文案展示。
  */
 
 test.describe('真实产品截图', () => {
@@ -18,12 +19,12 @@ test.describe('真实产品截图', () => {
     expect(total).toBeGreaterThanOrEqual(45);
   });
 
-  test('截图带图注、来源页码与 vlabel 标签', async ({ page }) => {
+  test('截图带图注与 vlabel 标签，但不展示内部 PPT 页码', async ({ page }) => {
     await page.goto('/products/aragonteam');
     const figure = page.locator('.screen-figure').first();
     await expect(figure.locator('figcaption')).not.toBeEmpty();
     await expect(figure.locator('.vlabel')).toBeVisible();
-    await expect(page.locator('.screen-source').first()).toContainText('PPT p.');
+    await expect(page.locator('.screen-source')).toHaveCount(0);
   });
 
   test('alt 描述界面内容而不是「截图」', async ({ page }) => {
@@ -84,11 +85,14 @@ test.describe('灯箱', () => {
     await expect(dialog).toBeHidden();
   });
 
-  test('灯箱显示图注与来源页码', async ({ page }) => {
+  test('灯箱显示图注，但不展示内部 PPT 页码', async ({ page }) => {
     await page.goto('/products/legallens');
-    await page.locator('.screen-frame').first().click();
+    const firstFigure = page.locator('.screen-figure').first();
+    const caption = (await firstFigure.locator('figcaption').textContent())?.trim() ?? '';
+    await firstFigure.locator('.screen-frame').click();
     const dialog = page.getByRole('dialog', { name: '截图预览' });
-    await expect(dialog).toContainText('PPT p.');
+    await expect(dialog).toContainText(caption);
+    await expect(dialog).not.toContainText(/PPT p\.\d+/);
     await page.keyboard.press('Escape');
   });
 });
