@@ -53,6 +53,14 @@ describe('header language placement and home hero cleanup', () => {
     expect(header).toContain('navigation={displayNavigation}');
   });
 
+  it('hides positioning and research strength from the about header menu on desktop and mobile', () => {
+    expect(header).toContain("'/about/positioning'");
+    expect(header).toContain("'/about/strength'");
+    expect(header).toContain('!HIDDEN_ABOUT_HEADER_HREFS.has(item.href)');
+    expect(header).toContain('{displayNavigation.main.map');
+    expect(header).toContain('navigation={displayNavigation}');
+  });
+
   it('hides research from the header on every page', () => {
     expect(header).toContain("group.label !== '技术与研究'");
     expect(header).toContain('navigationForHeader(navigation)');
