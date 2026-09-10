@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -17,6 +18,8 @@ import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 
+const TELECOM_CUSTOMER_NAME = '某通信服务行业大型央企';
+
 export function generateStaticParams() {
   return SOLUTION_SLUGS.map((slug) => ({ slug }));
 }
@@ -33,8 +36,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   if (!isSolutionSlug(slug)) return {};
   const data = await getSolution(slug);
+  const displayCustomer = slug === 'telecom' ? TELECOM_CUSTOMER_NAME : data.customer;
   return pageMetadata({
-    title: `${data.industry} · ${data.customer}`,
+    title: `${data.industry} · ${displayCustomer}`,
     description: data.lead,
     path: ROUTES.solutionDetail(slug),
   });
@@ -46,6 +50,7 @@ export default async function SolutionDetailPage({ params }: PageProps) {
 
   const [data, media] = await Promise.all([getSolution(slug), getMediaLookup()]);
   const crumbs = crumbsFromPath(ROUTES.solutionDetail(slug));
+  const displayCustomer = slug === 'telecom' ? TELECOM_CUSTOMER_NAME : data.customer;
 
   return (
     <>
@@ -55,7 +60,7 @@ export default async function SolutionDetailPage({ params }: PageProps) {
       />
       <PageHero
         eyebrow={data.eyebrow}
-        title={data.customer}
+        title={displayCustomer}
         subtitle={data.lead}
         media={media.get(data.heroMedia)}
         meta={[
@@ -69,6 +74,23 @@ export default async function SolutionDetailPage({ params }: PageProps) {
         <section className="section" aria-label="效能指标" style={{ paddingBottom: 0 }}>
           <div className="container">
             <CaseMetrics metrics={data.metrics} />
+          </div>
+        </section>
+      ) : null}
+
+      {slug === 'telecom' ? (
+        <section className="section" aria-label="通信服务架构" style={{ paddingBottom: 0 }}>
+          <div className="container">
+            <Reveal>
+              <Image
+                src="/media/solutions/telecom-architecture.png"
+                alt="通信服务行业解决方案架构"
+                width={1600}
+                height={900}
+                sizes="(max-width: 900px) 100vw, 1200px"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </Reveal>
           </div>
         </section>
       ) : null}
