@@ -39,4 +39,12 @@ describe('about page display copy', () => {
     expect(aboutPage).toContain("note: '人工智能/网络安全/软件工程/国际顶会'");
     expect(aboutPage).toContain('<MetricBand metrics={ABOUT_METRICS} />');
   });
+
+  it('keeps only the research team card in the more-about section and removes the ranking disclaimer', () => {
+    expect(aboutPage).toContain('href: ROUTES.aboutTeam');
+    expect(aboutPage).not.toContain('href: ROUTES.aboutPositioning');
+    expect(aboutPage).not.toContain('href: ROUTES.aboutStrength');
+    expect(aboutPage).not.toContain('页面中的「网络空间安全学科全国顶尖」');
+    expect(aboutPage).not.toContain('Callout tone="neutral"');
+  });
 });
