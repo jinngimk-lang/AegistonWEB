@@ -22,6 +22,20 @@ test.describe('洞察目录', () => {
     expect(await links.count()).toBe(headings * 2);
   });
 
+  test('窄屏折叠目录位于正文之前', async ({ page, isMobile }) => {
+    test.skip(!isMobile, '仅窄屏');
+    await page.goto(POST);
+
+    const nav = await laidOut(page.getByRole('navigation', { name: '本文目录' }), '本文目录');
+    const article = await laidOut(page.locator('article.article'), '正文');
+    const [navTop, articleTop] = await Promise.all([
+      nav.evaluate((el) => el.getBoundingClientRect().top),
+      article.evaluate((el) => el.getBoundingClientRect().top),
+    ]);
+
+    expect(navTop, '窄屏目录不应落到整篇正文之后').toBeLessThan(articleTop);
+  });
+
   test('每个锚点在正文里都能找到对应标题（bleach 白名单没吃掉 id）', async ({ page }) => {
     await page.goto(POST);
     const anchors = await page
@@ -45,8 +59,14 @@ test.describe('洞察目录', () => {
     await expect(page).toHaveURL(new RegExp(`${href?.replace('#', '\\#')}$`));
 
     const heading = await laidOut(page.locator(`.prose ${href}`), `正文标题 ${href}`);
-    const top = await heading.evaluate((el) => el.getBoundingClientRect().top);
-    expect(top).toBeGreaterThanOrEqual(80);
+    // 站点启用了 smooth scroll；hash 会立即更新，但滚动需要时间落定。
+    // 最终标题应停在 sticky 顶栏（80px）+ 24px scroll-margin 附近。
+    await expect
+      .poll(async () => {
+        const top = await heading.evaluate((el) => el.getBoundingClientRect().top);
+        return top >= 80 && top <= 160;
+      })
+      .toBe(true);
   });
 
   test('scrollspy：滚到第 3 节后第 3 个目录项标记为当前位置', async ({ page, isMobile }) => {
