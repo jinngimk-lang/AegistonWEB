@@ -13,6 +13,7 @@ import { breadcrumbJsonLd } from '@/lib/jsonld';
 import { getMediaLookup } from '@/lib/media';
 import { ROUTES } from '@/lib/routes';
 import { pageMetadata } from '@/lib/seo';
+import type { HomeMetric } from '@/types/content';
 
 export const revalidate = 3600;
 
@@ -40,6 +41,37 @@ const ABOUT_FACT_OVERRIDES: Record<string, string> = {
   '企业性质': '西安智瞳安宇科技有限公司是一家由高校教授团队为推进科技成果转化而创立的高科技企业。',
   '科研依托': '公司依托西安电子科技大学雄厚的科研实力（网络空间安全学科连续四年排名全国第一，人工智能排名全国前三）',
 };
+
+const ABOUT_METRICS: HomeMetric[] = [
+  {
+    value: '20+',
+    unit: '名',
+    label: '博士 · 硕士研发队伍',
+    note: '由西安电子科技大学的博士与硕士研究生组成',
+    source: 'PPT p.91 / p.93',
+  },
+  {
+    value: '30+',
+    unit: '项',
+    label: '自主知识产权核心技术',
+    note: '公司已形成的自主知识产权核心技术数量',
+    source: 'PPT p.93',
+  },
+  {
+    value: '全国顶尖',
+    unit: null,
+    label: '公司依托西安电子科技大学雄厚的科研实力',
+    note: '网络空间安全学科连续四年排名全国第一 人工智能排名全国前三',
+    source: 'PPT p.93',
+  },
+  {
+    value: '30+',
+    unit: '篇',
+    label: '国际顶会论文',
+    note: '人工智能/网络安全/软件工程/国际顶会',
+    source: 'PPT p.42 / p.85',
+  },
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getAbout();
@@ -92,7 +124,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <MetricBand metrics={data.metrics} />
+      <MetricBand metrics={ABOUT_METRICS} />
 
       <section className="section section-gray" aria-labelledby="quicklinks-title">
         <div className="container">
