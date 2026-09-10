@@ -11,9 +11,9 @@ const responsive = readFileSync(path.join(STYLES_DIR, 'responsive.css'), 'utf8')
 const sections = readFileSync(path.join(STYLES_DIR, 'sections.css'), 'utf8');
 
 describe('homepage three-card domain layout', () => {
-  it('widens only the three-column homepage grid to 1200px', () => {
+  it('widens only the three-column homepage grid to a 1200px maximum', () => {
     expect(responsive).toMatch(
-      /\.domains:where\(\[data-columns='3'\]\)\s*\{[^}]*max-width:\s*1200px/,
+      /\.domains:where\(\[data-columns='3'\]\)\s*\{[^}]*max-width:\s*min\(1200px,\s*100%\)/,
     );
   });
 
