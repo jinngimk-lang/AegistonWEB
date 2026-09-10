@@ -13,7 +13,7 @@
    :where() 不增加选择器权重，让下面既有 1024 / 640 断点继续自然覆盖列数。 */
 .domains:where([data-columns='3']) {
   grid-template-columns: repeat(3, 1fr);
-  max-width: 1200px;
+  max-width: min(1200px, 100%);
   margin: 0 auto;
 }
 .domains:where([data-columns='3']) .domain-photo {
