@@ -1,12 +1,10 @@
 import { expect, test } from '@playwright/test';
 
 /**
- * 产品能力矩阵（v3 spec §10.3 · M3）。
+ * 产品能力矩阵。
  *
- * 这组用例里最要紧的两条是**合规**而不是功能：
- *   - 表内不出现任何否定性图形（✗ / × / ❌）—— 同一家公司的产品分层是定位
- *     差异，不是优劣评价（决策 A-7）；
- *   - 每行的溯源页码**渲染在页面上**，不是只躺在 JSON 里（CLAUDE.md §4）。
+ * 对访客保留语义化表格、能力层级和移动端可滚动性；PPT sourceSlides 只保留在
+ * 内容层，不作为页面文案展示。
  */
 
 const THIRD_PARTY = ['OpenAI', 'ChatGPT', 'Claude', 'Gemini', 'Copilot', 'DeepSeek', '文心', '通义'];
@@ -17,9 +15,7 @@ test.describe('能力矩阵', () => {
     const table = page.locator('.capability-matrix table');
     await expect(table).toBeVisible();
 
-    // 屏幕阅读器的表格导航（按行列朗读）是这个组件唯一的价值所在，
-    // 所以必须是真表格而不是 div 网格
-    await expect(table.locator('thead th[scope="col"]')).toHaveCount(4); // 能力 + 三个产品
+    await expect(table.locator('thead th[scope="col"]')).toHaveCount(4);
     const rows = table.locator('tbody tr');
     const count = await rows.count();
     expect(count).toBeGreaterThanOrEqual(4);
@@ -33,7 +29,6 @@ test.describe('能力矩阵', () => {
     for (const glyph of ['✗', '×', '❌', '✘']) {
       expect(text, `矩阵里出现了否定性图形「${glyph}」`).not.toContain(glyph);
     }
-    // 未覆盖用「—」表示
     expect(text).toContain('—');
   });
 
@@ -44,15 +39,10 @@ test.describe('能力矩阵', () => {
     await expect(hidden.first()).toHaveText('未覆盖');
   });
 
-  test('每行的溯源页码渲染在页面上', async ({ page }) => {
+  test('内部 PPT 溯源元数据不作为访客页面文案展示', async ({ page }) => {
     await page.goto('/products');
-    const slides = page.locator('.capability-matrix .matrix-slides');
-    const rows = await page.locator('.capability-matrix tbody tr').count();
-    await expect(slides).toHaveCount(rows);
-    for (let i = 0; i < rows; i += 1) {
-      await expect(slides.nth(i)).toHaveText(/PPT p\.\d+/);
-    }
-    await expect(page.locator('.matrix-hint')).toBeVisible();
+    await expect(page.locator('.capability-matrix .matrix-slides')).toHaveCount(0);
+    await expect(page.locator('.capability-matrix')).not.toContainText(/PPT p\.\d+/);
   });
 
   test('只列本家三个产品，不含任何第三方主体', async ({ page }) => {
