@@ -9,7 +9,7 @@ test.describe('桌面导航', () => {
     await item.hover();
     const submenu = item.locator('.submenu');
     await expect(submenu).toBeVisible();
-    await submenu.getByRole('link', { name: 'AragonTeam' }).click();
+    await submenu.getByRole('link', { name: 'AegisTeam' }).click();
     await expect(page).toHaveURL(/\/products\/aragonteam$/);
   });
 
@@ -17,7 +17,7 @@ test.describe('桌面导航', () => {
     await page.goto('/');
     const trigger = page
       .locator('.nav-item')
-      .filter({ hasText: '技术与研究' })
+      .filter({ hasText: '产品与方案' })
       .locator('[data-nav-trigger]');
 
     await trigger.focus();
@@ -31,8 +31,13 @@ test.describe('桌面导航', () => {
   });
 
   test('当前路由高亮为 aria-current', async ({ page }) => {
-    await page.goto('/research');
+    await page.goto('/products');
     await expect(page.locator('.nav-item[data-current="true"]')).toHaveCount(1);
+  });
+
+  test('技术与研究不再出现在顶部导航', async ({ page }) => {
+    await page.goto('/research');
+    await expect(page.locator('.nav-menu').getByText('技术与研究', { exact: true })).toHaveCount(0);
   });
 
   test('跳过导航链接是第一个可聚焦元素', async ({ page }) => {
@@ -41,11 +46,6 @@ test.describe('桌面导航', () => {
     await expect(page.getByRole('link', { name: '跳到主要内容' })).toBeFocused();
   });
 
-  /**
-   * v3：`.nav-search` 从 `<Link href="/sitemap">` 还原成 ref/1.html:436 原本的
-   * `<button>`（v3 §9 / P1-3）。role 从 link 变成 button，本用例必然要同批改写。
-   * 同时补一条「网站地图的入口没有因为这次改动而丢失」。
-   */
   test('顶栏检索按钮唤起命令面板', async ({ page }) => {
     await page.goto('/');
     const trigger = page.locator('.nav-search');
@@ -82,8 +82,15 @@ test.describe('移动端导航', () => {
     await expect(drawer).toBeVisible();
 
     await drawer.getByText('产品与方案').click();
-    await drawer.getByRole('link', { name: /InkClaw/ }).first().click();
+    await drawer.getByRole('link', { name: /AegisClaw/ }).first().click();
     await expect(page).toHaveURL(/\/products\/inkclaw$/);
+  });
+
+  test('技术与研究不出现在移动端抽屉', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: '打开导航菜单' }).click();
+    const drawer = page.getByRole('dialog', { name: '导航菜单' });
+    await expect(drawer.getByText('技术与研究', { exact: true })).toHaveCount(0);
   });
 
   test('Esc 关闭抽屉', async ({ page }) => {
