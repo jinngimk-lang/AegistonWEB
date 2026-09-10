@@ -34,7 +34,9 @@ async function openSearch(page: Page, isMobile: boolean) {
     await page.getByRole('button', { name: '打开导航菜单' }).click();
     const drawer = page.getByRole('dialog', { name: '导航菜单' });
     await expect(drawer).toBeVisible();
-    await drawer.getByRole('button', { name: '站内检索' }).click();
+    // MobileNav 与桌面 SearchTrigger 的可访问名统一为 aria-label="搜索"；
+    // 「站内检索」只是移动端按钮里的可见辅助文案。
+    await drawer.getByRole('button', { name: '搜索' }).click();
     return;
   }
 
