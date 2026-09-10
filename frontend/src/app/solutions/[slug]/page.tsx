@@ -95,6 +95,23 @@ export default async function SolutionDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
+      {slug === 'transportation' ? (
+        <section className="section" aria-label="交通基建架构" style={{ paddingBottom: 0 }}>
+          <div className="container">
+            <Reveal>
+              <Image
+                src="/media/solutions/transportation-architecture.png"
+                alt="交通基建行业解决方案架构"
+                width={1600}
+                height={900}
+                sizes="(max-width: 900px) 100vw, 1200px"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
       <section className="section" aria-labelledby="detail-title">
         <div className="container">
           <Reveal>
