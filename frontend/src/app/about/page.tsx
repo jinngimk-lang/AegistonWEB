@@ -124,28 +124,46 @@ export default async function AboutPage() {
           </Reveal>
 
           <div className="about-more-layout">
-            <Reveal as="article" className="about-more-card card">
-              <Link href={TEAM_LINK.href} style={{ display: 'contents' }}>
-                <div className="card-body">
-                  <div className="card-eyebrow">ABOUT</div>
-                  <h3>{TEAM_LINK.title}</h3>
-                  <p>{TEAM_LINK.desc}</p>
-                  <span className="card-foot">
-                    了解详情 <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </Link>
-            </Reveal>
+            <div className="split">
+              <Reveal as="article" className="about-more-card card">
+                <Link href={TEAM_LINK.href} style={{ display: 'contents' }}>
+                  <div
+                    className="card-body"
+                    style={{ minHeight: 318, justifyContent: 'center', padding: '40px 44px' }}
+                  >
+                    <div className="card-eyebrow">ABOUT</div>
+                    <h3>{TEAM_LINK.title}</h3>
+                    <p>{TEAM_LINK.desc}</p>
+                    <span className="card-foot">
+                      了解详情 <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
 
-            <Reveal className="about-more-visual">
-              <Image
-                src="/media/about/aegiston.png"
-                alt="智瞳安宇研发团队办公场景"
-                fill
-                sizes="(max-width: 900px) 100vw, 53vw"
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-              />
-            </Reveal>
+              <Reveal>
+                <div
+                  className="about-more-visual"
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    aspectRatio: '16 / 9',
+                    minHeight: 260,
+                    overflow: 'hidden',
+                    border: '1px solid var(--border)',
+                    background: 'var(--white)',
+                  }}
+                >
+                  <Image
+                    src="/media/about/aegiston.png"
+                    alt="智瞳安宇研发团队办公场景"
+                    fill
+                    sizes="(max-width: 900px) 100vw, 50vw"
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  />
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
