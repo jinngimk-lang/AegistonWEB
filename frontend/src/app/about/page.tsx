@@ -34,6 +34,13 @@ const QUICK_LINKS = [
   },
 ];
 
+const ABOUT_INTRO = '西安智瞳安宇科技有限公司定位于「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品构成企业智能底座，为客户提供AI人机协同超级团队平台、安全通用智能体与行业垂直智能体的完整能力。';
+
+const ABOUT_FACT_OVERRIDES: Record<string, string> = {
+  '企业性质': '西安智瞳安宇科技有限公司是一家由高校教授团队为推进科技成果转化而创立的高科技企业。',
+  '科研依托': '公司依托西安电子科技大学雄厚的科研实力（网络空间安全学科连续四年排名全国第一，人工智能排名全国前三）',
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getAbout();
   return pageMetadata({ title: '公司简介', description: data.lead, path: ROUTES.about });
@@ -69,13 +76,13 @@ export default async function AboutPage() {
             </Reveal>
             <Reveal delay={1}>
               <p className="section-desc" style={{ marginTop: 0, maxWidth: 'none' }}>
-                {data.intro}
+                {ABOUT_INTRO}
               </p>
               <dl className="deflist" style={{ marginTop: 32 }}>
                 {data.facts.map((fact) => (
                   <div key={fact.label} style={{ display: 'contents' }}>
                     <dt>{fact.label}</dt>
-                    <dd>{fact.body}</dd>
+                    <dd>{ABOUT_FACT_OVERRIDES[fact.label] ?? fact.body}</dd>
                   </div>
                 ))}
               </dl>
