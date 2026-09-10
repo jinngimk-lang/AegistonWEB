@@ -34,14 +34,14 @@ test.describe('响应式断点', () => {
     await expect(page.getByRole('button', { name: '打开导航菜单' })).toBeVisible();
   });
 
-  test('900px：solution / values / news / sustain / footer 同时塌陷', async ({ page }) => {
+  test('900px：solution / values / news / footer 同时塌陷', async ({ page }) => {
     await page.setViewportSize({ width: 860, height: 900 });
     await page.goto('/');
     expect(await gridCols(page, '.solution')).toBe(1);
     expect(await gridCols(page, '.values')).toBe(1);
     expect(await gridCols(page, '.news-grid')).toBe(1);
-    expect(await gridCols(page, '.sustain')).toBe(1);
     expect(await gridCols(page, '.footer-main')).toBe(2);
+    await expect(page.locator('.sustain')).toHaveCount(0);
   });
 
   test('900px：偶数行 order 复位为 0，图文顺序不错乱', async ({ page }) => {
