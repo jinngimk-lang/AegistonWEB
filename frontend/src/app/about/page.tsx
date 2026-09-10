@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { CtaBand } from '@/components/sections/CtaBand';
@@ -16,13 +17,11 @@ import type { HomeMetric } from '@/types/content';
 
 export const revalidate = 3600;
 
-const QUICK_LINKS = [
-  {
-    href: ROUTES.aboutTeam,
-    title: '研发团队',
-    desc: '由西安电子科技大学的 20 多名博士与硕士研究生组成，创始人为该校教授、博导。',
-  },
-];
+const TEAM_LINK = {
+  href: ROUTES.aboutTeam,
+  title: '研发团队',
+  desc: '由西安电子科技大学的 20 多名博士与硕士研究生组成，创始人为该校教授、博导。',
+};
 
 const ABOUT_INTRO = '西安智瞳安宇科技有限公司定位于「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品构成企业智能底座，为客户提供AI人机协同超级团队平台、安全通用智能体与行业垂直智能体的完整能力。';
 
@@ -123,21 +122,30 @@ export default async function AboutPage() {
               更多关于我们
             </h2>
           </Reveal>
-          <div className="card-grid">
-            {QUICK_LINKS.map((item) => (
-              <Reveal key={item.href} as="article" className="card">
-                <Link href={item.href} style={{ display: 'contents' }}>
-                  <div className="card-body">
-                    <div className="card-eyebrow">ABOUT</div>
-                    <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
-                    <span className="card-foot">
-                      了解详情 <span aria-hidden="true">→</span>
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+
+          <div className="about-more-layout">
+            <Reveal as="article" className="about-more-card card">
+              <Link href={TEAM_LINK.href} style={{ display: 'contents' }}>
+                <div className="card-body">
+                  <div className="card-eyebrow">ABOUT</div>
+                  <h3>{TEAM_LINK.title}</h3>
+                  <p>{TEAM_LINK.desc}</p>
+                  <span className="card-foot">
+                    了解详情 <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+
+            <Reveal className="about-more-visual">
+              <Image
+                src="/media/about/aegiston.png"
+                alt="智瞳安宇研发团队办公场景"
+                fill
+                sizes="(max-width: 900px) 100vw, 53vw"
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              />
+            </Reveal>
           </div>
         </div>
       </section>
