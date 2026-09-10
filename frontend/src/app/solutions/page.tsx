@@ -16,9 +16,13 @@ import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 600;
 
+const SOLUTIONS_HERO_TITLE = '合作伙伴与企业落地';
+const SOLUTIONS_HERO_DESCRIPTION =
+  '我们围绕企业智能化落地，逐步形成可复制的实施路径：以平台、智能体与行业能力为底座，灵活适配不同业务场景与部署环境。项目经验持续沉淀为知识、流程与行业能力，让每一次落地都成为下一次拓展与升级的基础。';
+
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getSolutions();
-  return pageMetadata({ title: data.title, description: data.description, path: ROUTES.solutions });
+  await getSolutions();
+  return pageMetadata({ title: SOLUTIONS_HERO_TITLE, description: SOLUTIONS_HERO_DESCRIPTION, path: ROUTES.solutions });
 }
 
 export default async function SolutionsPage() {
@@ -33,8 +37,8 @@ export default async function SolutionsPage() {
       />
       <PageHero
         eyebrow={data.eyebrow}
-        title={data.title}
-        subtitle={data.description}
+        title={SOLUTIONS_HERO_TITLE}
+        subtitle={SOLUTIONS_HERO_DESCRIPTION}
         media={media.get('stock-telecom')}
       />
       <Breadcrumbs items={crumbs} />
