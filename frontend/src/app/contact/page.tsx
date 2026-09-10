@@ -57,7 +57,7 @@ export default async function ContactPage() {
 
             <Reveal delay={1} className="contact-aside">
               <div className="contact-block">
-                <h4>商务咨询</h4>
+                <h3>商务咨询</h3>
                 <p>
                   <a href={`mailto:${contact.businessEmail}`}>{contact.businessEmail}</a>
                 </p>
@@ -70,7 +70,7 @@ export default async function ContactPage() {
               </div>
 
               <div className="contact-block">
-                <h4>加入我们</h4>
+                <h3>加入我们</h3>
                 <p>
                   简历请发送至{' '}
                   <a href={`mailto:${contact.careersEmail}`}>{contact.careersEmail}</a>，
@@ -79,13 +79,13 @@ export default async function ContactPage() {
               </div>
 
               <div className="contact-block">
-                <h4>公司信息</h4>
+                <h3>公司信息</h3>
                 <p>{settings.legalName}</p>
                 {contact.address ? <p>{contact.address}</p> : null}
               </div>
 
               <div className="contact-block">
-                <h4>关于您的信息</h4>
+                <h3>关于您的信息</h3>
                 <p>
                   我们只将您提交的信息用于本次商务联系；服务端不存储明文 IP，手机号与邮箱在日志与管理界面中一律脱敏。详见
                   {' '}
@@ -95,7 +95,7 @@ export default async function ContactPage() {
 
               {settings.pendingConfirmation.length > 0 ? (
                 <div className="contact-block">
-                  <h4>信息更新说明</h4>
+                  <h3>信息更新说明</h3>
                   <p>
                     本站部分联系方式与备案信息正在与客户确认中，最终以客户提供的正式信息为准。
                   </p>
