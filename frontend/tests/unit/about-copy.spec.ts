@@ -47,4 +47,17 @@ describe('about page display copy', () => {
     expect(aboutPage).not.toContain('页面中的「网络空间安全学科全国顶尖」');
     expect(aboutPage).not.toContain('Callout tone="neutral"');
   });
+
+  it('pairs the widened research team card with the AEGISTON office image', () => {
+    expect(aboutPage).toContain('className="about-more-layout"');
+    expect(aboutPage).toContain('className="about-more-card card"');
+    expect(aboutPage).toContain('className="about-more-visual"');
+    expect(aboutPage).toContain('src="/media/about/aegiston.png"');
+    expect(aboutPage).toContain('alt="智瞳安宇研发团队办公场景"');
+
+    const cardIndex = aboutPage.indexOf('className="about-more-card card"');
+    const imageIndex = aboutPage.indexOf('src="/media/about/aegiston.png"');
+    expect(cardIndex).toBeGreaterThan(-1);
+    expect(imageIndex).toBeGreaterThan(cardIndex);
+  });
 });
