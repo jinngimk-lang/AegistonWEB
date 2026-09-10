@@ -34,4 +34,24 @@ describe('solution detail display overrides', () => {
     expect(imageIndex).toBeGreaterThan(-1);
     expect(detailIndex).toBeGreaterThan(imageIndex);
   });
+
+  it('shows the legal-services architecture image between metrics and landing details', () => {
+    expect(solutionDetailPage).toContain("src=\"/media/solutions/legal-architecture.png\"");
+    expect(solutionDetailPage).toContain("slug === 'legal-services'");
+
+    const imageIndex = solutionDetailPage.indexOf('/media/solutions/legal-architecture.png');
+    const detailIndex = solutionDetailPage.indexOf('HOW IT LANDS');
+    expect(imageIndex).toBeGreaterThan(-1);
+    expect(detailIndex).toBeGreaterThan(imageIndex);
+  });
+
+  it('shows the finance architecture image between metrics and landing details', () => {
+    expect(solutionDetailPage).toContain("src=\"/media/solutions/finance-architecture.png\"");
+    expect(solutionDetailPage).toContain("slug === 'finance'");
+
+    const imageIndex = solutionDetailPage.indexOf('/media/solutions/finance-architecture.png');
+    const detailIndex = solutionDetailPage.indexOf('HOW IT LANDS');
+    expect(imageIndex).toBeGreaterThan(-1);
+    expect(detailIndex).toBeGreaterThan(imageIndex);
+  });
 });
