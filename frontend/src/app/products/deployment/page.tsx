@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import type { CSSProperties } from 'react';
 
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { MediaFill } from '@/components/media/MediaFill';
@@ -15,6 +17,18 @@ import { ROUTES } from '@/lib/routes';
 import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
+
+const DELIVERY_MEDIA = [
+  '/media/deployment/private-server-4x3.png',
+  '/media/deployment/appliance-4x3.png',
+  '/media/deployment/private-cloud-4x3.png',
+] as const;
+
+const DEPLOYMENT_HERO_MEDIA_STYLE = {
+  objectPosition: 'left center',
+  transform: 'scale(1.2)',
+  transformOrigin: 'left center',
+} satisfies CSSProperties;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDeployment();
@@ -40,6 +54,7 @@ export default async function DeploymentPage() {
         title={data.title}
         subtitle={data.lead}
         media={media.get(data.heroMedia)}
+        mediaStyle={DEPLOYMENT_HERO_MEDIA_STYLE}
       />
       <Breadcrumbs items={crumbs} />
 
@@ -58,21 +73,6 @@ export default async function DeploymentPage() {
         </div>
       </section>
 
-      <section className="section section-gray" aria-labelledby="readiness-title">
-        <div className="container">
-          <Reveal className="solutions-intro">
-            <div className="section-label">READINESS</div>
-            <h2 className="section-title" id="readiness-title">
-              技术前提
-              <br />
-              <span className="em">已经具备</span>
-            </h2>
-            <p className="section-desc">「私有化」已从技术妥协，变成可行的产品形态。</p>
-          </Reveal>
-          <FeatureGrid items={data.readiness} cols={4} />
-        </div>
-      </section>
-
       <section className="section" aria-labelledby="forms-title">
         <div className="container">
           <Reveal className="solutions-intro">
@@ -82,32 +82,47 @@ export default async function DeploymentPage() {
             </h2>
           </Reveal>
 
-          {data.forms.map((form, index) => (
-            <div className="solution" key={form.index}>
-              <Reveal className="solution-body">
-                <div className="tag-line">
-                  <span className="solution-code">形态 {form.index}</span>
-                  <span className="solution-category">{form.fit}</span>
-                </div>
-                <h3>{form.name}</h3>
-                <ul className="pillar-params" style={{ marginTop: 20, marginBottom: 28 }}>
-                  {form.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-                <dl className="deflist">
-                  <dt>适用</dt>
-                  <dd>{form.fit}</dd>
-                </dl>
-              </Reveal>
-              <Reveal className="solution-visual" delay={1}>
-                <MediaFill asset={media.get(form.media)} />
-                <span className="vlabel">
-                  DELIVERY {form.index} / {index === 0 ? 'ON-PREMISE' : index === 1 ? 'APPLIANCE' : 'PRIVATE CLOUD'}
-                </span>
-              </Reveal>
-            </div>
-          ))}
+          {data.forms.map((form, index) => {
+            const deliveryMedia = DELIVERY_MEDIA[index];
+
+            return (
+              <div className="solution" key={form.index}>
+                <Reveal className="solution-body">
+                  <div className="tag-line">
+                    <span className="solution-code">形态 {form.index}</span>
+                    <span className="solution-category">{form.fit}</span>
+                  </div>
+                  <h3>{form.name}</h3>
+                  <ul className="pillar-params" style={{ marginTop: 20, marginBottom: 28 }}>
+                    {form.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                  <dl className="deflist">
+                    <dt>适用</dt>
+                    <dd>{form.fit}</dd>
+                  </dl>
+                </Reveal>
+                <Reveal className="solution-visual" delay={1}>
+                  {deliveryMedia ? (
+                    <Image
+                      src={deliveryMedia}
+                      alt=""
+                      role="presentation"
+                      fill
+                      sizes="(max-width: 900px) 100vw, 50vw"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <MediaFill asset={media.get(form.media)} />
+                  )}
+                  <span className="vlabel">
+                    DELIVERY {form.index} / {index === 0 ? 'ON-PREMISE' : index === 1 ? 'APPLIANCE' : 'PRIVATE CLOUD'}
+                  </span>
+                </Reveal>
+              </div>
+            );
+          })}
         </div>
       </section>
 

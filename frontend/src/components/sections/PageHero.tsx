@@ -4,7 +4,7 @@
  */
 
 import Image from 'next/image';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import { stockSrc, type ResolvedMedia } from '@/lib/media';
 
@@ -13,11 +13,12 @@ interface Props {
   title: string;
   subtitle?: string;
   media?: ResolvedMedia | null;
+  mediaStyle?: CSSProperties;
   meta?: { key: string; value: string }[];
   children?: ReactNode;
 }
 
-export function PageHero({ eyebrow, title, subtitle, media, meta, children }: Props) {
+export function PageHero({ eyebrow, title, subtitle, media, mediaStyle, meta, children }: Props) {
   return (
     <section className="page-hero" aria-labelledby="page-hero-title">
       {media ? (
@@ -33,6 +34,7 @@ export function PageHero({ eyebrow, title, subtitle, media, meta, children }: Pr
             sizes="100vw"
             placeholder="blur"
             blurDataURL={media.blurDataUrl}
+            style={mediaStyle}
           />
         </div>
       ) : null}
