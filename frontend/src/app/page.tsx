@@ -50,6 +50,7 @@ export default async function HomePage() {
         code: '组织级',
         category: '企业 AI 原生人机协同工作站',
         title: 'AegisTeam',
+        vlabel: 'AEGISTEAM / WORKSTATION',
       };
     }
     if (row.id === 'inkclaw') {
@@ -58,6 +59,7 @@ export default async function HomePage() {
         code: '通用级',
         category: '线上安全通用智能体',
         title: 'AegisClaw',
+        vlabel: 'AEGISCLAW / SECURE AGENT',
       };
     }
     if (row.id === 'legallens') {
@@ -66,6 +68,7 @@ export default async function HomePage() {
         code: '行业级',
         category: '合同智能审核系统',
         title: 'AegisLens 合约智审',
+        vlabel: 'AEGISLENS / CONTRACT REVIEW',
       };
     }
     return row;
