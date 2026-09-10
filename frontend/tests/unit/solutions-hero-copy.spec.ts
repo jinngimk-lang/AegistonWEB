@@ -24,8 +24,18 @@ describe('solutions overview hero copy', () => {
 
   it('uses anonymized partner and future-proof customer case labels', () => {
     expect(solutionsPage).toContain("const SOLUTIONS_PARTNER_NAME = '某通信服务行业大型央企';");
+    expect(solutionsPage).toContain("const SOLUTIONS_TELECOM_CUSTOMER = '某通信服务行业大型央企';");
     expect(solutionsPage).toContain('{SOLUTIONS_PARTNER_NAME}');
+    expect(solutionsPage).toContain("solution.slug === 'telecom' ? SOLUTIONS_TELECOM_CUSTOMER : solution.customer");
     expect(solutionsPage).toContain('典型客户案例');
     expect(solutionsPage).not.toContain('<span className="em">落地客户</span>');
+  });
+
+  it('uses the four approved repository-local industry card images', () => {
+    expect(solutionsPage).toContain("telecom: '/media/solutions/telecom-client.png'");
+    expect(solutionsPage).toContain("transportation: '/media/solutions/transportation-client.png'");
+    expect(solutionsPage).toContain("'legal-services': '/media/solutions/legal-client.png'");
+    expect(solutionsPage).toContain("finance: '/media/solutions/finance-client.png'");
+    expect(solutionsPage).toContain('src={cardImage}');
   });
 });
