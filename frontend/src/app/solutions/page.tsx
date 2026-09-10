@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { MediaFill } from '@/components/media/MediaFill';
@@ -20,6 +21,13 @@ const SOLUTIONS_HERO_TITLE = '合作伙伴与企业落地';
 const SOLUTIONS_HERO_DESCRIPTION =
   '我们围绕企业智能化落地，逐步形成可复制的实施路径：以平台、智能体与行业能力为底座，灵活适配不同业务场景与部署环境。项目经验持续沉淀为知识、流程与行业能力，让每一次落地都成为下一次拓展与升级的基础。';
 const SOLUTIONS_PARTNER_NAME = '某通信服务行业大型央企';
+const SOLUTIONS_TELECOM_CUSTOMER = '某通信服务行业大型央企';
+const SOLUTIONS_CARD_IMAGES: Record<string, string> = {
+  telecom: '/media/solutions/telecom-client.png',
+  transportation: '/media/solutions/transportation-client.png',
+  'legal-services': '/media/solutions/legal-client.png',
+  finance: '/media/solutions/finance-client.png',
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   await getSolutions();
@@ -83,41 +91,55 @@ export default async function SolutionsPage() {
           </Reveal>
 
           <div className="card-grid" data-cols="2">
-            {data.solutions.map((solution) => (
-              <Reveal key={solution.slug} as="article" className="card">
-                <Link href={solution.href} style={{ display: 'contents' }}>
-                  <div className="card-media">
-                    <MediaFill
-                      asset={media.get(solution.heroMedia)}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                  <div className="card-body">
-                    <div className="card-eyebrow">
-                      {solution.industry} · {solution.deployment}
+            {data.solutions.map((solution) => {
+              const cardImage = SOLUTIONS_CARD_IMAGES[solution.slug];
+              return (
+                <Reveal key={solution.slug} as="article" className="card">
+                  <Link href={solution.href} style={{ display: 'contents' }}>
+                    <div className="card-media">
+                      {cardImage ? (
+                        <Image
+                          src={cardImage}
+                          alt=""
+                          role="presentation"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          style={{ objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <MediaFill
+                          asset={media.get(solution.heroMedia)}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      )}
                     </div>
-                    <h3>{solution.customer}</h3>
-                    <p>{solution.summary}</p>
-                    {solution.headlineMetrics.length > 0 ? (
-                      <div className="pillar-highlights" style={{ marginTop: 20, paddingTop: 18 }}>
-                        {solution.headlineMetrics.map((metric) => (
-                          <div className="pillar-highlight" key={metric.label}>
-                            <div className="v">
-                              {metric.value}
-                              {metric.unit ? <span> {metric.unit}</span> : null}
-                            </div>
-                            <div className="l">{metric.label}</div>
-                          </div>
-                        ))}
+                    <div className="card-body">
+                      <div className="card-eyebrow">
+                        {solution.industry} · {solution.deployment}
                       </div>
-                    ) : null}
-                    <span className="card-foot">
-                      查看案例 <span aria-hidden="true">→</span>
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+                      <h3>{solution.slug === 'telecom' ? SOLUTIONS_TELECOM_CUSTOMER : solution.customer}</h3>
+                      <p>{solution.summary}</p>
+                      {solution.headlineMetrics.length > 0 ? (
+                        <div className="pillar-highlights" style={{ marginTop: 20, paddingTop: 18 }}>
+                          {solution.headlineMetrics.map((metric) => (
+                            <div className="pillar-highlight" key={metric.label}>
+                              <div className="v">
+                                {metric.value}
+                                {metric.unit ? <span> {metric.unit}</span> : null}
+                              </div>
+                              <div className="l">{metric.label}</div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+                      <span className="card-foot">
+                        查看案例 <span aria-hidden="true">→</span>
+                      </span>
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
