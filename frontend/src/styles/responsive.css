@@ -142,7 +142,9 @@
      responsive.css 里任何 `max-width: Npx` 都当成一档新断点（它的正则不区分
      媒体查询与声明），而本项目不新引入断点档位（P2-3）。 */
   .article-layout > .article { margin: 0 auto }
-  .article-rail { position: static; width: min(780px, 100%); margin: 0 auto 28px }
+  /* DOM 中目录轨道位于 article 之后；单列时必须视觉提到正文前，
+     否则移动端用户要读完整篇文章后才会遇到「本文目录」。 */
+  .article-rail { position: static; width: min(780px, 100%); margin: 0 auto 28px; order: -1 }
   /* < 1024px 顶栏按钮移入 MobileNav 抽屉（抽屉里已有检索入口） */
   .nav-actions .nav-search { display: none }
   .nav-search-hint { display: none }
