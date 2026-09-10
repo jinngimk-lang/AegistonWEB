@@ -19,7 +19,7 @@ const footer = read('components/layout/SiteFooter.tsx');
 const hero = read('components/sections/Hero.tsx');
 const ctaBand = read('components/sections/CtaBand.tsx');
 const domainGrid = read('components/sections/DomainGrid.tsx');
-const sectionsExt = read('styles/sections-ext.css');
+const responsive = read('styles/responsive.css');
 
 describe('header language placement and home hero cleanup', () => {
   it('does not render the legacy utility bar globally', () => {
@@ -90,8 +90,10 @@ describe('header language placement and home hero cleanup', () => {
     expect(homePage).toContain('<DomainGrid domains={homepageDomains} media={media} columns={3} />');
     expect(domainGrid).toContain('columns?: 3 | 4');
     expect(domainGrid).toContain('data-columns={columns}');
-    expect(sectionsExt).toContain(".domains:where([data-columns='3'])");
-    expect(sectionsExt).toContain('max-width: 900px');
-    expect(sectionsExt).toContain('margin: 0 auto');
+    expect(responsive).toContain(".domains:where([data-columns='3'])");
+    expect(responsive).toContain('max-width: min(1200px, 100%)');
+    expect(responsive).toContain(".domains:where([data-columns='3']) .domain-photo");
+    expect(responsive).toContain('height: 230px');
+    expect(responsive).toContain('margin: 0 auto');
   });
 });
