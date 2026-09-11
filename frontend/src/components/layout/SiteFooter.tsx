@@ -25,6 +25,8 @@ const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/legallens': 'AegisLens 合约智审',
 };
 
+const HIDDEN_FOOTER_HREFS = new Set(['/research']);
+
 export function SiteFooter({ navigation, settings }: Props) {
   const footerLegal = navigation.footerLegal.filter((item) => !item.external);
   const footerFilings = navigation.footerLegal.filter((item) => item.external);
@@ -43,25 +45,31 @@ export function SiteFooter({ navigation, settings }: Props) {
             <p>{FOOTER_DESCRIPTION}</p>
           </div>
 
-          {navigation.footerColumns.map((column) => (
-            <nav key={column.label} className="footer-col" aria-label={column.label}>
-              {/* ref 依赖 h5 选择器做视觉排版；nav 自身已有 aria-label，因此这里不是文档标题。 */}
-              <h5 role="presentation">{column.label}</h5>
-              <ul>
-                {column.items.map((item) => (
-                  <li key={item.href}>
-                    {item.external ? (
-                      <a href={item.href}>{item.label}</a>
-                    ) : (
-                      <Link href={item.href}>
-                        {PRODUCT_DISPLAY_LABELS[item.href] ?? item.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+          {navigation.footerColumns.map((column) => {
+            const visibleItems = column.items.filter(
+              (item) => !HIDDEN_FOOTER_HREFS.has(item.href),
+            );
+
+            return (
+              <nav key={column.label} className="footer-col" aria-label={column.label}>
+                {/* ref 依赖 h5 选择器做视觉排版；nav 自身已有 aria-label，因此这里不是文档标题。 */}
+                <h5 role="presentation">{column.label}</h5>
+                <ul>
+                  {visibleItems.map((item) => (
+                    <li key={item.href}>
+                      {item.external ? (
+                        <a href={item.href}>{item.label}</a>
+                      ) : (
+                        <Link href={item.href}>
+                          {PRODUCT_DISPLAY_LABELS[item.href] ?? item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            );
+          })}
         </div>
 
         <div className="footer-bottom">
