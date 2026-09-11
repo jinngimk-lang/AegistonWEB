@@ -31,9 +31,9 @@ const INTENTS: { value: LeadIntent; label: string }[] = [
 
 const PRODUCTS: { value: LeadProduct | ''; label: string }[] = [
   { value: '', label: '暂不指定' },
-  { value: 'aragonteam', label: 'AragonTeam · 组织级' },
-  { value: 'inkclaw', label: 'InkClaw · 通用级' },
-  { value: 'legallens', label: 'LegalLens 合约智审 · 行业级' },
+  { value: 'aragonteam', label: 'AegisTeam · 组织级' },
+  { value: 'inkclaw', label: 'AegisClaw · 通用级' },
+  { value: 'legallens', label: 'AegisLens 合约智审 · 行业级' },
   { value: 'platform', label: '整体平台与交付形态' },
 ];
 
