@@ -24,6 +24,13 @@ describe('about page display copy', () => {
     expect(aboutPage).toContain('ABOUT_FACT_OVERRIDES[fact.label] ?? fact.body');
   });
 
+  it('places the approved 4:3 daytime city image in the company-intro left column', () => {
+    expect(aboutPage).toContain('className="about-company-visual"');
+    expect(aboutPage).toContain('src="/media/about/day-city-4x3.png"');
+    expect(aboutPage).toContain('alt="城市商务楼宇与企业办公环境"');
+    expect(aboutPage).toContain("aspectRatio: '4 / 3'");
+  });
+
   it('matches the four homepage metrics in the about-page metric band', () => {
     for (const value of ["value: '20+'", "value: '30+'", "value: '全国顶尖'"]) {
       expect(aboutPage).toContain(value);
