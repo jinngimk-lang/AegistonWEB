@@ -19,11 +19,18 @@ const snapshotTeam = JSON.parse(
 ) as { leader: { bio: string[]; highlights: string[] } };
 
 const CONSULTANT_LINE = '担任多个国家部委及大型互联网企业的专家顾问';
+const PUBLICATION_LINE =
+  '以主要作者在人工智能/网络安全/软件工程领域国际顶会发表多篇学术论文，相关成果被凤凰网、今日头条、新浪网、搜狐网等媒体报道';
 
 describe('team founder profile layout', () => {
   it('adds the consultant line after the first founder biography item in source and fallback snapshot', () => {
     expect(sourceTeam.leader.bio[1]).toBe(CONSULTANT_LINE);
     expect(snapshotTeam.leader.bio[1]).toBe(CONSULTANT_LINE);
+  });
+
+  it('uses the approved cross-discipline international-conference publication wording', () => {
+    expect(sourceTeam.leader.bio[3]).toBe(PUBLICATION_LINE);
+    expect(snapshotTeam.leader.bio[3]).toBe(PUBLICATION_LINE);
   });
 
   it('places the degree on a full-width grid row so both detail lists start on the same row', () => {
