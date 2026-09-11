@@ -88,13 +88,15 @@ export default async function TeamPage() {
               </div>
             </div>
 
-            <div className="pillar-rows">
-              <div className="pillar-row">
-                {data.leader.degree ? (
-                  <span className="pillar-tag" style={{ display: 'inline-block', marginBottom: 8 }}>
+            <div className="pillar-rows" style={{ rowGap: 12 }}>
+              {data.leader.degree ? (
+                <div className="pillar-row" style={{ gridColumn: '1 / -1' }}>
+                  <span className="pillar-tag" style={{ display: 'inline-block' }}>
                     {data.leader.degree}
                   </span>
-                ) : null}
+                </div>
+              ) : null}
+              <div className="pillar-row">
                 <ul className="pillar-params">
                   {data.leader.bio.map((line) => (
                     <li key={line}>{line}</li>
