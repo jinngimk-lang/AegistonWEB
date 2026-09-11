@@ -93,6 +93,27 @@ export default async function AboutPage() {
                 公司简介
               </h2>
               <p className="section-desc">{data.focus}</p>
+              <div
+                className="about-company-visual"
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '4 / 3',
+                  marginTop: 28,
+                  overflow: 'hidden',
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg-gray)',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+              >
+                <Image
+                  src="/media/about/day-city-4x3.png"
+                  alt="城市商务楼宇与企业办公环境"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 55vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
             </Reveal>
             <Reveal delay={1}>
               <p className="section-desc" style={{ marginTop: 0, maxWidth: 'none' }}>
