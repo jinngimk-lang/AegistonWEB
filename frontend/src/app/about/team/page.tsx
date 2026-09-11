@@ -14,6 +14,9 @@ import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 
+const TEAM_MEMBERS_INTRO =
+  '公司依托西安电子科技大学雄厚的科研实力（网络空间安全学科连续四年排名全国第一，人工智能排名全国前三），拥有一支由20多名博士、硕士组成的一流研发队伍，已形成三十余项自主知识产权的核心技术，是一家专注于人工智能与网络安全领域的产品和解决方案供应商。';
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getTeam();
   return pageMetadata({ title: '研发团队', description: data.lead, path: ROUTES.aboutTeam });
@@ -122,6 +125,12 @@ export default async function TeamPage() {
             <h2 className="section-title" id="members-title">
               技术团队与核心人员
             </h2>
+            <p
+              className="section-desc"
+              style={{ maxWidth: 920, fontSize: 14, lineHeight: 1.9 }}
+            >
+              {TEAM_MEMBERS_INTRO}
+            </p>
           </Reveal>
 
           <div className="card-grid" data-cols="2">
