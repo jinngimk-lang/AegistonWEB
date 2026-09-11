@@ -42,7 +42,7 @@ export function SiteFooter({ navigation, settings }: Props) {
                 <span className="en">{settings.nameEn}</span>
               </div>
             </Link>
-            <p>{FOOTER_DESCRIPTION}</p>
+            <p style={{ textIndent: '2em' }}>{FOOTER_DESCRIPTION}</p>
           </div>
 
           {navigation.footerColumns.map((column) => {
