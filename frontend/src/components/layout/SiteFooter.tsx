@@ -25,7 +25,7 @@ const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/legallens': 'AegisLens 合约智审',
 };
 
-const HIDDEN_FOOTER_HREFS = new Set(['/research']);
+const HIDDEN_FOOTER_HREFS = new Set(['/research', '/about/strength']);
 
 export function SiteFooter({ navigation, settings }: Props) {
   const footerLegal = navigation.footerLegal.filter((item) => !item.external);
