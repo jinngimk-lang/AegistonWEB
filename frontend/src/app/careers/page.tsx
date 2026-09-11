@@ -54,18 +54,6 @@ export default async function CareersPage() {
         </div>
       </section>
 
-      <section className="section section-gray" aria-labelledby="openings-title">
-        <div className="container">
-          <Reveal className="solutions-intro">
-            <div className="section-label">OPEN ROLES</div>
-            <h2 className="section-title" id="openings-title">
-              在招方向
-            </h2>
-          </Reveal>
-          <FeatureGrid items={data.openings} cols={3} />
-        </div>
-      </section>
-
       <section className="section" aria-labelledby="process-title">
         <div className="container">
           <div className="split-narrow">
