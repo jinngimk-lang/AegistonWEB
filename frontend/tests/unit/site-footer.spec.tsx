@@ -9,7 +9,16 @@ const navigation: Navigation = {
   utilityRight: [],
   main: [],
   cta: { label: '联系我们', href: '/contact' },
-  footerColumns: [],
+  footerColumns: [
+    {
+      label: '行业与研究',
+      items: [
+        { label: '行业实践', href: '/solutions' },
+        { label: '交通基建', href: '/solutions/transportation' },
+        { label: '核心技术', href: '/research' },
+      ],
+    },
+  ],
   footerLegal: [
     { label: '使用条款', href: '/legal/terms' },
     {
@@ -77,5 +86,16 @@ describe('SiteFooter filing records', () => {
     const dom = parse(renderToStaticMarkup(<SiteFooter navigation={navigation} settings={settings} />));
     const legal = dom.querySelector('.footer-bottom-links');
     expect(legal?.textContent).toBe('使用条款');
+  });
+
+  it('全站页脚隐藏核心技术入口，同时保留行业与研究栏目中的其它链接', () => {
+    const dom = parse(renderToStaticMarkup(<SiteFooter navigation={navigation} settings={settings} />));
+    const industryColumn = dom.querySelector('nav[aria-label="行业与研究"]');
+
+    expect(industryColumn).not.toBeNull();
+    expect(industryColumn?.textContent).toContain('行业实践');
+    expect(industryColumn?.textContent).toContain('交通基建');
+    expect(industryColumn?.textContent).not.toContain('核心技术');
+    expect(industryColumn?.querySelector('a[href="/research"]')).toBeNull();
   });
 });
