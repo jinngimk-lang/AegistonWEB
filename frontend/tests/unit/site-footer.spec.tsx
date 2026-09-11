@@ -11,6 +11,15 @@ const navigation: Navigation = {
   cta: { label: '联系我们', href: '/contact' },
   footerColumns: [
     {
+      label: '关于我们',
+      items: [
+        { label: '公司简介', href: '/about' },
+        { label: '研发团队', href: '/about/team' },
+        { label: '科研实力', href: '/about/strength' },
+        { label: '加入我们', href: '/careers' },
+      ],
+    },
+    {
       label: '行业与研究',
       items: [
         { label: '行业实践', href: '/solutions' },
@@ -97,5 +106,17 @@ describe('SiteFooter filing records', () => {
     expect(industryColumn?.textContent).toContain('交通基建');
     expect(industryColumn?.textContent).not.toContain('核心技术');
     expect(industryColumn?.querySelector('a[href="/research"]')).toBeNull();
+  });
+
+  it('全站页脚隐藏科研实力入口，同时保留关于我们栏目中的其它链接', () => {
+    const dom = parse(renderToStaticMarkup(<SiteFooter navigation={navigation} settings={settings} />));
+    const aboutColumn = dom.querySelector('nav[aria-label="关于我们"]');
+
+    expect(aboutColumn).not.toBeNull();
+    expect(aboutColumn?.textContent).toContain('公司简介');
+    expect(aboutColumn?.textContent).toContain('研发团队');
+    expect(aboutColumn?.textContent).toContain('加入我们');
+    expect(aboutColumn?.textContent).not.toContain('科研实力');
+    expect(aboutColumn?.querySelector('a[href="/about/strength"]')).toBeNull();
   });
 });
