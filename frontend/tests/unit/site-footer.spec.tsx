@@ -119,4 +119,15 @@ describe('SiteFooter filing records', () => {
     expect(aboutColumn?.textContent).not.toContain('科研实力');
     expect(aboutColumn?.querySelector('a[href="/about/strength"]')).toBeNull();
   });
+
+  it('公司简介正文使用两个汉字宽度的首行缩进，不改正文内容', () => {
+    const dom = parse(renderToStaticMarkup(<SiteFooter navigation={navigation} settings={settings} />));
+    const description = dom.querySelector('.footer-brand > p') as HTMLParagraphElement | null;
+
+    expect(description).not.toBeNull();
+    expect(description?.style.textIndent).toBe('2em');
+    expect(description?.textContent).toBe(
+      '西安智瞳安宇科技有限公司定位于「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品构成企业智能底座，为客户提供AI人机协同超级团队平台、安全通用智能体与行业垂直智能体的完整能力。',
+    );
+  });
 });
