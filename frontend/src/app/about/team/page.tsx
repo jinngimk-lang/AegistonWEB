@@ -86,38 +86,15 @@ export default async function TeamPage() {
                   </span>
                 </h3>
               </div>
-              {data.leader.degree ? <span className="pillar-tag">{data.leader.degree}</span> : null}
             </div>
 
-            <div className="pillar-rows">
-              <div className="pillar-row">
-                <h5>履历</h5>
-                <ul className="pillar-params">
-                  {data.leader.bio.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
+            {data.leader.degree ? (
+              <div className="pillar-rows">
+                <div className="pillar-row">
+                  <p>{data.leader.degree}</p>
+                </div>
               </div>
-              <div className="pillar-row">
-                <h5>科研与转化</h5>
-                <ul className="pillar-params">
-                  {data.leader.highlights.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="pillar-rows" style={{ marginTop: 20 }}>
-              <div className="pillar-row" style={{ gridColumn: '1 / -1' }}>
-                <h5>主要社会兼职</h5>
-                <ul className="pillar-params">
-                  {data.leaderRoles.map((role) => (
-                    <li key={role}>{role}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            ) : null}
           </Reveal>
         </div>
       </section>
