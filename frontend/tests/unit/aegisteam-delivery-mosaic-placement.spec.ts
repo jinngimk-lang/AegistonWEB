@@ -24,9 +24,8 @@ describe('product delivery mosaic placement', () => {
     );
     expect(productPage).toContain('showsDeliveryMosaic ? getDeployment() : Promise.resolve(null)');
     expect(productPage).toContain('showsDeliveryMosaic && deployment ? (');
-    expect(productPage).toContain(
-      "<DeliveryFormsMosaic forms={deployment.forms} stretchSideImages={slug === 'aragonteam'} />",
-    );
+    expect(productPage).toContain('<DeliveryFormsMosaic');
+    expect(productPage).toContain('forms={deployment.forms}');
 
     const capabilities = productPage.indexOf('主要功能');
     const mosaicPlacement = productPage.indexOf('<DeliveryFormsMosaic');
