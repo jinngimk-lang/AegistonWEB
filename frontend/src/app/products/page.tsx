@@ -19,7 +19,7 @@ import { pageMetadata } from '@/lib/seo';
 export const revalidate = 600;
 
 const PRODUCT_DISPLAY_NAMES: Record<string, string> = {
-  aragonteam: 'AegisTeam',
+  aragonteam: 'AegistonTeam',
   inkclaw: 'AegisClaw',
   legallens: 'AegisLens',
 };
