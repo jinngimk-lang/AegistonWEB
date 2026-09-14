@@ -12,20 +12,24 @@ const productPage = readFileSync(
   'utf8',
 );
 
-describe('AegisTeam and AegisClaw delivery mosaic placement', () => {
-  it('renders DeliveryFormsMosaic for AegisTeam and AegisClaw between capabilities and product tour', () => {
+describe('product delivery mosaic placement', () => {
+  it('renders DeliveryFormsMosaic for AegisTeam, AegisClaw and AegisLens after capabilities', () => {
     expect(productPage).toContain("import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';");
-    expect(productPage).toContain("const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw';");
+    expect(productPage).toContain(
+      "const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw' || slug === 'legallens';",
+    );
     expect(productPage).toContain('showsDeliveryMosaic ? getDeployment() : Promise.resolve(null)');
     expect(productPage).toContain('showsDeliveryMosaic && deployment ? (');
     expect(productPage).toContain('<DeliveryFormsMosaic forms={deployment.forms} />');
 
     const capabilities = productPage.indexOf('主要功能');
     const mosaic = productPage.indexOf('<DeliveryFormsMosaic forms={deployment.forms} />');
+    const architecture = productPage.indexOf('系统总体架构（仅合约智审');
     const tour = productPage.indexOf('界面导览 —— 真实软件截图');
 
     expect(capabilities).toBeGreaterThan(-1);
     expect(mosaic).toBeGreaterThan(capabilities);
+    expect(architecture).toBeGreaterThan(mosaic);
     expect(tour).toBeGreaterThan(mosaic);
   });
 });
