@@ -9,7 +9,7 @@ test.describe('桌面导航', () => {
     await item.hover();
     const submenu = item.locator('.submenu');
     await expect(submenu).toBeVisible();
-    await submenu.getByRole('link', { name: 'AegisTeam' }).click();
+    await submenu.getByRole('link', { name: /AegistonTeam/ }).click();
     await expect(page).toHaveURL(/\/products\/aragonteam$/);
   });
 
