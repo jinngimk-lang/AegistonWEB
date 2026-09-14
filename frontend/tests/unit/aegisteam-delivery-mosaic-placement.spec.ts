@@ -32,4 +32,11 @@ describe('product delivery mosaic placement', () => {
     expect(architecture).toBeGreaterThan(mosaic);
     expect(tour).toBeGreaterThan(mosaic);
   });
+
+  it('does not render the legacy bottom delivery section on product detail pages', () => {
+    expect(productPage).not.toContain('aria-labelledby="delivery-title"');
+    expect(productPage).not.toContain('id="delivery-title"');
+    expect(productPage).not.toContain('product.delivery.map');
+    expect(productPage).not.toContain('详见 <a href={ROUTES.productsDeployment}>交付形态</a> 页');
+  });
 });
