@@ -20,7 +20,7 @@ export const revalidate = 600;
 
 const PRODUCT_DISPLAY_NAMES: Record<string, string> = {
   aragonteam: 'AegistonTeam',
-  inkclaw: 'AegisClaw',
+  inkclaw: 'AegistonClaw',
   legallens: 'AegisLens',
 };
 
