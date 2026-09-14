@@ -16,7 +16,7 @@ describe('contact product display labels', () => {
   it('uses approved product names while preserving existing submission values', () => {
     expect(leadForm).toContain("{ value: 'aragonteam', label: 'AegistonTeam · 组织级' }");
     expect(leadForm).toContain("{ value: 'inkclaw', label: 'AegistonClaw · 通用级' }");
-    expect(leadForm).toContain("{ value: 'legallens', label: 'AegisLens 合约智审 · 行业级' }");
+    expect(leadForm).toContain("{ value: 'legallens', label: 'AegistonLens · 行业级' }");
 
     expect(leadForm).not.toContain("label: 'AragonTeam · 组织级'");
     expect(leadForm).not.toContain("label: 'InkClaw · 通用级'");
