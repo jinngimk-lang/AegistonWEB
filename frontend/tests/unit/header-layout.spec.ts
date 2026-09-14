@@ -74,7 +74,7 @@ describe('header language placement and home hero cleanup', () => {
     for (const label of ['AegistonClaw 线上龙虾', 'AegistonLens 合约智审']) {
       expect(header).toContain(label);
     }
-    for (const label of ['AegisClaw', 'AegisLens 合约智审']) {
+    for (const label of ['AegistonClaw', 'AegisLens 合约智审']) {
       expect(footer).toContain(label);
     }
     expect(header).toContain('href={item.href}');
