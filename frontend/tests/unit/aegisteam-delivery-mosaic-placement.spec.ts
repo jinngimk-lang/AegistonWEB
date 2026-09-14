@@ -11,6 +11,10 @@ const productPage = readFileSync(
   path.join(ROOT_DIR, 'frontend/src/app/products/[slug]/page.tsx'),
   'utf8',
 );
+const mosaic = readFileSync(
+  path.join(ROOT_DIR, 'frontend/src/components/content/DeliveryFormsMosaic.tsx'),
+  'utf8',
+);
 
 describe('product delivery mosaic placement', () => {
   it('renders DeliveryFormsMosaic for AegisTeam, AegisClaw and AegisLens after capabilities', () => {
@@ -20,17 +24,26 @@ describe('product delivery mosaic placement', () => {
     );
     expect(productPage).toContain('showsDeliveryMosaic ? getDeployment() : Promise.resolve(null)');
     expect(productPage).toContain('showsDeliveryMosaic && deployment ? (');
-    expect(productPage).toContain('<DeliveryFormsMosaic forms={deployment.forms} />');
+    expect(productPage).toContain(
+      "<DeliveryFormsMosaic forms={deployment.forms} stretchSideImages={slug === 'aragonteam'} />",
+    );
 
     const capabilities = productPage.indexOf('主要功能');
-    const mosaic = productPage.indexOf('<DeliveryFormsMosaic forms={deployment.forms} />');
+    const mosaicPlacement = productPage.indexOf('<DeliveryFormsMosaic');
     const architecture = productPage.indexOf('系统总体架构（仅合约智审');
     const tour = productPage.indexOf('界面导览 —— 真实软件截图');
 
     expect(capabilities).toBeGreaterThan(-1);
-    expect(mosaic).toBeGreaterThan(capabilities);
-    expect(architecture).toBeGreaterThan(mosaic);
-    expect(tour).toBeGreaterThan(mosaic);
+    expect(mosaicPlacement).toBeGreaterThan(capabilities);
+    expect(architecture).toBeGreaterThan(mosaicPlacement);
+    expect(tour).toBeGreaterThan(mosaicPlacement);
+  });
+
+  it('stretches only the two right-side images on AegistonTeam while keeping the reusable default cropped', () => {
+    expect(mosaic).toContain('stretchSideImages?: boolean;');
+    expect(mosaic).toContain('stretchSideImages = false');
+    expect(mosaic).toContain("objectFit: stretchSideImages && slot > 0 ? 'fill' : 'cover'");
+    expect(productPage).toContain("stretchSideImages={slug === 'aragonteam'}");
   });
 
   it('does not render the legacy bottom delivery section on product detail pages', () => {
