@@ -30,7 +30,7 @@ import type { LinkItem, Navigation } from '@/types/content';
 const CLOSE_DELAY_MS = 160;
 
 const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
-  '/products/aragonteam': 'AegisTeam',
+  '/products/aragonteam': 'AegistonTeam 超级团队',
   '/products/inkclaw': 'AegisClaw',
   '/products/legallens': 'AegisLens 合约智审',
 };
