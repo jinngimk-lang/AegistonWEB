@@ -255,7 +255,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
       {showsDeliveryMosaic && deployment ? (
         <section className="section section-gray" aria-label="三种交付形态">
           <div className="container">
-            <DeliveryFormsMosaic forms={deployment.forms} />
+            <DeliveryFormsMosaic
+              forms={deployment.forms}
+              stretchSideImages={slug === 'aragonteam'}
+            />
           </div>
         </section>
       ) : null}
