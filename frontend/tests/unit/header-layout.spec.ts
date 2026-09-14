@@ -68,9 +68,13 @@ describe('header language placement and home hero cleanup', () => {
     expect(header).not.toContain('hideResearch');
   });
 
-  it('uses Aegis product display names in the header and footer without changing link wiring', () => {
-    for (const label of ['AegisTeam', 'AegisClaw', 'AegisLens 合约智审']) {
+  it('uses approved product display names in the header and footer without changing link wiring', () => {
+    expect(header).toContain("'/products/aragonteam': 'AegistonTeam 超级团队'");
+    expect(footer).toContain("'/products/aragonteam': 'AegistonTeam'");
+    for (const label of ['AegistonClaw 线上龙虾', 'AegistonLens 合约智审']) {
       expect(header).toContain(label);
+    }
+    for (const label of ['AegisClaw', 'AegisLens 合约智审']) {
       expect(footer).toContain(label);
     }
     expect(header).toContain('href={item.href}');
