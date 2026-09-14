@@ -21,7 +21,7 @@ export const revalidate = 600;
 const PRODUCT_DISPLAY_NAMES: Record<string, string> = {
   aragonteam: 'AegistonTeam',
   inkclaw: 'AegistonClaw',
-  legallens: 'AegisLens',
+  legallens: 'AegistonLens',
 };
 
 function productDisplayName(slug: string, fallback: string): string {
