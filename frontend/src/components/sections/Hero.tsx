@@ -49,7 +49,7 @@ export function Hero({ hero, media }: Props) {
               {hero.titlePrefix}
               <span className="em">{hero.titleEm}</span>
             </h1>
-            <p className="hero-sub" style={{ textIndent: '2em', maxWidth: 600 }}>
+            <p className="hero-sub" style={{ maxWidth: 600 }}>
               {hero.subtitle}
             </p>
             <div className="hero-cta">
