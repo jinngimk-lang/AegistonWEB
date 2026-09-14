@@ -25,6 +25,11 @@ export const revalidate = 300;
 
 export default async function HomePage() {
   const [home, media] = await Promise.all([getHome(), getMediaLookup()]);
+  const homepageHero = {
+    ...home.hero,
+    subtitle:
+      '西安智瞳安宇科技有限公司公司定位于「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品构成企业智能底座，为客户提供AI人机协同超级团队平台、安全通用智能体与行业垂直智能体的完整能力。',
+  };
   const homepageDomains = home.domains.filter((domain) => domain.id !== 'private-deployment');
   const metrics = home.metrics.map((metric) => {
     if (metric.value === '全国顶尖') {
@@ -80,7 +85,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero hero={home.hero} media={media.get(home.hero.media)} />
+      <Hero hero={homepageHero} media={media.get(home.hero.media)} />
 
       {/* 业务领域：私有化交付数据保留，但暂不在首页展示。 */}
       <section className="section" aria-labelledby="domains-title">
