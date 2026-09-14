@@ -14,6 +14,6 @@ describe('homepage solution visual labels', () => {
   it('uses approved product names in the three image labels', () => {
     expect(homePage).toContain("vlabel: 'AEGISTONTEAM / WORKSTATION'");
     expect(homePage).toContain("vlabel: 'AEGISTONCLAW / SECURE AGENT'");
-    expect(homePage).toContain("vlabel: 'AEGISLENS / CONTRACT REVIEW'");
+    expect(homePage).toContain("vlabel: 'AEGISTONLENS / CONTRACT REVIEW'");
   });
 });
