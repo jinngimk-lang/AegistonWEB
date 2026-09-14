@@ -123,7 +123,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       <PageHero
         eyebrow={product.tierLabel}
-        title={slug === 'legallens' ? displayName : `${displayName} ${product.nameCn}`}
+        title={slug === 'legallens' ? `${displayName} 合约智审` : `${displayName} ${product.nameCn}`}
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
         meta={[
