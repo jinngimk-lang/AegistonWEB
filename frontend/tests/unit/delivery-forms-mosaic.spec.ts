@@ -38,4 +38,12 @@ describe('delivery forms mosaic', () => {
     expect(styles).toContain('@media (max-width: 900px)');
     expect(styles).toContain('grid-template-areas: none;');
   });
+
+  it('carries its DELIVERY FORMS heading with the reusable component', () => {
+    expect(mosaic).toContain('<div className="section-label">DELIVERY FORMS</div>');
+    expect(mosaic).toContain('三种交付形态');
+    expect(mosaic).toContain('id="delivery-forms-title"');
+    expect(deploymentPage).not.toContain('<div className="section-label">DELIVERY FORMS</div>');
+    expect(deploymentPage).not.toContain('id="forms-title"');
+  });
 });
