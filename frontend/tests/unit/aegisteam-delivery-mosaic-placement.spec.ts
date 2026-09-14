@@ -12,11 +12,12 @@ const productPage = readFileSync(
   'utf8',
 );
 
-describe('AegisTeam delivery mosaic placement', () => {
-  it('renders DeliveryFormsMosaic only for AegisTeam between capabilities and product tour', () => {
+describe('AegisTeam and AegisClaw delivery mosaic placement', () => {
+  it('renders DeliveryFormsMosaic for AegisTeam and AegisClaw between capabilities and product tour', () => {
     expect(productPage).toContain("import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';");
-    expect(productPage).toContain("slug === 'aragonteam' ? getDeployment() : Promise.resolve(null)");
-    expect(productPage).toContain("slug === 'aragonteam' && deployment ? (");
+    expect(productPage).toContain("const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw';");
+    expect(productPage).toContain('showsDeliveryMosaic ? getDeployment() : Promise.resolve(null)');
+    expect(productPage).toContain('showsDeliveryMosaic && deployment ? (');
     expect(productPage).toContain('<DeliveryFormsMosaic forms={deployment.forms} />');
 
     const capabilities = productPage.indexOf('主要功能');
