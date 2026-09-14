@@ -66,15 +66,8 @@ export default async function DeploymentPage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="forms-title">
+      <section className="section" aria-labelledby="delivery-forms-title">
         <div className="container">
-          <Reveal className="solutions-intro">
-            <div className="section-label">DELIVERY FORMS</div>
-            <h2 className="section-title" id="forms-title">
-              三种交付形态
-            </h2>
-          </Reveal>
-
           <DeliveryFormsMosaic forms={data.forms} />
         </div>
       </section>
