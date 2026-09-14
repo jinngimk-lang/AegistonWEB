@@ -24,7 +24,8 @@ describe('homepage hero company copy', () => {
     expect(homePage).toContain('<Hero hero={homepageHero} media={media.get(home.hero.media)} />');
   });
 
-  it('uses a two-character first-line indent and a wider subtitle measure', () => {
-    expect(heroComponent).toContain("style={{ textIndent: '2em', maxWidth: 600 }}");
+  it('keeps the wider subtitle measure without first-line indentation', () => {
+    expect(heroComponent).toContain('style={{ maxWidth: 600 }}');
+    expect(heroComponent).not.toContain('textIndent');
   });
 });
