@@ -16,6 +16,7 @@ import '../styles/fonts-critical.css';
 import FONT_PRELOAD_DATA from '../styles/font-preload.json';
 
 const FONT_PRELOAD: string[] = FONT_PRELOAD_DATA.preload;
+const HIDDEN_GLOBAL_NAV_HREFS = new Set(['/products/deployment']);
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -55,6 +56,17 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [settings, navigation] = await Promise.all([getSiteSettings(), getNavigation()]);
   const contentHash = getSearchIndex().contentHash;
+  const visibleNavigation = {
+    ...navigation,
+    main: navigation.main.map((group) => ({
+      ...group,
+      items: group.items.filter((item) => !HIDDEN_GLOBAL_NAV_HREFS.has(item.href)),
+    })),
+    footerColumns: navigation.footerColumns.map((column) => ({
+      ...column,
+      items: column.items.filter((item) => !HIDDEN_GLOBAL_NAV_HREFS.has(item.href)),
+    })),
+  };
 
   return (
     <html lang="zh-CN">
@@ -91,13 +103,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <DeferredFontStyles />
         <SkipLink />
         <SiteHeader
-          navigation={navigation}
+          navigation={visibleNavigation}
           brandCn={settings.nameCn}
           brandEn={settings.nameEn}
           contentHash={contentHash}
         />
         <main id="main">{children}</main>
-        <SiteFooter navigation={navigation} settings={settings} />
+        <SiteFooter navigation={visibleNavigation} settings={settings} />
         <ToTop />
       </body>
     </html>
