@@ -82,7 +82,7 @@ test.describe('移动端导航', () => {
     await expect(drawer).toBeVisible();
 
     await drawer.getByText('产品与方案').click();
-    await drawer.getByRole('link', { name: /AegisClaw/ }).first().click();
+    await drawer.getByRole('link', { name: /AegistonClaw/ }).first().click();
     await expect(page).toHaveURL(/\/products\/inkclaw$/);
   });
 
