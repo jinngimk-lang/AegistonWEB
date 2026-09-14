@@ -12,7 +12,7 @@ const productsPage = readFileSync(path.join(SRC_DIR, 'app/products/page.tsx'), '
 describe('products overview display labels', () => {
   it('uses the approved visible product brands without changing their routes or content source', () => {
     expect(productsPage).toContain("aragonteam: 'AegistonTeam'");
-    expect(productsPage).toContain("inkclaw: 'AegisClaw'");
+    expect(productsPage).toContain("inkclaw: 'AegistonClaw'");
     expect(productsPage).toContain("legallens: 'AegisLens'");
     expect(productsPage).toContain('<h2>{productDisplayName(product.slug, product.nameEn)}</h2>');
     expect(productsPage).toContain('productDisplayName(product.slug, product.nameEn).toUpperCase()');
