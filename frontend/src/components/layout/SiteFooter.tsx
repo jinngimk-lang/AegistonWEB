@@ -21,7 +21,7 @@ const FOOTER_DESCRIPTION =
 
 const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/aragonteam': 'AegistonTeam',
-  '/products/inkclaw': 'AegisClaw',
+  '/products/inkclaw': 'AegistonClaw',
   '/products/legallens': 'AegisLens 合约智审',
 };
 
