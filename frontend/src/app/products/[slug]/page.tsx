@@ -20,7 +20,7 @@ import type { MediaAsset, ProductDetail } from '@/types/content';
 export const revalidate = 600;
 
 const PRODUCT_DISPLAY_NAMES: Partial<Record<ProductSlug, string>> = {
-  aragonteam: 'AegisTeam',
+  aragonteam: 'AegistonTeam',
   inkclaw: 'AegisClaw',
   legallens: 'AegisLens',
 };
@@ -30,7 +30,7 @@ function productDisplayName(slug: ProductSlug, fallback: string): string {
 }
 
 function productDisplayText(slug: ProductSlug, value: string): string {
-  if (slug === 'aragonteam') return value.replaceAll('AragonTeam', 'AegisTeam');
+  if (slug === 'aragonteam') return value.replaceAll('AragonTeam', 'AegistonTeam');
   if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');
   if (slug === 'legallens') {
     return value
