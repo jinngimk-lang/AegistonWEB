@@ -71,7 +71,7 @@ describe('header language placement and home hero cleanup', () => {
   it('uses approved product display names in the header and footer without changing link wiring', () => {
     expect(header).toContain("'/products/aragonteam': 'AegistonTeam 超级团队'");
     expect(header).toContain("'/products/inkclaw': 'AegistonClaw 线上龙虾'");
-    expect(header).toContain("'/products/legallens': 'AegistonLens'");
+    expect(header).toContain("'/products/legallens': 'AegistonLens 合约智审'");
     expect(footer).toContain("'/products/aragonteam': 'AegistonTeam'");
     expect(footer).toContain("'/products/inkclaw': 'AegistonClaw'");
     expect(footer).toContain("'/products/legallens': 'AegistonLens'");
