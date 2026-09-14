@@ -11,38 +11,36 @@ const productPage = readFileSync(
   path.join(ROOT_DIR, 'frontend/src/app/products/[slug]/page.tsx'),
   'utf8',
 );
-const mosaic = readFileSync(
-  path.join(ROOT_DIR, 'frontend/src/components/content/DeliveryFormsMosaic.tsx'),
-  'utf8',
-);
 
-describe('product delivery mosaic placement', () => {
-  it('renders DeliveryFormsMosaic for AegisTeam, AegisClaw and AegisLens after capabilities', () => {
+describe('product delivery presentation placement', () => {
+  it('uses the embedded comparison SVG only for AegistonTeam and keeps the mosaic for AegistonClaw/AegistonLens', () => {
     expect(productPage).toContain("import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';");
     expect(productPage).toContain(
-      "const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw' || slug === 'legallens';",
+      "const showsDeliveryMosaic = slug === 'inkclaw' || slug === 'legallens';",
     );
     expect(productPage).toContain('showsDeliveryMosaic ? getDeployment() : Promise.resolve(null)');
+    expect(productPage).toContain("slug === 'aragonteam' ? (");
+    expect(productPage).toContain('/media/deployment/aegiston-delivery-forms-comparison-embed.svg');
+    expect(productPage).toContain('width={1400}');
+    expect(productPage).toContain('height={1050}');
+    expect(productPage).toContain("style={{ width: '100%', height: 'auto', display: 'block' }}");
     expect(productPage).toContain('showsDeliveryMosaic && deployment ? (');
-    expect(productPage).toContain('<DeliveryFormsMosaic');
-    expect(productPage).toContain('forms={deployment.forms}');
+    expect(productPage).toContain('<DeliveryFormsMosaic forms={deployment.forms} />');
+    expect(productPage).not.toContain("stretchSideImages={slug === 'aragonteam'}");
 
     const capabilities = productPage.indexOf('主要功能');
-    const mosaicPlacement = productPage.indexOf('<DeliveryFormsMosaic');
+    const teamSvg = productPage.indexOf('/media/deployment/aegiston-delivery-forms-comparison-embed.svg');
+    const mosaicPlacement = productPage.indexOf('<DeliveryFormsMosaic forms={deployment.forms} />');
     const architecture = productPage.indexOf('系统总体架构（仅合约智审');
     const tour = productPage.indexOf('界面导览 —— 真实软件截图');
 
     expect(capabilities).toBeGreaterThan(-1);
+    expect(teamSvg).toBeGreaterThan(capabilities);
     expect(mosaicPlacement).toBeGreaterThan(capabilities);
+    expect(architecture).toBeGreaterThan(teamSvg);
     expect(architecture).toBeGreaterThan(mosaicPlacement);
+    expect(tour).toBeGreaterThan(teamSvg);
     expect(tour).toBeGreaterThan(mosaicPlacement);
-  });
-
-  it('stretches only the two right-side images on AegistonTeam while keeping the reusable default cropped', () => {
-    expect(mosaic).toContain('stretchSideImages?: boolean;');
-    expect(mosaic).toContain('stretchSideImages = false');
-    expect(mosaic).toContain("objectFit: stretchSideImages && slot > 0 ? 'fill' : 'cover'");
-    expect(productPage).toContain("stretchSideImages={slug === 'aragonteam'}");
   });
 
   it('does not render the legacy bottom delivery section on product detail pages', () => {
