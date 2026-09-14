@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import type { CSSProperties } from 'react';
 
+import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';
 import { FeatureGrid } from '@/components/content/FeatureGrid';
-import { MediaFill } from '@/components/media/MediaFill';
 import { CtaBand } from '@/components/sections/CtaBand';
 import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
@@ -18,19 +17,11 @@ import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 
-const DELIVERY_MEDIA = [
-  '/media/deployment/private-server-4x3.png',
-  '/media/deployment/appliance-4x3.png',
-  '/media/deployment/private-cloud-4x3.png',
-] as const;
-
 const DEPLOYMENT_HERO_MEDIA_STYLE = {
   objectPosition: 'left center',
   transform: 'scale(1.2)',
   transformOrigin: 'left center',
 } satisfies CSSProperties;
-
-const CLOUD_DEPLOYMENT_POINT = '支持公有云与私有云部署，按需适配企业网络与合规边界。';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getDeployment();
@@ -84,49 +75,7 @@ export default async function DeploymentPage() {
             </h2>
           </Reveal>
 
-          {data.forms.map((form, index) => {
-            const deliveryMedia = DELIVERY_MEDIA[index];
-            const displayName = index === 2 ? '云部署服务' : form.name;
-            const displayPoints = index === 2 ? [...form.points, CLOUD_DEPLOYMENT_POINT] : form.points;
-
-            return (
-              <div className="solution" key={form.index}>
-                <Reveal className="solution-body">
-                  <div className="tag-line">
-                    <span className="solution-code">形态 {form.index}</span>
-                    <span className="solution-category">{form.fit}</span>
-                  </div>
-                  <h3>{displayName}</h3>
-                  <ul className="pillar-params" style={{ marginTop: 20, marginBottom: 28 }}>
-                    {displayPoints.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                  <dl className="deflist">
-                    <dt>适用</dt>
-                    <dd>{form.fit}</dd>
-                  </dl>
-                </Reveal>
-                <Reveal className="solution-visual" delay={1}>
-                  {deliveryMedia ? (
-                    <Image
-                      src={deliveryMedia}
-                      alt=""
-                      role="presentation"
-                      fill
-                      sizes="(max-width: 900px) 100vw, 50vw"
-                      style={{ objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <MediaFill asset={media.get(form.media)} />
-                  )}
-                  <span className="vlabel">
-                    DELIVERY {form.index} / {index === 0 ? 'ON-PREMISE' : index === 1 ? 'APPLIANCE' : 'PRIVATE CLOUD'}
-                  </span>
-                </Reveal>
-              </div>
-            );
-          })}
+          <DeliveryFormsMosaic forms={data.forms} />
         </div>
       </section>
 
