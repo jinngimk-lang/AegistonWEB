@@ -54,8 +54,8 @@ export default async function HomePage() {
         ...row,
         code: '组织级',
         category: '企业 AI 原生人机协同工作站',
-        title: 'AegisTeam',
-        vlabel: 'AEGISTEAM / WORKSTATION',
+        title: 'AegistonTeam',
+        vlabel: 'AEGISTONTEAM / WORKSTATION',
       };
     }
     if (row.id === 'inkclaw') {
