@@ -20,7 +20,7 @@ const FOOTER_DESCRIPTION =
   '西安智瞳安宇科技有限公司定位于「AI+」企业智能化赋能与安全保障专家，以组织级、通用级、行业级三层产品构成企业智能底座，为客户提供AI人机协同超级团队平台、安全通用智能体与行业垂直智能体的完整能力。';
 
 const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
-  '/products/aragonteam': 'AegisTeam',
+  '/products/aragonteam': 'AegistonTeam',
   '/products/inkclaw': 'AegisClaw',
   '/products/legallens': 'AegisLens 合约智审',
 };
