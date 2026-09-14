@@ -9,9 +9,9 @@ import { describe, expect, it } from 'vitest';
 const SRC_DIR = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '../../src');
 const productsPage = readFileSync(path.join(SRC_DIR, 'app/products/page.tsx'), 'utf8');
 
-describe('products overview Aegis display labels', () => {
-  it('renames the three visible product brands without changing their routes or content source', () => {
-    expect(productsPage).toContain("aragonteam: 'AegisTeam'");
+describe('products overview display labels', () => {
+  it('uses the approved visible product brands without changing their routes or content source', () => {
+    expect(productsPage).toContain("aragonteam: 'AegistonTeam'");
     expect(productsPage).toContain("inkclaw: 'AegisClaw'");
     expect(productsPage).toContain("legallens: 'AegisLens'");
     expect(productsPage).toContain('<h2>{productDisplayName(product.slug, product.nameEn)}</h2>');
