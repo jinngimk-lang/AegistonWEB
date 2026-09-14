@@ -14,7 +14,8 @@ describe('AegistonTeam detail display labels', () => {
     expect(detailPage).toContain("aragonteam: 'AegistonTeam'");
     expect(detailPage).toContain('eyebrow={product.tierLabel}');
     expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayLabel)');
-    expect(detailPage).toContain('title={`${displayName} ${product.nameCn}`}');
+    expect(detailPage).toContain("slug === 'aragonteam'");
+    expect(detailPage).toContain('? `${displayName} 超级团队`');
     expect(detailPage).toContain('vlabelPrefix={displayLabel.toUpperCase()}');
     expect(detailPage).toContain("value.replaceAll('AragonTeam', 'AegistonTeam')");
     expect(detailPage).toContain('productJsonLd(displayProduct)');
