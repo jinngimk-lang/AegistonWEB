@@ -16,9 +16,10 @@ const CLOUD_DEPLOYMENT_POINT = '支持公有云与私有云部署，按需适配
 
 interface Props {
   forms: DeliveryForm[];
+  stretchSideImages?: boolean;
 }
 
-export function DeliveryFormsMosaic({ forms }: Props) {
+export function DeliveryFormsMosaic({ forms, stretchSideImages = false }: Props) {
   return (
     <>
       <Reveal className="solutions-intro">
@@ -47,7 +48,7 @@ export function DeliveryFormsMosaic({ forms }: Props) {
                   role="presentation"
                   fill
                   sizes={slot === 0 ? '(max-width: 900px) 100vw, 55vw' : '(max-width: 900px) 100vw, 24vw'}
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: stretchSideImages && slot > 0 ? 'fill' : 'cover' }}
                 />
                 <span className={styles.vlabel}>
                   DELIVERY {form.index} / {DELIVERY_LABELS[index]}
