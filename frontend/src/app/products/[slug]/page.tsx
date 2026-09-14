@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { LegalLensArchitecture } from '@/components/content/LegalLensArchitecture';
 import { PillarCard } from '@/components/content/PillarCard';
@@ -11,7 +10,7 @@ import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Reveal } from '@/components/ui/Reveal';
 import { SourceNote } from '@/components/ui/SourceNote';
-import { getDeployment, getMediaManifest, getProduct, getResearch } from '@/lib/api';
+import { getMediaManifest, getProduct, getResearch } from '@/lib/api';
 import { getMediaLookup } from '@/lib/media';
 import { breadcrumbJsonLd, productJsonLd } from '@/lib/jsonld';
 import { PRODUCT_SLUGS, ROUTES, type ProductSlug } from '@/lib/routes';
@@ -83,13 +82,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
 
-  const showsDeliveryMosaic = slug === 'inkclaw' || slug === 'legallens';
-  const [sourceProduct, manifest, media, research, deployment] = await Promise.all([
+  const showsDeliveryComparison = slug === 'aragonteam' || slug === 'inkclaw' || slug === 'legallens';
+  const [sourceProduct, manifest, media, research] = await Promise.all([
     getProduct(slug),
     getMediaManifest(),
     getMediaLookup(),
     getResearch(),
-    showsDeliveryMosaic ? getDeployment() : Promise.resolve(null),
   ]);
   const product = productForDisplay(slug, sourceProduct);
   const displayName = product.nameEn;
@@ -251,8 +249,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      {/* AegistonTeam 使用嵌入版交付形态对比图；其余产品保留可复用 Mosaic */}
-      {slug === 'aragonteam' ? (
+      {/* AegistonTeam / AegistonClaw / AegistonLens 共用嵌入版交付形态对比图 */}
+      {showsDeliveryComparison ? (
         <section className="section section-gray" aria-label="三种交付形态">
           <div className="container">
             <img
@@ -262,12 +260,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
               height={1050}
               style={{ width: '100%', height: 'auto', display: 'block' }}
             />
-          </div>
-        </section>
-      ) : showsDeliveryMosaic && deployment ? (
-        <section className="section section-gray" aria-label="三种交付形态">
-          <div className="container">
-            <DeliveryFormsMosaic forms={deployment.forms} />
           </div>
         </section>
       ) : null}
