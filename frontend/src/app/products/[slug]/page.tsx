@@ -85,7 +85,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
 
-  const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw';
+  const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw' || slug === 'legallens';
   const [sourceProduct, manifest, media, research, deployment] = await Promise.all([
     getProduct(slug),
     getMediaManifest(),
@@ -253,7 +253,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      {/* AegisTeam / AegisClaw 交付形态卡片素材 */}
+      {/* AegisTeam / AegisClaw / AegisLens 交付形态卡片素材 */}
       {showsDeliveryMosaic && deployment ? (
         <section className="section section-gray" aria-label="三种交付形态">
           <div className="container">
