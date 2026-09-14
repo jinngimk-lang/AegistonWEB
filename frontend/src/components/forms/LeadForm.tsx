@@ -33,7 +33,7 @@ const PRODUCTS: { value: LeadProduct | ''; label: string }[] = [
   { value: '', label: '暂不指定' },
   { value: 'aragonteam', label: 'AegistonTeam · 组织级' },
   { value: 'inkclaw', label: 'AegistonClaw · 通用级' },
-  { value: 'legallens', label: 'AegisLens 合约智审 · 行业级' },
+  { value: 'legallens', label: 'AegistonLens · 行业级' },
   { value: 'platform', label: '整体平台与交付形态' },
 ];
 
