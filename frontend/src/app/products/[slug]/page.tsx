@@ -22,7 +22,7 @@ export const revalidate = 600;
 const PRODUCT_DISPLAY_NAMES: Partial<Record<ProductSlug, string>> = {
   aragonteam: 'AegistonTeam',
   inkclaw: 'AegistonClaw',
-  legallens: 'AegisLens',
+  legallens: 'AegistonLens',
 };
 
 function productDisplayName(slug: ProductSlug, fallback: string): string {
@@ -34,8 +34,8 @@ function productDisplayText(slug: ProductSlug, value: string): string {
   if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegistonClaw');
   if (slug === 'legallens') {
     return value
-      .replaceAll('LegalLens 合约智审', 'AegisLens 合约智审')
-      .replaceAll('LegalLens', 'AegisLens 合约智审');
+      .replaceAll('LegalLens 合约智审', 'AegistonLens')
+      .replaceAll('LegalLens', 'AegistonLens');
   }
   return value;
 }
@@ -72,7 +72,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const product = productForDisplay(slug, sourceProduct);
   const displayName = product.nameEn;
   return pageMetadata({
-    title: `${displayName} · ${product.nameCn}`,
+    title: slug === 'legallens' ? displayName : `${displayName} · ${product.nameCn}`,
     description: product.positioning,
     path: ROUTES.productDetail(slug),
   });
@@ -91,8 +91,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
   ]);
   const product = productForDisplay(slug, sourceProduct);
   const displayName = product.nameEn;
-  const displayLabel = slug === 'legallens' ? `${displayName} ${product.nameCn}` : displayName;
+  const displayLabel = displayName;
   const displayProduct = product;
+  const productStructuredData = productJsonLd(displayProduct);
+  if (slug === 'legallens') productStructuredData.name = displayName;
 
   const assets: Record<string, MediaAsset> = {};
   for (const asset of manifest.assets) {
@@ -115,13 +117,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([productJsonLd(displayProduct), breadcrumbJsonLd(crumbs)]),
+          __html: JSON.stringify([productStructuredData, breadcrumbJsonLd(crumbs)]),
         }}
       />
 
       <PageHero
         eyebrow={product.tierLabel}
-        title={`${displayName} ${product.nameCn}`}
+        title={slug === 'legallens' ? displayName : `${displayName} ${product.nameCn}`}
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
         meta={[
