@@ -72,8 +72,8 @@ export default async function HomePage() {
         ...row,
         code: '行业级',
         category: '合同智能审核系统',
-        title: 'AegisLens 合约智审',
-        vlabel: 'AEGISLENS / CONTRACT REVIEW',
+        title: 'AegistonLens',
+        vlabel: 'AEGISTONLENS / CONTRACT REVIEW',
       };
     }
     return row;
