@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { CaseMetrics } from '@/components/content/CaseMetrics';
+import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { LegalLensArchitecture } from '@/components/content/LegalLensArchitecture';
 import { PillarCard } from '@/components/content/PillarCard';
@@ -12,7 +13,7 @@ import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
 import { Callout } from '@/components/ui/Callout';
 import { Reveal } from '@/components/ui/Reveal';
 import { SourceNote } from '@/components/ui/SourceNote';
-import { getMediaManifest, getProduct, getResearch } from '@/lib/api';
+import { getDeployment, getMediaManifest, getProduct, getResearch } from '@/lib/api';
 import { getMediaLookup } from '@/lib/media';
 import { breadcrumbJsonLd, productJsonLd } from '@/lib/jsonld';
 import { PRODUCT_SLUGS, ROUTES, type ProductSlug } from '@/lib/routes';
@@ -84,11 +85,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
 
-  const [sourceProduct, manifest, media, research] = await Promise.all([
+  const [sourceProduct, manifest, media, research, deployment] = await Promise.all([
     getProduct(slug),
     getMediaManifest(),
     getMediaLookup(),
     getResearch(),
+    slug === 'aragonteam' ? getDeployment() : Promise.resolve(null),
   ]);
   const product = productForDisplay(slug, sourceProduct);
   const displayName = product.nameEn;
@@ -246,6 +248,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 <FeatureGrid items={group.items} cols={group.items.length >= 4 ? 4 : 2} />
               </div>
             ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* AegisTeam 交付形态卡片素材 */}
+      {slug === 'aragonteam' && deployment ? (
+        <section className="section section-gray" aria-label="三种交付形态">
+          <div className="container">
+            <DeliveryFormsMosaic forms={deployment.forms} />
           </div>
         </section>
       ) : null}
