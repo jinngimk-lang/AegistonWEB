@@ -63,8 +63,8 @@ export default async function HomePage() {
         ...row,
         code: '通用级',
         category: '线上安全通用智能体',
-        title: 'AegisClaw',
-        vlabel: 'AEGISCLAW / SECURE AGENT',
+        title: 'AegistonClaw',
+        vlabel: 'AEGISTONCLAW / SECURE AGENT',
       };
     }
     if (row.id === 'legallens') {
