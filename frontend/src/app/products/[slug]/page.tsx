@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { CaseMetrics } from '@/components/content/CaseMetrics';
 import { DeliveryFormsMosaic } from '@/components/content/DeliveryFormsMosaic';
 import { FeatureGrid } from '@/components/content/FeatureGrid';
 import { LegalLensArchitecture } from '@/components/content/LegalLensArchitecture';
@@ -10,7 +9,6 @@ import { ScreenGallery } from '@/components/media/ScreenGallery';
 import { CtaBand } from '@/components/sections/CtaBand';
 import { PageHero } from '@/components/sections/PageHero';
 import { Breadcrumbs, crumbsFromPath } from '@/components/ui/Breadcrumbs';
-import { Callout } from '@/components/ui/Callout';
 import { Reveal } from '@/components/ui/Reveal';
 import { SourceNote } from '@/components/ui/SourceNote';
 import { getDeployment, getMediaManifest, getProduct, getResearch } from '@/lib/api';
@@ -326,38 +324,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
         </section>
       ) : null}
-
-      {/* 交付形态 */}
-      <section className="section" aria-labelledby="delivery-title">
-        <div className="container">
-          <div className="split-narrow">
-            <Reveal>
-              <div className="section-label">DELIVERY</div>
-              <h2 className="section-title" id="delivery-title">
-                交付形态
-              </h2>
-              <p className="section-desc">
-                数据不出企业网是政企客户的第一道门槛。三种交付形态覆盖从总部机房到断网现场的全部场景。
-              </p>
-            </Reveal>
-            <Reveal delay={1}>
-              <ul className="pillar-params">
-                {product.delivery.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <div style={{ marginTop: 28 }}>
-                <Callout tone="neutral">
-                  详见 <a href={ROUTES.productsDeployment}>交付形态</a> 页：政策与合规准入门槛、技术前提，以及三种形态的适用场景。
-                </Callout>
-              </div>
-            </Reveal>
-          </div>
-          <div style={{ marginTop: 40 }}>
-            <CaseMetrics metrics={[]} />
-          </div>
-        </div>
-      </section>
 
       <CtaBand cta={product.cta} />
     </>
