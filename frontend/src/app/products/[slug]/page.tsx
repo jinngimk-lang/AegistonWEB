@@ -124,11 +124,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
       <PageHero
         eyebrow={product.tierLabel}
         title={
-          slug === 'inkclaw'
-            ? `${displayName} 线上龙虾`
-            : slug === 'legallens'
-              ? `${displayName} 合约智审`
-              : `${displayName} ${product.nameCn}`
+          slug === 'aragonteam'
+            ? `${displayName} 超级团队`
+            : slug === 'inkclaw'
+              ? `${displayName} 线上龙虾`
+              : slug === 'legallens'
+                ? `${displayName} 合约智审`
+                : `${displayName} ${product.nameCn}`
         }
         subtitle={product.tagline}
         media={media.get(product.heroMedia)}
