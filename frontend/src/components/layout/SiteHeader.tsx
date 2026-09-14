@@ -32,7 +32,7 @@ const CLOSE_DELAY_MS = 160;
 const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/aragonteam': 'AegistonTeam 超级团队',
   '/products/inkclaw': 'AegistonClaw 线上龙虾',
-  '/products/legallens': 'AegistonLens 合约智审',
+  '/products/legallens': 'AegistonLens',
 };
 
 const HIDDEN_ABOUT_HEADER_HREFS = new Set(['/about/positioning', '/about/strength']);
