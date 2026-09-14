@@ -21,7 +21,7 @@ export const revalidate = 600;
 
 const PRODUCT_DISPLAY_NAMES: Partial<Record<ProductSlug, string>> = {
   aragonteam: 'AegistonTeam',
-  inkclaw: 'AegisClaw',
+  inkclaw: 'AegistonClaw',
   legallens: 'AegisLens',
 };
 
@@ -31,7 +31,7 @@ function productDisplayName(slug: ProductSlug, fallback: string): string {
 
 function productDisplayText(slug: ProductSlug, value: string): string {
   if (slug === 'aragonteam') return value.replaceAll('AragonTeam', 'AegistonTeam');
-  if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');
+  if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegistonClaw');
   if (slug === 'legallens') {
     return value
       .replaceAll('LegalLens 合约智审', 'AegisLens 合约智审')
