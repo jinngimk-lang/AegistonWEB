@@ -83,7 +83,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
 
-  const showsDeliveryMosaic = slug === 'aragonteam' || slug === 'inkclaw' || slug === 'legallens';
+  const showsDeliveryMosaic = slug === 'inkclaw' || slug === 'legallens';
   const [sourceProduct, manifest, media, research, deployment] = await Promise.all([
     getProduct(slug),
     getMediaManifest(),
@@ -251,14 +251,23 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      {/* AegisTeam / AegisClaw / AegisLens 交付形态卡片素材 */}
-      {showsDeliveryMosaic && deployment ? (
+      {/* AegistonTeam 使用嵌入版交付形态对比图；其余产品保留可复用 Mosaic */}
+      {slug === 'aragonteam' ? (
         <section className="section section-gray" aria-label="三种交付形态">
           <div className="container">
-            <DeliveryFormsMosaic
-              forms={deployment.forms}
-              stretchSideImages={slug === 'aragonteam'}
+            <img
+              src="/media/deployment/aegiston-delivery-forms-comparison-embed.svg"
+              alt="Aegiston 三种交付形态对比"
+              width={1400}
+              height={1050}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
             />
+          </div>
+        </section>
+      ) : showsDeliveryMosaic && deployment ? (
+        <section className="section section-gray" aria-label="三种交付形态">
+          <div className="container">
+            <DeliveryFormsMosaic forms={deployment.forms} />
           </div>
         </section>
       ) : null}
