@@ -22,7 +22,7 @@ const FOOTER_DESCRIPTION =
 const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/aragonteam': 'AegistonTeam',
   '/products/inkclaw': 'AegistonClaw',
-  '/products/legallens': 'AegisLens 合约智审',
+  '/products/legallens': 'AegistonLens',
 };
 
 const HIDDEN_FOOTER_HREFS = new Set(['/research', '/about/strength']);
