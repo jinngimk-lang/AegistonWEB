@@ -13,8 +13,8 @@ const leadForm = readFileSync(
 );
 
 describe('contact product display labels', () => {
-  it('uses Aegis product names while preserving existing submission values', () => {
-    expect(leadForm).toContain("{ value: 'aragonteam', label: 'AegisTeam · 组织级' }");
+  it('uses approved product names while preserving existing submission values', () => {
+    expect(leadForm).toContain("{ value: 'aragonteam', label: 'AegistonTeam · 组织级' }");
     expect(leadForm).toContain("{ value: 'inkclaw', label: 'AegisClaw · 通用级' }");
     expect(leadForm).toContain("{ value: 'legallens', label: 'AegisLens 合约智审 · 行业级' }");
 
