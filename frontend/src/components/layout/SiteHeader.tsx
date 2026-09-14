@@ -31,8 +31,8 @@ const CLOSE_DELAY_MS = 160;
 
 const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/aragonteam': 'AegistonTeam 超级团队',
-  '/products/inkclaw': 'AegisClaw',
-  '/products/legallens': 'AegisLens 合约智审',
+  '/products/inkclaw': 'AegistonClaw 线上龙虾',
+  '/products/legallens': 'AegistonLens 合约智审',
 };
 
 const HIDDEN_ABOUT_HEADER_HREFS = new Set(['/about/positioning', '/about/strength']);
