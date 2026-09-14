@@ -9,17 +9,17 @@ import { describe, expect, it } from 'vitest';
 const SRC_DIR = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '../../src');
 const detailPage = readFileSync(path.join(SRC_DIR, 'app/products/[slug]/page.tsx'), 'utf8');
 
-describe('AegisLens detail display labels', () => {
-  it('uses AegisLens 合约智审 throughout the legallens detail view without changing its route slug', () => {
-    expect(detailPage).toContain("legallens: 'AegisLens'");
-    expect(detailPage).toContain(".replaceAll('LegalLens 合约智审', 'AegisLens 合约智审')");
-    expect(detailPage).toContain(".replaceAll('LegalLens', 'AegisLens 合约智审')");
+describe('AegistonLens detail display labels', () => {
+  it('uses AegistonLens throughout the legallens detail view without changing its route slug', () => {
+    expect(detailPage).toContain("legallens: 'AegistonLens'");
+    expect(detailPage).toContain(".replaceAll('LegalLens 合约智审', 'AegistonLens')");
+    expect(detailPage).toContain(".replaceAll('LegalLens', 'AegistonLens')");
     expect(detailPage).toContain('eyebrow={product.tierLabel}');
-    expect(detailPage).toContain("slug === 'legallens' ? `${displayName} ${product.nameCn}` : displayName");
+    expect(detailPage).toContain('const displayLabel = displayName;');
     expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayLabel)');
-    expect(detailPage).toContain('title={`${displayName} ${product.nameCn}`}');
+    expect(detailPage).toContain("title={slug === 'legallens' ? displayName : `${displayName} ${product.nameCn}`}");
     expect(detailPage).toContain('vlabelPrefix={displayLabel.toUpperCase()}');
-    expect(detailPage).toContain('productJsonLd(displayProduct)');
+    expect(detailPage).toContain("if (slug === 'legallens') productStructuredData.name = displayName;");
     expect(detailPage).toContain('ROUTES.productDetail(slug)');
   });
 });
