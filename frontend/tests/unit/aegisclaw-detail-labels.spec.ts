@@ -9,10 +9,10 @@ import { describe, expect, it } from 'vitest';
 const SRC_DIR = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '../../src');
 const detailPage = readFileSync(path.join(SRC_DIR, 'app/products/[slug]/page.tsx'), 'utf8');
 
-describe('AegisClaw detail display labels', () => {
-  it('uses AegisClaw throughout the inkclaw detail view without changing its route slug', () => {
-    expect(detailPage).toContain("inkclaw: 'AegisClaw'");
-    expect(detailPage).toContain("if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegisClaw');");
+describe('AegistonClaw detail display labels', () => {
+  it('uses AegistonClaw throughout the inkclaw detail view without changing its route slug', () => {
+    expect(detailPage).toContain("inkclaw: 'AegistonClaw'");
+    expect(detailPage).toContain("if (slug === 'inkclaw') return value.replaceAll('InkClaw', 'AegistonClaw');");
     expect(detailPage).toContain('JSON.stringify(product).replaceAll(product.nameEn, displayName)');
     expect(detailPage).toContain('eyebrow={product.tierLabel}');
     expect(detailPage).toContain('crumbsFromPath(ROUTES.productDetail(slug), displayLabel)');
