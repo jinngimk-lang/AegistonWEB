@@ -16,6 +16,6 @@ describe('product navigation display labels', () => {
   it('shows the approved Aegiston product names without changing product route hrefs', () => {
     expect(siteHeader).toContain("'/products/aragonteam': 'AegistonTeam 超级团队'");
     expect(siteHeader).toContain("'/products/inkclaw': 'AegistonClaw 线上龙虾'");
-    expect(siteHeader).toContain("'/products/legallens': 'AegistonLens'");
+    expect(siteHeader).toContain("'/products/legallens': 'AegistonLens 合约智审'");
   });
 });
