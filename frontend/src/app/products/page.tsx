@@ -113,10 +113,10 @@ export default async function ProductsPage() {
                   <Image
                     src={
                       product.slug === 'aragonteam'
-                        ? '/media/product-originals/aragonteam-original.png'
+                        ? '/media/product/aegistonteam-core-43.png'
                         : product.slug === 'inkclaw'
-                          ? '/media/product-originals/inkclaw-original.png'
-                          : '/media/product-originals/legallens-original.png'
+                          ? '/media/product/aegistonclaw-core-43.png'
+                          : '/media/product/aegistonlens-core-43.png'
                     }
                     alt=""
                     role="presentation"
