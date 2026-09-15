@@ -14,9 +14,9 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { DomainCard } from '@/types/content';
 
-const ARAGONTEAM_HOME_CARD_SRC = '/media/home-card-originals/aragonteam-16x9.png';
-const INKCLAW_HOME_CARD_SRC = '/media/home-card-originals/inkclaw-16x9.png';
-const LEGALLENS_HOME_CARD_SRC = '/media/home-card-originals/legallens-16x9.png';
+const ARAGONTEAM_HOME_CARD_SRC = '/media/home/aegistonteam-16x9.png';
+const INKCLAW_HOME_CARD_SRC = '/media/home/aegistonclaw-16x9.png';
+const LEGALLENS_HOME_CARD_SRC = '/media/home/aegistonlens-16x9.png';
 const PRIVATE_DEPLOYMENT_HOME_CARD_SRC = '/media/home-card-originals/private-deployment-16x9.png';
 
 interface Props {

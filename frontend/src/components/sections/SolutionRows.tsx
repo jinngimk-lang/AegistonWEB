@@ -22,11 +22,11 @@ export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: Medi
         const asset = media.get(row.media);
         const originalSrc =
           row.id === 'aragonteam'
-            ? '/media/home/aegistonteam-16x9.png'
+            ? '/media/product-originals/aragonteam-original.png'
             : row.id === 'inkclaw'
-              ? '/media/home/aegistonclaw-16x9.png'
+              ? '/media/product-originals/inkclaw-original.png'
               : row.id === 'legallens'
-                ? '/media/home/aegistonlens-16x9.png'
+                ? '/media/product-originals/legallens-original.png'
                 : null;
         const visual = (
           <Reveal className="solution-visual" delay={1}>
