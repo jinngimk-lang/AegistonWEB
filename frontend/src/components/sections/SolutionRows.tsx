@@ -15,6 +15,12 @@ import { Reveal } from '@/components/ui/Reveal';
 import { stockSrc, type MediaLookup } from '@/lib/media';
 import type { SolutionRow } from '@/types/content';
 
+const HOME_PRODUCT_IMAGE_BY_ID: Record<string, string> = {
+  aragonteam: "/media/product/aegistonteam-core-43.png",
+  inkclaw: "/media/product/aegistonclaw-core-43.png",
+  legallens: "/media/product/aegistonlens-core-43.png",
+};
+
 export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: MediaLookup }) {
   return (
     <>
@@ -32,10 +38,8 @@ export function SolutionRows({ rows, media }: { rows: SolutionRow[]; media: Medi
           <Reveal className="solution-visual" delay={1}>
             {asset ? (
               <Image
-                src={
-                  originalSrc ??
-                  ('source' in asset ? stockSrc(asset, 1280) : asset.src)
-                }
+                src={HOME_PRODUCT_IMAGE_BY_ID[row.id] ?? (originalSrc ??
+                  ('source' in asset ? stockSrc(asset, 1280) : asset.src))}
                 alt=""
                 role="presentation"
                 fill
