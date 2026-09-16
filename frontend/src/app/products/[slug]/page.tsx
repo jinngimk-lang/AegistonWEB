@@ -339,7 +339,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      <CtaBand cta={product.cta} />
+      <CtaBand
+        cta={
+          slug === 'aragonteam'
+            ? { ...product.cta, secondaryLabel: '查看研发团队', secondaryHref: ROUTES.aboutTeam }
+            : product.cta
+        }
+      />
     </>
   );
 }
