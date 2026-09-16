@@ -133,7 +133,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 : `${displayName} ${product.nameCn}`
         }
         subtitle={product.tagline}
-        media={media.get(slug === 'aragonteam' ? 'ara-team-home' : product.heroMedia)}
+        media={
+          slug === 'aragonteam'
+            ? { ...media.require('ara-team-home'), src: '/media/product/169-super-team.png' }
+            : media.get(product.heroMedia)
+        }
         meta={[
           { key: '定位', value: product.tierLabel },
           { key: '交付', value: product.delivery[0]?.split('：')[0] ?? '私有化' },
