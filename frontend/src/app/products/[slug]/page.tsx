@@ -136,7 +136,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
         media={
           slug === 'aragonteam'
             ? { ...media.require('ara-team-home'), src: '/media/product/169-super-team.png' }
-            : media.get(product.heroMedia)
+            : slug === 'inkclaw'
+              ? { ...media.require(product.heroMedia), src: '/media/product/169-online-lobster.png' }
+              : media.get(product.heroMedia)
         }
         meta={[
           { key: '定位', value: product.tierLabel },
