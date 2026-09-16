@@ -101,7 +101,7 @@
     "description": "我们会按您的场景与合规要求，给出从试点到复制的分阶段建议。",
     "primaryLabel": "预约产品演示",
     "primaryHref": "/contact?intent=demo",
-    "secondaryLabel": "了解交付形态",
+    "secondaryLabel": "查看行业实践",
     "secondaryHref": "/products/deployment"
   },
   "sourceSlides": [13]
