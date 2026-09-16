@@ -137,9 +137,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
           slug === 'aragonteam'
             ? { ...media.require('ara-team-home'), src: '/media/product/169-super-team.png' }
             : slug === 'inkclaw'
-              ? { ...media.require(product.heroMedia), src: '/media/product/169-online-lobster.png' }
+              ? { ...media.require('ink-dag'), src: '/media/product/169-online-lobster.png' }
               : slug === 'legallens'
-                ? { ...media.require(product.heroMedia), src: '/media/product/169-contract-review.png' }
+                ? { ...media.require('legal-home'), src: '/media/product/169-contract-review.png' }
                 : media.get(product.heroMedia)
         }
         meta={[
