@@ -182,7 +182,7 @@ export default async function ProductsPage() {
         </div>
       </section>
 
-      <CtaBand cta={data.cta} />
+      <CtaBand cta={{ ...data.cta, secondaryHref: ROUTES.solutions }} />
     </>
   );
 }
