@@ -341,7 +341,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       <CtaBand
         cta={
-          slug === 'aragonteam'
+          slug === 'aragonteam' || slug === 'inkclaw'
             ? { ...product.cta, secondaryLabel: '查看研发团队', secondaryHref: ROUTES.aboutTeam }
             : product.cta
         }
