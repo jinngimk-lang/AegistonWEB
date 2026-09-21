@@ -25,10 +25,17 @@ const PRODUCT_DISPLAY_LABELS: Record<string, string> = {
   '/products/legallens': 'AegistonLens',
 };
 
-const HIDDEN_FOOTER_HREFS = new Set(['/research', '/about/strength']);
+const HIDDEN_FOOTER_HREFS = new Set([
+  '/research',
+  '/about/strength',
+  '/about/positioning',
+  '/sitemap',
+]);
 
 export function SiteFooter({ navigation, settings }: Props) {
-  const footerLegal = navigation.footerLegal.filter((item) => !item.external);
+  const footerLegal = navigation.footerLegal.filter(
+    (item) => !item.external && !HIDDEN_FOOTER_HREFS.has(item.href),
+  );
   const footerFilings = navigation.footerLegal.filter((item) => item.external);
 
   return (
