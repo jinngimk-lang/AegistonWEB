@@ -14,6 +14,7 @@ const navigation: Navigation = {
       label: '关于我们',
       items: [
         { label: '公司简介', href: '/about' },
+        { label: '公司定位', href: '/about/positioning' },
         { label: '研发团队', href: '/about/team' },
         { label: '科研实力', href: '/about/strength' },
         { label: '加入我们', href: '/careers' },
@@ -30,6 +31,7 @@ const navigation: Navigation = {
   ],
   footerLegal: [
     { label: '使用条款', href: '/legal/terms' },
+    { label: '网站地图', href: '/sitemap' },
     {
       label: '陕ICP备2026023369号-1',
       href: 'https://beian.miit.gov.cn/',
@@ -118,6 +120,21 @@ describe('SiteFooter filing records', () => {
     expect(aboutColumn?.textContent).toContain('加入我们');
     expect(aboutColumn?.textContent).not.toContain('科研实力');
     expect(aboutColumn?.querySelector('a[href="/about/strength"]')).toBeNull();
+  });
+
+  it('全站页脚隐藏公司定位与网站地图入口，同时保留其它页脚链接', () => {
+    const dom = parse(renderToStaticMarkup(<SiteFooter navigation={navigation} settings={settings} />));
+    const aboutColumn = dom.querySelector('nav[aria-label="关于我们"]');
+    const legal = dom.querySelector('nav[aria-label="法务与站点信息"]');
+
+    expect(aboutColumn?.textContent).toContain('公司简介');
+    expect(aboutColumn?.textContent).toContain('研发团队');
+    expect(aboutColumn?.textContent).not.toContain('公司定位');
+    expect(aboutColumn?.querySelector('a[href="/about/positioning"]')).toBeNull();
+
+    expect(legal?.textContent).toContain('使用条款');
+    expect(legal?.textContent).not.toContain('网站地图');
+    expect(legal?.querySelector('a[href="/sitemap"]')).toBeNull();
   });
 
   it('公司简介正文使用两个汉字宽度的首行缩进，不改正文内容', () => {
