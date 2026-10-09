@@ -8,11 +8,28 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // /api/ 是后端反代路径；/sitemap 是给人看的站点地图页，不需要被索引
-        disallow: ['/api/', '/sitemap'],
+        // $ 只匹配 /sitemap 页面本身，避免前缀规则同时屏蔽 /sitemap.xml。
+        disallow: ['/api/', '/sitemap$'],
+      },
+      {
+        userAgent: 'OAI-SearchBot',
+        allow: '/',
+        // 允许 ChatGPT 搜索抓取公开页面，但不开放后端 API。
+        disallow: '/api/',
+      },
+      {
+        userAgent: 'Claude-SearchBot',
+        allow: '/',
+        // 允许 Claude 搜索发现公开页面，但不开放后端 API。
+        disallow: '/api/',
+      },
+      {
+        userAgent: 'Claude-User',
+        allow: '/',
+        // 允许 Claude 在用户明确要求访问网页时读取公开页面。
+        disallow: '/api/',
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }

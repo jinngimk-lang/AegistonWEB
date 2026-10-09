@@ -83,7 +83,7 @@ test('站内不存在 href="#" 死链', async ({ page }) => {
   }
 });
 
-test('sitemap.xml 与 robots.txt 可用', async ({ request }) => {
+test('sitemap.xml 与 robots.txt 可用且允许 AI 搜索抓取', async ({ request }) => {
   const sitemap = await request.get('/sitemap.xml');
   expect(sitemap.status()).toBe(200);
   const xml = await sitemap.text();
@@ -94,5 +94,11 @@ test('sitemap.xml 与 robots.txt 可用', async ({ request }) => {
 
   const robots = await request.get('/robots.txt');
   expect(robots.status()).toBe(200);
-  expect(await robots.text()).toContain('Sitemap:');
+  const text = await robots.text();
+  expect(text).toContain('Sitemap:');
+  expect(text).toContain('User-Agent: OAI-SearchBot');
+  expect(text).toContain('User-Agent: Claude-SearchBot');
+  expect(text).toContain('User-Agent: Claude-User');
+  expect(text).toContain('Disallow: /sitemap$');
+  expect(text).not.toContain('Host:');
 });
