@@ -97,6 +97,7 @@ test('sitemap.xml 与 robots.txt 可用且允许 AI 搜索抓取', async ({ requ
   const text = await robots.text();
   expect(text).toContain('Sitemap:');
   expect(text).toContain('User-Agent: OAI-SearchBot');
+  expect(text).toContain('User-Agent: ChatGPT-User');
   expect(text).toContain('User-Agent: Claude-SearchBot');
   expect(text).toContain('User-Agent: Claude-User');
   expect(text).toContain('Disallow: /sitemap$');

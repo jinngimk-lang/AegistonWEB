@@ -18,6 +18,12 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/api/',
       },
       {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+        // 允许 ChatGPT 在用户明确要求访问网页时读取公开页面。
+        disallow: '/api/',
+      },
+      {
         userAgent: 'Claude-SearchBot',
         allow: '/',
         // 允许 Claude 搜索发现公开页面，但不开放后端 API。
